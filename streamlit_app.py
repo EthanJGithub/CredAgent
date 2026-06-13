@@ -54,6 +54,7 @@ def _empty_state(applicant_id, raw):
         "final_decision": None, "credit_limit": None, "decision_reasoning": None,
         "decision_confidence": None, "adverse_action_notice": None,
         "audit_trail": [], "processing_time_ms": None, "final_response_packaged": False,
+        "llm_calls": [],
     }
 
 

@@ -6,7 +6,7 @@ from datetime import datetime
 from langchain_core.messages import HumanMessage, SystemMessage
 
 from src.graph.state import CreditDecisionState
-from src.llm import get_llm
+from src.llm import get_llm, evidence_record
 
 logger = logging.getLogger(__name__)
 
@@ -83,23 +83,26 @@ def run(state: CreditDecisionState) -> dict:
         processing_ms = 0.0
 
     adverse_action_notice = None
+    evidence = None
     if final_decision == "DECLINE":
         try:
             llm = get_llm(temperature=0)
             factors_str = "\n".join(f"- {f}" for f in top_risk_factors[:4]) or "- Insufficient creditworthiness"
+            user_prompt = (
+                "Use exactly these values; do not add placeholders.\n"
+                f"Creditor name: {CREDITOR_NAME}\n"
+                f"Creditor address: {CREDITOR_ADDRESS}\n"
+                f"Creditor contact email: {CREDITOR_EMAIL}\n"
+                f"Credit product: {CREDIT_PRODUCT}\n"
+                f"Date: {datetime.now().strftime('%B %d, %Y')}\n"
+                f"Application reference: {applicant_id}\n"
+                f"Specific principal reasons for denial:\n{factors_str}"
+            )
             response = llm.invoke([
                 SystemMessage(content=ADVERSE_ACTION_SYSTEM_PROMPT),
-                HumanMessage(content=(
-                    "Use exactly these values; do not add placeholders.\n"
-                    f"Creditor name: {CREDITOR_NAME}\n"
-                    f"Creditor address: {CREDITOR_ADDRESS}\n"
-                    f"Creditor contact email: {CREDITOR_EMAIL}\n"
-                    f"Credit product: {CREDIT_PRODUCT}\n"
-                    f"Date: {datetime.now().strftime('%B %d, %Y')}\n"
-                    f"Application reference: {applicant_id}\n"
-                    f"Specific principal reasons for denial:\n{factors_str}"
-                )),
+                HumanMessage(content=user_prompt),
             ])
+            evidence = evidence_record("AuditAgent", llm, ADVERSE_ACTION_SYSTEM_PROMPT, user_prompt)
             adverse_action_notice = _strip_placeholders(response.content.strip())
             # If the model still produced something hollow, use the clean template.
             if len(adverse_action_notice) < 120:
@@ -119,5 +122,6 @@ def run(state: CreditDecisionState) -> dict:
         "adverse_action_notice": adverse_action_notice,
         "processing_time_ms": round(processing_ms, 1),
         "final_response_packaged": True,
+        "llm_calls": state.get("llm_calls", []) + ([evidence] if evidence else []),
         "audit_trail": state.get("audit_trail", []) + [final_audit_entry],
     }

@@ -44,3 +44,7 @@ class CreditDecisionState(TypedDict):
     audit_trail: List[str]
     processing_time_ms: Optional[float]
     final_response_packaged: bool
+
+    # ── AI Evidence Hub (governance / traceability) ────────────────────────
+    # One record per LLM invocation: agent, provider, model, system+user prompt.
+    llm_calls: List[Dict[str, Any]]

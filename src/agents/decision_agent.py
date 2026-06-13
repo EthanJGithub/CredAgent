@@ -5,7 +5,7 @@ from datetime import datetime
 from langchain_core.messages import HumanMessage, SystemMessage
 
 from src.graph.state import CreditDecisionState
-from src.llm import get_llm
+from src.llm import get_llm, evidence_record
 
 logger = logging.getLogger(__name__)
 
@@ -82,6 +82,7 @@ def run(state: CreditDecisionState) -> dict:
     if human_decision == "APPROVE" and credit_limit is None:
         credit_limit = 1000.0  # conservative limit for a human-overridden approval
 
+    evidence = None
     try:
         llm = get_llm(temperature=0.3)
         context = (
@@ -98,6 +99,7 @@ def run(state: CreditDecisionState) -> dict:
             SystemMessage(content=DECISION_SYSTEM_PROMPT),
             HumanMessage(content=context),
         ])
+        evidence = evidence_record("DecisionAgent", llm, DECISION_SYSTEM_PROMPT, context)
         reasoning = response.content.strip()
     except Exception as exc:
         logger.warning("[DecisionAgent] Reasoning generation failed: %s", exc)
@@ -117,6 +119,7 @@ def run(state: CreditDecisionState) -> dict:
         "decision_reasoning": reasoning,
         "decision_confidence": round(confidence, 3),
         "requires_human_review": False,
+        "llm_calls": state.get("llm_calls", []) + ([evidence] if evidence else []),
         "audit_trail": state.get("audit_trail", []) + [
             f"[{datetime.now().isoformat()}] DecisionAgent: {final_decision} "
             f"(tier={risk_tier}, prob={risk_probability:.3f}, limit=${credit_limit})"

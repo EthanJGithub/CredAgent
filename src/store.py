@@ -38,6 +38,11 @@ CREATE TABLE IF NOT EXISTS decisions (
     compliance_flags      TEXT,
     source                TEXT
 );
+CREATE TABLE IF NOT EXISTS evidence (
+    applicant_id  TEXT PRIMARY KEY,
+    ts            TEXT,
+    evidence_json TEXT
+);
 """
 
 
@@ -94,6 +99,42 @@ def log_decision(state: Dict[str, Any], source: str = "live") -> None:
             f"ON CONFLICT(applicant_id) DO UPDATE SET {updates}",
             row,
         )
+    _log_evidence(state, row)
+
+
+def _log_evidence(state: Dict[str, Any], row: Dict[str, Any]) -> None:
+    """AI Evidence Hub: persist the full governance bundle for a decision —
+    model version, exact LLM prompts, feature inputs, SHAP attribution, and the
+    retrieved policy excerpts — so any decision is fully reproducible/auditable."""
+    bundle = {
+        "applicant_id": row["applicant_id"],
+        "ts": row["ts"],
+        "model_version": state.get("model_version"),
+        "final_decision": row["final_decision"],
+        "risk_tier": row["risk_tier"],
+        "risk_probability": row["risk_probability"],
+        "feature_inputs": state.get("cleaned_features"),
+        "derived_features": state.get("derived_features"),
+        "shap_values": state.get("shap_values"),
+        "top_risk_factors": state.get("top_risk_factors"),
+        "retrieved_policy_excerpts": state.get("retrieved_policy_excerpts", []),
+        "llm_calls": state.get("llm_calls", []),
+    }
+    with _connect() as conn:
+        conn.execute(
+            "INSERT INTO evidence (applicant_id, ts, evidence_json) VALUES (?, ?, ?) "
+            "ON CONFLICT(applicant_id) DO UPDATE SET ts=excluded.ts, evidence_json=excluded.evidence_json",
+            (row["applicant_id"], row["ts"], json.dumps(bundle, default=str)),
+        )
+
+
+def fetch_evidence(applicant_id: str) -> Optional[Dict[str, Any]]:
+    init_db()
+    with _connect() as conn:
+        r = conn.execute(
+            "SELECT evidence_json FROM evidence WHERE applicant_id = ?", (applicant_id,)
+        ).fetchone()
+    return json.loads(r["evidence_json"]) if r else None
 
 
 def fetch_recent(limit: int = 50) -> List[Dict[str, Any]]:

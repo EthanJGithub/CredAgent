@@ -191,3 +191,22 @@ def get_llm(temperature: float = 0.0):
 def llm_is_live() -> bool:
     """True when a real (non-offline) LLM backend is configured."""
     return not isinstance(get_llm(), OfflineLLM)
+
+
+def evidence_record(agent: str, llm, system_prompt: str, user_prompt: str) -> dict:
+    """Build an AI Evidence Hub record for one LLM invocation.
+
+    Captures the *exact* prompts and the resolved provider/model so every
+    LLM-influenced decision is fully reproducible and auditable.
+    """
+    import datetime as _dt
+
+    provider = getattr(llm, "provider", "offline-template")
+    return {
+        "agent": agent,
+        "provider": provider,
+        "model": provider.split(":", 1)[1] if ":" in provider else provider,
+        "system_prompt": system_prompt,
+        "user_prompt": user_prompt,
+        "timestamp": _dt.datetime.now().isoformat(timespec="seconds"),
+    }

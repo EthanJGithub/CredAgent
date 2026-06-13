@@ -78,6 +78,19 @@ def train():
     auc = roc_auc_score(y_val, val_probs)
     logger.info("Validation ROC-AUC: %.4f", auc)
 
+    # Capture reference distributions for drift monitoring (PSI baseline).
+    try:
+        from src.drift import build_reference
+        build_reference({
+            "risk_probability": val_probs.tolist(),
+            "amt_income_total": X_val["AMT_INCOME_TOTAL"].tolist(),
+            "amt_credit": X_val["AMT_CREDIT"].tolist(),
+            "amt_annuity": X_val["AMT_ANNUITY"].tolist(),
+        })
+        logger.info("Drift reference saved.")
+    except Exception as exc:  # pragma: no cover
+        logger.warning("Could not build drift reference: %s", exc)
+
     joblib.dump(model, os.path.join(MODEL_DIR, "xgboost_risk.pkl"))
     logger.info("Model saved.")
 

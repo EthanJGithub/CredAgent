@@ -8,7 +8,7 @@ from typing import List
 from langchain_core.messages import HumanMessage, SystemMessage
 
 from src.graph.state import CreditDecisionState
-from src.llm import get_llm
+from src.llm import get_llm, evidence_record
 from src.rag.retriever import retrieve
 
 logger = logging.getLogger(__name__)
@@ -75,6 +75,7 @@ def run(state: CreditDecisionState) -> dict:
             SystemMessage(content=COMPLIANCE_SYSTEM_PROMPT),
             HumanMessage(content=user_message),
         ])
+        evidence = evidence_record("PolicyComplianceAgent", llm, COMPLIANCE_SYSTEM_PROMPT, user_message)
 
         content = response.content
         match = re.search(r"\{.*\}", content, re.DOTALL)
@@ -93,6 +94,7 @@ def run(state: CreditDecisionState) -> dict:
             "compliance_flags": compliance_flags,
             "retrieved_policy_excerpts": excerpts[:3],
             "policy_check_complete": True,
+            "llm_calls": state.get("llm_calls", []) + [evidence],
             "audit_trail": state.get("audit_trail", []) + [
                 f"[{datetime.now().isoformat()}] PolicyComplianceAgent: "
                 f"{len(compliance_flags)} flag(s), {len(excerpts)} excerpt(s) "

@@ -30,3 +30,30 @@ def test_export_csv(client, sample_applications):
     assert r.status_code == 200
     assert "text/csv" in r.headers["content-type"]
     assert "applicant_id" in r.text
+
+
+def test_evidence_hub_captures_governance_bundle(client, sample_applications):
+    app = sample_applications[1]  # high-risk -> DECLINE (exercises all 3 LLM agents)
+    client.post("/api/v1/decisions", json=app)
+    ev = client.get(f"/api/v1/evidence/{app['applicant_id']}")
+    assert ev.status_code == 200
+    bundle = ev.json()
+    assert bundle["model_version"] == "xgb-v1.0"
+    assert bundle["feature_inputs"] is not None
+    assert bundle["shap_values"]                       # SHAP attribution recorded
+    assert len(bundle["llm_calls"]) >= 1               # exact prompts captured
+    call = bundle["llm_calls"][0]
+    assert "system_prompt" in call and "user_prompt" in call and "provider" in call
+
+
+def test_evidence_404_for_unknown(client):
+    assert client.get("/api/v1/evidence/nope").status_code == 404
+
+
+def test_drift_endpoint_shape(client, sample_applications):
+    for app in sample_applications:
+        client.post("/api/v1/decisions", json=app)
+    d = client.get("/api/v1/monitoring/drift").json()
+    assert d["reference_available"] is True
+    assert {"feature", "psi", "status"} <= set(d["features"][0])
+    assert d["overall_status"] in ("stable", "moderate", "significant")

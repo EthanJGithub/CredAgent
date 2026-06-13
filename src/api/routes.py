@@ -56,6 +56,7 @@ def _empty_state(applicant_id: str, raw: dict) -> CreditDecisionState:
         "audit_trail": [],
         "processing_time_ms": None,
         "final_response_packaged": False,
+        "llm_calls": [],
     }
 
 
@@ -159,6 +160,24 @@ async def monitoring_summary():
 async def monitoring_decisions(limit: int = 50):
     """Most recent decisions for the audit table."""
     return {"decisions": store.fetch_recent(limit=limit)}
+
+
+@router.get("/evidence/{applicant_id}")
+async def get_evidence(applicant_id: str):
+    """AI Evidence Hub: full governance bundle for one decision — model version,
+    exact LLM prompts, feature inputs, SHAP attribution, retrieved policy."""
+    bundle = store.fetch_evidence(applicant_id)
+    if bundle is None:
+        raise HTTPException(status_code=404, detail="No evidence on file for this applicant")
+    return bundle
+
+
+@router.get("/monitoring/drift")
+async def monitoring_drift():
+    """Population Stability Index (PSI) of the score + key inputs vs. the
+    training reference — model/data drift detection."""
+    from src.drift import drift_report
+    return drift_report()
 
 
 @router.get("/monitoring/export.csv")
