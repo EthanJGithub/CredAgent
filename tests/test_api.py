@@ -54,6 +54,40 @@ def test_get_unknown_decision_404(client):
     assert client.get("/api/v1/decisions/does-not-exist").status_code == 404
 
 
+MEDIUM_APPLICANT = {
+    "applicant_id": "api-medium", "amt_credit": 495000.0, "amt_income_total": 180000.0,
+    "amt_annuity": 24750.0, "days_birth": -11623, "days_employed": -1809,
+    "ext_source_1": 0.641, "ext_source_2": 0.482, "ext_source_3": 0.161,
+    "code_gender": "F", "flag_own_car": 1, "flag_own_realty": 1, "cnt_children": 0,
+    "name_income_type": "Working", "name_education_type": "Incomplete higher",
+}
+
+
+def test_medium_risk_human_review_flow(client):
+    r = client.post("/api/v1/decisions", json=MEDIUM_APPLICANT).json()
+    assert r["risk_tier"] == "MEDIUM"
+    assert r["requires_human_review"] is True
+    assert r["final_decision"] is None
+
+    resumed = client.post(
+        f"/api/v1/decisions/{MEDIUM_APPLICANT['applicant_id']}/human-review",
+        json={"human_decision": "APPROVE", "human_notes": "Verified employment."},
+    )
+    assert resumed.status_code == 200
+    data = resumed.json()
+    assert data["final_decision"] == "APPROVE"
+    assert data["credit_limit"] == 1000.0
+    assert data["requires_human_review"] is False
+
+
+def test_human_review_on_non_referred_rejected(client, sample_applications):
+    app = sample_applications[0]  # low-risk, auto-approved (no review needed)
+    client.post("/api/v1/decisions", json=app)
+    r = client.post(f"/api/v1/decisions/{app['applicant_id']}/human-review",
+                    json={"human_decision": "DECLINE"})
+    assert r.status_code == 400
+
+
 def test_invalid_application_rejected(client):
     bad = {"applicant_id": "bad", "amt_credit": -5, "amt_income_total": 1000,
            "amt_annuity": 10, "days_birth": -1000, "days_employed": -10,
