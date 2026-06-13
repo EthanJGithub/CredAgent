@@ -4,7 +4,7 @@
 
 <!-- LIVE DEMO: after deploying, replace the badge below with:
 [![Live Demo](https://img.shields.io/badge/Live_Demo-Streamlit-FF4B4B?logo=streamlit)](https://YOUR-APP.streamlit.app) -->
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/deploy?repository=EthanJGithub%2FCredAgent&branch=main&mainModule=streamlit_app.py)
+[![Open in Streamlit](https://img.shields.io/badge/Open_in-Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://share.streamlit.io/deploy?repository=EthanJGithub%2FCredAgent&branch=main&mainModule=streamlit_app.py)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11+-blue)](https://python.org)
 [![LangGraph](https://img.shields.io/badge/LangGraph-0.2-green)](https://langchain-ai.github.io/langgraph/)
 [![XGBoost](https://img.shields.io/badge/XGBoost-2.0-orange)](https://xgboost.readthedocs.io)
