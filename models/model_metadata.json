@@ -12,8 +12,6 @@
     "FLAG_OWN_CAR",
     "FLAG_OWN_REALTY",
     "CNT_CHILDREN",
-    "CODE_GENDER_F",
-    "CODE_GENDER_M",
     "debt_to_income",
     "employment_months",
     "age_years",
@@ -24,8 +22,8 @@
     "NAME_INCOME_TYPE_Commercial_associate",
     "NAME_EDUCATION_TYPE_Higher_education"
   ],
-  "n_features": 22,
-  "training_auc": 0.7611,
+  "n_features": 20,
+  "training_auc": 0.7593,
   "n_train": 246008,
   "n_val": 61503,
   "data_source": "huggingface:jlh/home-credit",
@@ -36,5 +34,5 @@
     "HIGH_max": 0.75,
     "DECLINE_min": 0.75
   },
-  "best_iteration": 249
+  "best_iteration": 250
 }

@@ -29,6 +29,22 @@ class _Message:
         self.content = content
 
 
+class LLMClient:
+    """Thin wrapper around a LangChain chat model.
+
+    LangChain models are Pydantic objects that reject arbitrary attributes, so
+    we keep the ``provider`` label here (used in the audit trail) and proxy
+    ``.invoke`` through to the wrapped model.
+    """
+
+    def __init__(self, llm, provider: str):
+        self._llm = llm
+        self.provider = provider
+
+    def invoke(self, messages):
+        return self._llm.invoke(messages)
+
+
 class OfflineLLM:
     """Deterministic fallback used when no LLM API key is configured.
 
@@ -154,9 +170,7 @@ def get_llm(temperature: float = 0.0):
             from langchain_groq import ChatGroq
 
             model = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
-            llm = ChatGroq(model=model, temperature=temperature)
-            llm.provider = f"groq:{model}"  # type: ignore[attr-defined]
-            return llm
+            return LLMClient(ChatGroq(model=model, temperature=temperature), f"groq:{model}")
         except Exception as exc:  # pragma: no cover - depends on env
             logger.warning("Groq init failed (%s); trying next backend.", exc)
 
@@ -166,9 +180,7 @@ def get_llm(temperature: float = 0.0):
             from langchain_anthropic import ChatAnthropic
 
             model = os.getenv("ANTHROPIC_MODEL", "claude-sonnet-4-6")
-            llm = ChatAnthropic(model=model, temperature=temperature)
-            llm.provider = f"anthropic:{model}"  # type: ignore[attr-defined]
-            return llm
+            return LLMClient(ChatAnthropic(model=model, temperature=temperature), f"anthropic:{model}")
         except Exception as exc:  # pragma: no cover - depends on env
             logger.warning("Anthropic init failed (%s); using offline LLM.", exc)
 

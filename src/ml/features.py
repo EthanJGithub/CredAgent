@@ -17,12 +17,17 @@ RAW_COLUMNS = [
 ]
 
 # Final feature list after engineering — ORDER MATTERS for inference.
+#
+# Fair-lending note: CODE_GENDER is deliberately EXCLUDED from the model.
+# Sex is a prohibited basis under ECOA (15 U.S.C. 1691 / Reg B), so it is never
+# scored. Gender is still collected at intake and retained in cleaned_features
+# only so a lender could run disparate-impact monitoring *after* the decision —
+# the standard separation between the scoring model and fair-lending testing.
 FEATURE_COLUMNS = [
     "AMT_CREDIT", "AMT_INCOME_TOTAL", "AMT_ANNUITY",
     "DAYS_BIRTH", "DAYS_EMPLOYED",
     "EXT_SOURCE_1", "EXT_SOURCE_2", "EXT_SOURCE_3",
     "FLAG_OWN_CAR", "FLAG_OWN_REALTY", "CNT_CHILDREN",
-    "CODE_GENDER_F", "CODE_GENDER_M",
     "debt_to_income", "employment_months", "age_years",
     "credit_to_income_ratio", "annuity_to_credit_ratio",
     "has_income_stability",
@@ -69,8 +74,8 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
         ["Working", "Commercial associate"]
     ).astype(int)
 
-    df["CODE_GENDER_F"] = (df["CODE_GENDER"] == "F").astype(int)
-    df["CODE_GENDER_M"] = (df["CODE_GENDER"] == "M").astype(int)
+    # CODE_GENDER is intentionally NOT one-hot encoded into the feature set —
+    # sex is a prohibited basis under ECOA and must not drive the score.
 
     df["NAME_INCOME_TYPE_Working"] = (df["NAME_INCOME_TYPE"] == "Working").astype(int)
     df["NAME_INCOME_TYPE_Commercial_associate"] = (

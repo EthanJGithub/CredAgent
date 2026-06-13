@@ -13,7 +13,8 @@ def test_feature_engineering_produces_full_vector():
     }
     feats = engineer_single_application(raw)
     assert set(feats.keys()) == set(FEATURE_COLUMNS)
-    assert feats["CODE_GENDER_F"] == 1 and feats["CODE_GENDER_M"] == 0
+    # Sex is a prohibited basis under ECOA — never a model feature.
+    assert "CODE_GENDER_F" not in feats and "CODE_GENDER_M" not in feats
     assert feats["has_income_stability"] == 1
     assert feats["debt_to_income"] > 0
 

@@ -15,6 +15,13 @@ from src.ml.features import FEATURE_COLUMNS
 
 logger = logging.getLogger(__name__)
 
+# Features that must NOT be stated as adverse-action reasons to an applicant.
+# Age is a protected basis under ECOA; even where age is permissibly used in an
+# empirically derived scoring system, it cannot be cited as a denial reason. We
+# keep these in the SHAP chart (for transparency/monitoring) but never surface
+# them as the "specific principal reasons" in the notice or the compliance check.
+PROTECTED_FROM_ADVERSE_REASONS = {"age_years", "DAYS_BIRTH", "CODE_GENDER_F", "CODE_GENDER_M"}
+
 FEATURE_DISPLAY_NAMES = {
     "EXT_SOURCE_1": "External credit score (bureau 1)",
     "EXT_SOURCE_2": "External credit score (bureau 2)",
@@ -61,12 +68,16 @@ def compute_shap_values(
     }
 
     # Positive SHAP value = pushes prediction toward default (adverse).
+    # Skip protected-basis features — they cannot be cited as denial reasons.
     sorted_features = sorted(shap_dict.items(), key=lambda x: x[1], reverse=True)
     top_factors: List[str] = []
-    for feat, val in sorted_features[:5]:
-        if val > 0:
-            name = FEATURE_DISPLAY_NAMES.get(feat, feat.replace("_", " ").title())
-            if name not in top_factors:
-                top_factors.append(name)
+    for feat, val in sorted_features:
+        if val <= 0 or feat in PROTECTED_FROM_ADVERSE_REASONS:
+            continue
+        name = FEATURE_DISPLAY_NAMES.get(feat, feat.replace("_", " ").title())
+        if name not in top_factors:
+            top_factors.append(name)
+        if len(top_factors) >= 5:
+            break
 
     return shap_dict, top_factors

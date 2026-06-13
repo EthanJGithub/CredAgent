@@ -12,7 +12,9 @@ def test_model_info(client):
     meta = response.json()
     assert meta["model_version"] == "xgb-v1.0"
     assert meta["training_auc"] >= 0.74
-    assert len(meta["features"]) == 22
+    assert len(meta["features"]) == 20
+    # Sex is a prohibited basis — it must never be a model feature.
+    assert not any("GENDER" in f.upper() for f in meta["features"])
 
 
 def test_submit_low_risk_approves(client, sample_applications):
