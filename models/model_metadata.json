@@ -1,0 +1,40 @@
+{
+  "model_version": "xgb-v1.0",
+  "features": [
+    "AMT_CREDIT",
+    "AMT_INCOME_TOTAL",
+    "AMT_ANNUITY",
+    "DAYS_BIRTH",
+    "DAYS_EMPLOYED",
+    "EXT_SOURCE_1",
+    "EXT_SOURCE_2",
+    "EXT_SOURCE_3",
+    "FLAG_OWN_CAR",
+    "FLAG_OWN_REALTY",
+    "CNT_CHILDREN",
+    "CODE_GENDER_F",
+    "CODE_GENDER_M",
+    "debt_to_income",
+    "employment_months",
+    "age_years",
+    "credit_to_income_ratio",
+    "annuity_to_credit_ratio",
+    "has_income_stability",
+    "NAME_INCOME_TYPE_Working",
+    "NAME_INCOME_TYPE_Commercial_associate",
+    "NAME_EDUCATION_TYPE_Higher_education"
+  ],
+  "n_features": 22,
+  "training_auc": 0.7611,
+  "n_train": 246008,
+  "n_val": 61503,
+  "data_source": "huggingface:jlh/home-credit",
+  "trained_on_real_data": true,
+  "decision_thresholds": {
+    "LOW_max": 0.3,
+    "MEDIUM_max": 0.55,
+    "HIGH_max": 0.75,
+    "DECLINE_min": 0.75
+  },
+  "best_iteration": 249
+}

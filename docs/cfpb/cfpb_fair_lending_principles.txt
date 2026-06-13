@@ -1,0 +1,23 @@
+CFPB FAIR LENDING — SUPERVISION AND EXAMINATION PRINCIPLES
+
+Disparate treatment vs. disparate impact. Disparate treatment occurs when a
+lender treats an applicant differently based on a prohibited basis. Disparate
+impact occurs when a facially neutral policy or practice applied equally to all
+applicants has a disproportionately adverse effect on a prohibited-basis group
+and is not justified by a legitimate business necessity that cannot reasonably
+be achieved by a less discriminatory alternative.
+
+Model risk and algorithmic underwriting. Lenders using statistical or
+machine-learning models to evaluate creditworthiness remain fully responsible
+for compliance. Examiners assess whether: (1) model input variables are
+demonstrably predictive of creditworthiness and are not proxies for prohibited
+bases; (2) the model is empirically derived and statistically sound; (3) the
+lender can produce specific, accurate principal reasons for adverse actions
+(ECOA §1002.9); and (4) the lender tests for and mitigates disparate impact.
+
+Permissible factors. Credit-bureau scores, debt-to-income ratio, length of
+employment, income relative to the requested credit amount, and prior repayment
+history are permissible, business-justified factors when used consistently.
+Prohibited-basis characteristics (race, color, religion, national origin, sex,
+marital status, age, receipt of public assistance) and their close proxies must
+not drive the decision.

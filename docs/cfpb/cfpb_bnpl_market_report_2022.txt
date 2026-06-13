@@ -1,0 +1,23 @@
+CFPB — BUY NOW, PAY LATER: MARKET TRENDS AND CONSUMER IMPACTS (Sept 2022)
+
+Buy Now, Pay Later (BNPL) is a form of point-of-sale installment credit,
+typically structured as four equal payments over six weeks with no interest.
+Origination volume grew rapidly; the CFPB found lenders' approval rates rose and
+that BNPL competes with, and is sometimes substituted for, traditional credit
+cards.
+
+Key consumer-protection findings:
+- Discrete consumer harms include inconsistent disclosures, dispute-resolution
+  difficulties, mandatory autopayment, and the accumulation of debt.
+- Many BNPL lenders perform little or no traditional underwriting, raising
+  ability-to-repay concerns; some consumers become over-extended ("loan
+  stacking") across multiple BNPL providers.
+- Late fees and account-restriction practices vary widely and are not always
+  clearly disclosed.
+
+Regulatory framing: where a BNPL product meets the definition of credit, the
+Equal Credit Opportunity Act (Regulation B) and, where consumer reports are
+used, the Fair Credit Reporting Act apply — including adverse-action notice
+obligations. Lenders deploying automated or algorithmic underwriting models must
+still provide specific, accurate principal reasons for denials and must guard
+against disparate impact on prohibited-basis groups.

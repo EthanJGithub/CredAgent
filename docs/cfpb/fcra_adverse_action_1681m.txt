@@ -1,0 +1,24 @@
+FAIR CREDIT REPORTING ACT (FCRA) — 15 U.S.C. §1681m
+
+§615(a) Duties of users taking adverse actions on the basis of information
+contained in consumer reports. If any person takes any adverse action with
+respect to any consumer that is based in whole or in part on any information
+contained in a consumer report, the person shall:
+(1) provide oral, written, or electronic notice of the adverse action to the
+consumer;
+(2) provide to the consumer (A) the name, address, and telephone number of the
+consumer reporting agency (CRA) that furnished the report, and (B) a statement
+that the CRA did not make the decision to take the adverse action and is unable
+to provide the consumer the specific reasons why the adverse action was taken;
+and
+(3) provide to the consumer (A) notice of the consumer's right to obtain a free
+copy of the consumer report from the CRA within 60 days, and (B) notice of the
+consumer's right to dispute with the CRA the accuracy or completeness of any
+information in the report.
+
+§615(h) Risk-based pricing notice. A creditor that, based on a consumer report,
+extends credit on terms materially less favorable than the most favorable terms
+available to a substantial proportion of consumers, must provide a risk-based
+pricing notice. When a credit score is used, the notice must disclose the score,
+the range of possible scores, and the key factors adversely affecting the score
+(generally no more than four factors).
