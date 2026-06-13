@@ -96,7 +96,7 @@ def render_shap_waterfall(shap_values: dict):
     bars = ax.barh(y, values, color=colors, height=0.6, edgecolor="white")
     ax.set_yticks(y); ax.set_yticklabels(labels, fontsize=10)
     ax.axvline(0, color="black", linewidth=0.8)
-    ax.set_xlabel("SHAP Value (impact on default probability)", fontsize=10)
+    ax.set_xlabel("SHAP value — impact on log-odds of default (model margin)", fontsize=10)
     ax.set_title("Feature Impact on Risk Score", fontsize=12, fontweight="bold", pad=12)
     for bar, val in zip(bars, values):
         xpos = bar.get_width() + (0.002 if val >= 0 else -0.002)
@@ -214,7 +214,9 @@ if "last_result" in st.session_state:
             st.markdown(f"**{i}.** {f}")
     with t2:
         render_shap_waterfall(r.get("shap_values") or {})
-        st.caption("Red = increases default risk · Green = decreases default risk")
+        st.caption("Values are SHAP contributions to the model's log-odds (margin); a higher "
+                   "log-odds means a higher default probability. Red = increases default risk · "
+                   "Green = decreases default risk.")
     with t3:
         flags = r.get("compliance_flags", [])
         if flags:
