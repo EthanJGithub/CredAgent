@@ -2,7 +2,9 @@
 
 > **Agentic Credit Decisioning & Risk Explainability System**
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Streamlit-FF4B4B?logo=streamlit)](YOUR_STREAMLIT_URL_HERE)
+<!-- LIVE DEMO: after deploying, replace the badge below with:
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Streamlit-FF4B4B?logo=streamlit)](https://YOUR-APP.streamlit.app) -->
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/deploy?repository=EthanJGithub%2FCredAgent&branch=main&mainModule=streamlit_app.py)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11+-blue)](https://python.org)
 [![LangGraph](https://img.shields.io/badge/LangGraph-0.2-green)](https://langchain-ai.github.io/langgraph/)
 [![XGBoost](https://img.shields.io/badge/XGBoost-2.0-orange)](https://xgboost.readthedocs.io)
@@ -16,7 +18,7 @@ risk model, explains every prediction with SHAP, checks the decision against CFP
 fair-lending regulations via RAG, routes borderline cases to a human reviewer, and
 generates a legally-compliant adverse-action notice — in well under a second.
 
-**[→ Try the live demo](YOUR_STREAMLIT_URL_HERE)**
+**Live demo:** click **Open in Streamlit** above to deploy a free instance in one click — the trained model and CFPB vector store ship with the repo, so no setup or dataset download is required. (The hosted URL goes here once deployed.)
 
 ---
 
@@ -91,8 +93,8 @@ The trained model card is in [`models/model_metadata.json`](models/model_metadat
 ## Quickstart (Local)
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/credagent.git
-cd credagent
+git clone https://github.com/EthanJGithub/CredAgent.git
+cd CredAgent
 python -m venv .venv && . .venv/Scripts/activate    # Windows
 pip install -r requirements.txt
 
