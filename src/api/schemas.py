@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Optional, List
+from typing import Optional, List, Dict
 
 
 class ApplicationRequest(BaseModel):
@@ -47,8 +47,11 @@ class DecisionResponse(BaseModel):
     risk_probability: Optional[float]
     risk_tier: Optional[str]
     top_risk_factors: Optional[List[str]]
+    shap_values: Optional[Dict[str, float]] = None
     decision_reasoning: Optional[str]
+    decision_confidence: Optional[float] = None
     compliance_flags: List[str]
+    retrieved_policy_excerpts: List[str] = []
     adverse_action_notice: Optional[str]
     processing_time_ms: Optional[float]
     requires_human_review: bool

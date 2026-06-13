@@ -3,8 +3,13 @@ import os
 import time
 from datetime import datetime
 
-from fastapi import APIRouter, HTTPException
+import csv
+import io
 
+from fastapi import APIRouter, HTTPException
+from fastapi.responses import StreamingResponse
+
+from src import store
 from src.api.schemas import (
     ApplicationRequest, DecisionResponse, HumanReviewRequest,
     HealthResponse, ModelInfoResponse,
@@ -62,8 +67,11 @@ def _build_response(result: dict) -> DecisionResponse:
         risk_probability=result.get("risk_probability"),
         risk_tier=result.get("risk_tier"),
         top_risk_factors=result.get("top_risk_factors"),
+        shap_values=result.get("shap_values"),
         decision_reasoning=result.get("decision_reasoning"),
+        decision_confidence=result.get("decision_confidence"),
         compliance_flags=result.get("compliance_flags", []),
+        retrieved_policy_excerpts=result.get("retrieved_policy_excerpts", []),
         adverse_action_notice=result.get("adverse_action_notice"),
         processing_time_ms=result.get("processing_time_ms"),
         requires_human_review=result.get("requires_human_review", False),
@@ -90,6 +98,7 @@ async def submit_decision(application: ApplicationRequest):
     result = app_graph.invoke(initial_state, config=config)
     result["processing_time_ms"] = round((time.time() - start) * 1000, 1)
     decisions_store[application.applicant_id] = {"state": result, "thread_id": thread_id}
+    store.log_decision(result, source="live")
     return _build_response(result)
 
 
@@ -121,6 +130,7 @@ async def submit_human_review(applicant_id: str, review: HumanReviewRequest):
     result = app_graph.invoke(update, config=config)
     result["processing_time_ms"] = round((time.time() - start) * 1000, 1)
     decisions_store[applicant_id] = {"state": result, "thread_id": thread_id}
+    store.log_decision(result, source="live")
     return _build_response(result)
 
 
@@ -135,4 +145,33 @@ async def get_model_info():
         features=meta["features"],
         training_auc=meta["training_auc"],
         decision_thresholds=meta["decision_thresholds"],
+    )
+
+
+# ── Monitoring / portfolio analytics ─────────────────────────────────────────
+@router.get("/monitoring/summary")
+async def monitoring_summary():
+    """Aggregate portfolio metrics + fair-lending disparate-impact analysis."""
+    return store.summary()
+
+
+@router.get("/monitoring/decisions")
+async def monitoring_decisions(limit: int = 50):
+    """Most recent decisions for the audit table."""
+    return {"decisions": store.fetch_recent(limit=limit)}
+
+
+@router.get("/monitoring/export.csv")
+async def monitoring_export():
+    """Download the full decision log as CSV (audit / regulatory export)."""
+    rows = store.fetch_all()
+    buf = io.StringIO()
+    if rows:
+        writer = csv.DictWriter(buf, fieldnames=list(rows[0].keys()))
+        writer.writeheader()
+        writer.writerows(rows)
+    return StreamingResponse(
+        iter([buf.getvalue()]),
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=credagent_decisions.csv"},
     )

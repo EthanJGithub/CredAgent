@@ -6,7 +6,7 @@
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11+-blue)](https://python.org)
 [![LangGraph](https://img.shields.io/badge/LangGraph-0.2-green)](https://langchain-ai.github.io/langgraph/)
 [![XGBoost](https://img.shields.io/badge/XGBoost-2.0-orange)](https://xgboost.readthedocs.io)
-[![Tests](https://img.shields.io/badge/tests-15_passing-brightgreen)](tests/)
+[![Tests](https://img.shields.io/badge/tests-18_passing-brightgreen)](tests/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 A multi-agent AI pipeline for real-time loan underwriting in employer-sponsored
@@ -66,7 +66,9 @@ flowchart TD
 | Explainability | SHAP TreeExplainer (per-prediction feature attribution) |
 | Regulatory RAG | ChromaDB + ONNX `all-MiniLM-L6-v2` embeddings |
 | API | FastAPI + Pydantic v2 |
-| Dashboard | Streamlit (+ SHAP waterfall via matplotlib) |
+| Frontend | **React (Vite) + Nivo charts** (decoupled SPA on the API) |
+| Decision store | SQLite — every decision persisted for audit + monitoring |
+| Dashboard (alt) | Streamlit (+ SHAP waterfall via matplotlib) |
 | Dataset | **Home Credit Default Risk — real 307,511-row dataset** |
 | Compliance corpus | ECOA / Regulation B §1002.9, FCRA §615, CFPB fair-lending & BNPL material |
 
@@ -78,9 +80,9 @@ flowchart TD
 |---|---|
 | Algorithm | XGBoost (gradient-boosted trees, 500 estimators, early stopping) |
 | Training data | **Real Home Credit dataset** — 246,008 train / 61,503 validation rows |
-| Validation ROC-AUC | **0.7611** |
+| Validation ROC-AUC | **0.7593** (gender excluded; AUC unchanged from 0.7611 — it carried no signal) |
 | Class handling | `scale_pos_weight ≈ 11.4` (8.1% default base rate) |
-| Features | 22 engineered financial features |
+| Features | 20 engineered financial features (sex excluded — prohibited basis) |
 | Explainability | SHAP — per-prediction feature attribution |
 | End-to-end latency | ~0.4 s (offline reasoning) / ~1–2 s (with LLM) |
 
@@ -115,7 +117,7 @@ uvicorn src.api.main:app --reload          # http://localhost:8000/docs
 streamlit run src/dashboard/app.py         # http://localhost:8501
 
 # Tests
-pytest                                       # 15 passing
+pytest                                       # 18 passing
 ```
 
 > The repo ships with the trained `models/` and `vectorstore/` committed, so the
@@ -140,6 +142,32 @@ this repo was trained on the **real** dataset.
 | `GET`  | `/api/v1/decisions/{id}` | Retrieve a prior decision |
 | `POST` | `/api/v1/decisions/{id}/human-review` | Submit a reviewer's decision for a REFER case |
 | `GET`  | `/api/v1/model/info` | Model version, features, training AUC, thresholds |
+| `GET`  | `/api/v1/monitoring/summary` | Portfolio metrics + fair-lending disparate-impact analysis |
+| `GET`  | `/api/v1/monitoring/decisions` | Recent decisions (audit table) |
+| `GET`  | `/api/v1/monitoring/export.csv` | Full decision log as CSV (regulatory export) |
+
+---
+
+## Frontend (React + Nivo)
+
+A decoupled single-page app in [`frontend/`](frontend/) (React + Vite, [Nivo](https://nivo.rocks) charts) consumes the FastAPI API. Two views:
+
+- **Score an Applicant** — form with real-applicant presets, decision badge, and tabs for the **Nivo SHAP bar**, compliance, the adverse-action notice, and the audit trail. Human-in-the-loop review is handled inline for MEDIUM-tier cases.
+- **Portfolio Monitoring** — Nivo pie (decision mix) + bars (risk-tier distribution, approval rate by group) over every persisted decision, with a **fair-lending disparate-impact panel** and CSV export.
+
+```bash
+# Terminal 1 — API
+uvicorn src.api.main:app --reload            # http://localhost:8000
+
+# Terminal 2 — frontend (Node 18+)
+cd frontend && npm install && npm run dev      # http://localhost:5173 (proxies /api → :8000)
+```
+
+Deploy: `npm run build` produces static assets for Vercel/Netlify; set `VITE_API_BASE` to the hosted API origin (CORS is open on the backend). The Streamlit app remains an alternate zero-frontend demo.
+
+### Portfolio Monitoring & Fair Lending
+
+Every decision is persisted to a SQLite store ([`src/store.py`](src/store.py)) and the store is seeded on first run with 600 real applicants ([`src/seed_history.py`](src/seed_history.py)) so the dashboard has volume immediately. The monitoring view runs a **four-fifths (80%) rule** disparate-impact test across gender groups. Because gender is *excluded from the model*, any disparity reflects **disparate impact** from correlated permissible features — exactly the separation a real fair-lending team maintains between scoring and monitoring.
 
 ---
 
@@ -160,19 +188,24 @@ Protected-class attributes and their close proxies are excluded from the decisio
 
 ```
 credagent/
-├── streamlit_app.py          # Cloud entry point (runs pipeline inline)
+├── streamlit_app.py          # Streamlit Cloud entry point (runs pipeline inline)
+├── frontend/                 # React (Vite) + Nivo single-page app
+│   └── src/                  # api client, ApplicantForm, DecisionResult, ShapBar, Monitoring
 ├── src/
 │   ├── agents/               # 5 LangGraph agents
 │   ├── graph/                # State schema + workflow (HITL checkpointing)
 │   ├── ml/                   # get_data, features, train, explainer
 │   ├── rag/                  # CFPB corpus, ChromaDB ingest + retriever
-│   ├── api/                  # FastAPI app, routes, schemas
+│   ├── api/                  # FastAPI app, routes, schemas (+ monitoring endpoints)
 │   ├── dashboard/            # Streamlit (connects to FastAPI)
+│   ├── store.py              # SQLite decision store + disparate-impact analysis
+│   ├── seed_history.py       # Seed 600 real applicants for monitoring
 │   ├── llm.py                # Pluggable Groq/Anthropic/offline LLM
 │   └── demo_presets.py       # Real applicants for the demo tiers
+├── data/sample_applicants.csv# 600 real applicants (committed) for seeding
 ├── models/                   # Trained XGBoost + SHAP + metadata (committed)
 ├── vectorstore/              # ChromaDB CFPB embeddings (committed)
-└── tests/                    # pytest suite (15 tests)
+└── tests/                    # pytest suite (18 tests)
 ```
 
 ---

@@ -1,0 +1,601 @@
+applicant_id,amt_credit,amt_income_total,amt_annuity,days_birth,days_employed,ext_source_1,ext_source_2,ext_source_3,code_gender,flag_own_car,flag_own_realty,cnt_children,name_income_type,name_education_type
+HIST-0000,477621.0,180000.0,47371.5,-14981,-961,,0.7955,,M,0,1,1,Working,Higher education
+HIST-0001,808650.0,93114.0,22234.5,-8119,-950,0.2519,0.6203,,M,1,0,0,Working,Higher education
+HIST-0002,808650.0,85500.0,26086.5,-15643,-1580,0.383,0.6756,0.6833,F,0,0,0,Working,Secondary / secondary special
+HIST-0003,173196.0,135000.0,17257.5,-18861,365243,,0.6375,0.7062,F,0,1,1,Pensioner,Secondary / secondary special
+HIST-0004,477175.5,180000.0,46485.0,-10794,-1849,0.2567,0.2717,,M,1,0,0,Working,Higher education
+HIST-0005,225171.0,135000.0,17919.0,-17871,-2137,,0.4049,0.4525,M,1,1,0,Commercial associate,Secondary / secondary special
+HIST-0006,545040.0,112500.0,26640.0,-11854,-1123,,0.5783,0.4347,M,1,1,0,Working,Secondary / secondary special
+HIST-0007,325908.0,121500.0,17811.0,-15224,-6253,0.6568,0.6503,0.6817,F,0,1,2,Working,Secondary / secondary special
+HIST-0008,450000.0,225000.0,22500.0,-11922,-2044,0.5027,0.7056,0.6895,M,0,1,0,Commercial associate,Higher education
+HIST-0009,585000.0,90000.0,29997.0,-9065,-865,0.3195,0.5087,0.5407,F,0,0,0,Working,Secondary / secondary special
+HIST-0010,891072.0,180000.0,35469.0,-11467,-1944,0.6487,0.5815,0.5442,F,1,0,0,Commercial associate,Higher education
+HIST-0011,95940.0,94500.0,9472.5,-21047,-5149,0.7357,0.5184,0.3791,F,1,1,0,Working,Secondary / secondary special
+HIST-0012,225000.0,103500.0,15219.0,-11837,-3481,,0.4999,0.2808,F,1,0,0,Working,Secondary / secondary special
+HIST-0013,314100.0,112500.0,16573.5,-11102,-2529,,0.3595,0.449,F,0,1,1,Commercial associate,Higher education
+HIST-0014,345645.0,157500.0,16240.5,-11112,-1125,0.3468,0.7487,0.6463,F,0,0,1,Commercial associate,Secondary / secondary special
+HIST-0015,597339.0,112500.0,33484.5,-18227,-3466,0.6756,0.661,,F,1,1,1,Commercial associate,Secondary / secondary special
+HIST-0016,343800.0,85500.0,13090.5,-20805,-3777,,0.5073,0.3265,M,1,1,0,Working,Secondary / secondary special
+HIST-0017,431122.5,225000.0,46561.5,-14765,-3294,0.5009,0.7356,0.3997,F,0,0,1,Commercial associate,Secondary / secondary special
+HIST-0018,1288350.0,450000.0,41692.5,-15654,-1900,,0.4636,0.5478,F,0,1,1,Commercial associate,Higher education
+HIST-0019,550980.0,180000.0,33835.5,-11808,-875,0.3416,0.6739,0.3876,M,0,1,1,Working,Higher education
+HIST-0020,180000.0,135000.0,9000.0,-16150,-4822,0.4457,0.6619,0.5549,F,0,1,0,Working,Higher education
+HIST-0021,675000.0,171000.0,46980.0,-17738,-3680,,0.4835,0.6364,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0022,254700.0,85500.0,24939.0,-23547,365243,,0.7112,,M,0,1,0,Pensioner,Secondary / secondary special
+HIST-0023,704844.0,103500.0,35986.5,-10706,-1494,0.6475,0.1543,0.6722,F,1,0,0,Working,Higher education
+HIST-0024,225000.0,76500.0,11074.5,-10019,-1615,,0.5159,0.136,F,0,0,0,Working,Secondary / secondary special
+HIST-0025,545040.0,180000.0,25537.5,-12225,-2380,0.717,0.5678,0.3979,F,0,0,0,Working,Secondary / secondary special
+HIST-0026,1436499.0,202500.0,43551.0,-20678,-5933,0.9308,0.5235,,F,0,1,0,Commercial associate,Higher education
+HIST-0027,670500.0,225000.0,19732.5,-23438,365243,0.8835,0.7876,0.3442,F,1,0,0,Pensioner,Higher education
+HIST-0028,755190.0,450000.0,35122.5,-14080,-1400,,0.3138,,M,1,1,2,Commercial associate,Higher education
+HIST-0029,755190.0,180000.0,30078.0,-15314,-3907,,0.3194,0.6691,M,0,1,2,State servant,Secondary / secondary special
+HIST-0030,675000.0,202500.0,29862.0,-22841,365243,,0.7098,0.3047,F,1,0,0,Pensioner,Higher education
+HIST-0031,303489.0,180000.0,20412.0,-9271,-1177,,0.0403,,F,0,1,2,Commercial associate,Secondary / secondary special
+HIST-0032,942300.0,179100.0,30528.0,-21115,-5463,,0.7372,0.6659,M,1,0,0,Working,Secondary / secondary special
+HIST-0033,521280.0,292500.0,31630.5,-20824,-1255,,0.7071,0.7296,M,1,0,0,Working,Secondary / secondary special
+HIST-0034,904500.0,270000.0,26577.0,-14321,-768,0.241,0.6959,0.3876,M,1,1,2,Commercial associate,Higher education
+HIST-0035,188685.0,99000.0,14944.5,-17617,-4164,,0.4735,0.7136,F,0,1,0,Working,Higher education
+HIST-0036,331920.0,270000.0,18004.5,-17903,-2112,,0.6177,0.1253,F,0,1,0,Working,Secondary / secondary special
+HIST-0037,157050.0,67500.0,8145.0,-23578,365243,,0.3585,0.4993,M,0,1,0,Pensioner,Secondary / secondary special
+HIST-0038,398016.0,112500.0,31576.5,-22088,365243,,0.6278,,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0039,294322.5,126000.0,19800.0,-12213,-2162,0.3246,0.614,0.2499,F,0,1,1,Working,Secondary / secondary special
+HIST-0040,808650.0,99000.0,26217.0,-22159,365243,,0.3946,0.6879,F,0,1,0,Pensioner,Lower secondary
+HIST-0041,450000.0,360000.0,22500.0,-18429,-397,0.4914,0.5467,0.4436,M,0,1,1,Commercial associate,Higher education
+HIST-0042,508495.5,76500.0,21541.5,-15802,-1112,,0.2859,,F,0,0,0,Working,Secondary / secondary special
+HIST-0043,454500.0,337500.0,19255.5,-18121,-2700,,0.7641,0.7122,F,1,0,0,Working,Secondary / secondary special
+HIST-0044,203760.0,112500.0,13266.0,-13731,-6615,0.5553,0.7233,0.7584,F,0,0,1,State servant,Secondary / secondary special
+HIST-0045,1379979.0,135000.0,43330.5,-18537,-5171,0.4951,0.6042,0.4014,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0046,119925.0,76500.0,11812.5,-23221,365243,,0.3681,,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0047,835380.0,189000.0,45445.5,-13124,-1706,0.2306,0.5873,0.3016,M,0,1,0,Working,Higher education
+HIST-0048,900000.0,157500.0,26446.5,-22137,365243,0.9149,0.6576,0.7662,F,1,1,0,Pensioner,Higher education
+HIST-0049,1006920.0,450000.0,70209.0,-19286,-460,0.6903,0.6211,,F,0,1,0,Working,Secondary / secondary special
+HIST-0050,639468.0,135000.0,17712.0,-12774,-912,0.5709,0.56,,F,0,0,0,Commercial associate,Higher education
+HIST-0051,544491.0,103500.0,17694.0,-10496,-490,0.3916,0.5472,0.5442,F,1,0,1,State servant,Secondary / secondary special
+HIST-0052,904500.0,112500.0,38452.5,-21805,-12687,,0.1721,,M,0,1,0,Working,Secondary / secondary special
+HIST-0053,474408.0,225000.0,25866.0,-15429,-8323,,0.6402,,F,0,1,0,Working,Secondary / secondary special
+HIST-0054,135000.0,135000.0,6750.0,-12233,-197,,0.7048,0.2405,F,1,1,1,Commercial associate,Higher education
+HIST-0055,1467612.0,202500.0,58203.0,-18557,-2397,,0.7519,0.7504,F,0,0,1,Working,Secondary / secondary special
+HIST-0056,450000.0,180000.0,22018.5,-11872,-1476,0.2119,0.7168,0.5335,M,0,1,1,Working,Secondary / secondary special
+HIST-0057,71955.0,67500.0,7006.5,-22203,365243,,0.2675,0.3186,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0058,405000.0,157500.0,42655.5,-9336,-901,,0.694,0.592,M,1,1,0,Working,Secondary / secondary special
+HIST-0059,288873.0,135000.0,19435.5,-9923,-1549,0.1859,0.2308,,M,1,1,1,Commercial associate,Secondary / secondary special
+HIST-0060,143910.0,180000.0,14364.0,-14656,-2727,,0.6754,,F,0,0,0,Working,Incomplete higher
+HIST-0061,1334731.5,135000.0,36832.5,-13421,-1504,,0.426,0.643,F,1,1,2,Working,Secondary / secondary special
+HIST-0062,314100.0,63000.0,13833.0,-14399,-1459,0.6655,0.5469,0.1538,F,0,0,2,State servant,Higher education
+HIST-0063,598486.5,157500.0,21627.0,-12653,-435,,0.7149,0.5797,F,0,1,1,Commercial associate,Secondary / secondary special
+HIST-0064,687600.0,162000.0,18135.0,-10893,-4079,,0.0077,0.317,F,0,0,0,Working,Higher education
+HIST-0065,62361.0,135000.0,6295.5,-24629,365243,,0.6186,0.7422,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0066,634482.0,112500.0,20596.5,-14550,-207,,0.4191,,F,1,1,2,Working,Secondary / secondary special
+HIST-0067,331920.0,225000.0,17077.5,-12108,-2429,,0.6847,0.1501,M,1,1,1,State servant,Higher education
+HIST-0068,301500.0,157500.0,10957.5,-19677,365243,,0.6096,0.677,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0069,343800.0,157500.0,16852.5,-14071,-5047,0.5458,0.5907,0.5496,M,1,1,1,Working,Secondary / secondary special
+HIST-0070,544491.0,112500.0,21226.5,-13640,-4272,0.4427,0.7032,0.6594,F,0,1,1,Working,Secondary / secondary special
+HIST-0071,127350.0,157500.0,7438.5,-23796,365243,,0.6329,0.3265,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0072,934002.0,315000.0,59688.0,-17185,-9158,0.5611,0.3642,0.4525,F,0,0,1,Commercial associate,Secondary / secondary special
+HIST-0073,285264.0,90000.0,30082.5,-12370,-2981,,0.0351,0.1377,F,0,1,2,Working,Secondary / secondary special
+HIST-0074,189000.0,180000.0,18540.0,-16133,-390,,0.0893,0.5137,F,0,1,2,Working,Secondary / secondary special
+HIST-0075,270000.0,202500.0,13500.0,-11765,-564,0.339,0.1362,0.2327,F,1,1,0,Working,Secondary / secondary special
+HIST-0076,755190.0,157500.0,33264.0,-14322,-7536,0.4807,0.7058,0.6545,F,0,1,1,Working,Secondary / secondary special
+HIST-0077,1082214.0,135000.0,31770.0,-16605,-2812,0.4947,0.2631,0.6941,M,1,1,2,Commercial associate,Secondary / secondary special
+HIST-0078,298512.0,112500.0,17266.5,-10765,-1448,0.5544,0.7369,0.4136,F,1,0,2,State servant,Secondary / secondary special
+HIST-0079,143910.0,90000.0,13455.0,-14646,-716,0.8266,0.6163,0.7338,F,0,0,0,Working,Higher education
+HIST-0080,720000.0,135000.0,39060.0,-11905,-2470,0.2703,0.4795,0.2693,F,0,1,0,Working,Secondary / secondary special
+HIST-0081,508495.5,90000.0,22527.0,-21413,365243,,0.7691,0.5065,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0082,1575000.0,130500.0,41548.5,-20800,365243,,0.5525,0.6347,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0083,807984.0,180000.0,29151.0,-15478,-916,,0.314,,F,0,1,1,Commercial associate,Secondary / secondary special
+HIST-0084,329904.0,247500.0,26194.5,-12982,-2404,0.2591,0.2841,0.5407,F,0,1,1,Working,Secondary / secondary special
+HIST-0085,148500.0,135000.0,16884.0,-10385,-1955,0.543,0.3235,,M,0,0,0,Commercial associate,Secondary / secondary special
+HIST-0086,1125000.0,135000.0,33025.5,-22391,-2474,0.7256,0.323,0.5832,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0087,457834.5,112500.0,22266.0,-19556,-384,,0.6179,,M,1,1,1,Working,Secondary / secondary special
+HIST-0088,270000.0,67500.0,12987.0,-23478,365243,,0.3484,0.6513,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0089,1312110.0,112500.0,52168.5,-15107,-6442,,0.5843,0.6161,F,0,1,1,Working,Secondary / secondary special
+HIST-0090,369720.0,225000.0,29340.0,-18574,-1886,0.7671,0.7035,,M,1,1,0,Commercial associate,Secondary / secondary special
+HIST-0091,517500.0,171000.0,14229.0,-20528,-566,0.6156,0.6281,0.5442,F,0,1,0,Working,Secondary / secondary special
+HIST-0092,1256400.0,135000.0,40657.5,-14455,-1120,,0.3738,0.638,M,0,0,0,Working,Secondary / secondary special
+HIST-0093,1724220.0,247500.0,50544.0,-13180,365243,,0.2605,,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0094,432288.0,112500.0,11533.5,-12429,-2123,0.5442,0.6865,0.4957,F,0,1,1,Commercial associate,Higher education
+HIST-0095,263686.5,81000.0,26208.0,-18825,-1139,,0.5156,0.4507,F,1,1,0,Working,Secondary / secondary special
+HIST-0096,325908.0,61650.0,15232.5,-15819,-9157,,0.3363,,F,0,1,0,State servant,Secondary / secondary special
+HIST-0097,545040.0,135000.0,25537.5,-18294,-2927,0.71,0.4533,,M,1,1,0,Working,Secondary / secondary special
+HIST-0098,161730.0,67500.0,6979.5,-21577,365243,,0.695,0.4189,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0099,254700.0,126000.0,24939.0,-13263,-309,0.5926,0.6969,0.6076,F,0,1,1,Working,Higher education
+HIST-0100,518562.0,81000.0,22972.5,-24219,365243,,0.1577,0.8659,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0101,562500.0,112500.0,27189.0,-17423,-1244,,0.31,,M,0,1,2,Working,Secondary / secondary special
+HIST-0102,276277.5,90000.0,12298.5,-15505,-1783,,0.6817,0.7422,F,0,1,0,Working,Secondary / secondary special
+HIST-0103,117162.0,90000.0,13216.5,-11405,-1773,,0.2256,0.3945,M,0,1,0,Working,Secondary / secondary special
+HIST-0104,450000.0,157500.0,21888.0,-12798,-2576,,0.4278,0.578,F,1,0,0,Working,Secondary / secondary special
+HIST-0105,1756714.5,189000.0,55156.5,-12088,-4399,0.7659,0.4963,0.3202,M,0,1,1,State servant,Incomplete higher
+HIST-0106,239850.0,135000.0,23494.5,-24230,-2950,,0.2859,0.6926,F,0,1,0,Commercial associate,Higher education
+HIST-0107,157500.0,54000.0,7875.0,-13181,-4960,0.4997,0.6095,0.7449,F,0,1,1,Working,Secondary / secondary special
+HIST-0108,454500.0,76500.0,19255.5,-19795,365243,0.8218,0.6542,,F,1,1,0,Pensioner,Secondary / secondary special
+HIST-0109,500427.0,180000.0,25681.5,-12676,-3154,,0.5243,0.8139,M,1,1,1,Working,Secondary / secondary special
+HIST-0110,675000.0,202500.0,26154.0,-16627,-2194,,0.7167,0.3093,M,1,1,1,Working,Secondary / secondary special
+HIST-0111,669600.0,180000.0,32341.5,-10562,-3109,,0.1923,0.2867,F,1,1,0,Commercial associate,Secondary / secondary special
+HIST-0112,630000.0,225000.0,42102.0,-20843,-7889,0.8104,0.1494,0.2986,F,0,1,0,Working,Secondary / secondary special
+HIST-0113,297000.0,76500.0,19975.5,-11185,-1405,0.2685,0.6137,0.6195,F,0,1,1,Working,Secondary / secondary special
+HIST-0114,180000.0,202500.0,9000.0,-11493,-1177,0.3581,0.4916,0.6529,M,0,1,0,Working,Secondary / secondary special
+HIST-0115,679671.0,135000.0,32827.5,-19985,365243,,0.5204,0.7801,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0116,225000.0,112500.0,17541.0,-13261,-3959,0.2821,0.4883,0.6817,F,0,0,0,Working,Secondary / secondary special
+HIST-0117,673875.0,126000.0,21865.5,-23706,365243,,0.5742,0.6513,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0118,1649376.0,382500.0,51916.5,-20983,-699,,0.7268,0.6496,M,1,1,0,Commercial associate,Higher education
+HIST-0119,1762110.0,292500.0,51520.5,-16265,-3021,,0.7282,,M,1,1,1,Working,Secondary / secondary special
+HIST-0120,225000.0,135000.0,12694.5,-24174,365243,,0.0561,0.7032,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0121,91692.0,90000.0,9760.5,-18966,365243,,0.4948,0.4472,F,0,1,0,Pensioner,Incomplete higher
+HIST-0122,1525482.0,135000.0,42079.5,-18390,-733,,0.665,0.7764,F,0,0,0,Working,Secondary / secondary special
+HIST-0123,315000.0,90000.0,11443.5,-18359,-3097,,0.4655,,F,0,0,0,Commercial associate,Higher education
+HIST-0124,323194.5,135000.0,21991.5,-12523,-1299,,0.3847,0.6941,M,1,1,2,Working,Secondary / secondary special
+HIST-0125,270000.0,270000.0,13500.0,-11755,-681,0.3474,0.7339,0.5762,F,0,1,2,Commercial associate,Secondary / secondary special
+HIST-0126,733315.5,297000.0,39199.5,-21810,-11975,,0.0697,0.2956,F,0,1,0,State servant,Secondary / secondary special
+HIST-0127,247275.0,73350.0,17338.5,-22113,365243,0.7209,0.1595,0.6545,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0128,562500.0,135000.0,18274.5,-19702,-361,0.4602,0.6179,0.3979,F,1,0,0,Commercial associate,Secondary / secondary special
+HIST-0129,175896.0,112500.0,9670.5,-15992,-3861,,0.6463,0.8193,F,0,1,0,Working,Secondary / secondary special
+HIST-0130,888840.0,135000.0,29506.5,-18363,-593,,0.5862,0.7584,F,0,1,1,Commercial associate,Secondary / secondary special
+HIST-0131,270000.0,81000.0,13500.0,-14869,-830,0.443,0.5748,,F,0,1,1,Commercial associate,Secondary / secondary special
+HIST-0132,183384.0,53613.0,10656.0,-24353,365243,,0.2922,0.8277,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0133,1762110.0,409500.0,48586.5,-20586,-488,,0.7725,0.5389,M,0,1,0,Commercial associate,Higher education
+HIST-0134,180000.0,225000.0,9000.0,-14688,-412,0.7299,0.755,0.8095,F,0,1,2,Commercial associate,Secondary / secondary special
+HIST-0135,247500.0,157500.0,28053.0,-8660,-1724,,0.4733,0.3523,M,1,1,0,Working,Secondary / secondary special
+HIST-0136,1372500.0,157500.0,37872.0,-10130,-1024,,0.6643,,F,0,0,0,Working,Higher education
+HIST-0137,270000.0,148500.0,13500.0,-9910,-1529,0.275,0.6664,0.7296,F,0,1,1,Commercial associate,Higher education
+HIST-0138,545040.0,67500.0,19705.5,-17075,-5846,,0.2359,0.6144,F,0,0,2,Working,Secondary / secondary special
+HIST-0139,545040.0,135000.0,25407.0,-10035,-3029,0.639,0.1055,0.3757,F,0,1,0,Working,Secondary / secondary special
+HIST-0140,584766.0,112500.0,29988.0,-19979,365243,0.4703,0.4887,0.3573,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0141,755190.0,135000.0,27985.5,-24275,365243,,0.6798,0.7662,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0142,284400.0,157500.0,10849.5,-13980,-1993,0.6196,0.6868,0.1253,F,0,1,0,Working,Secondary / secondary special
+HIST-0143,101880.0,58500.0,6939.0,-10281,-1676,0.2383,0.2663,,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0144,1096020.0,427500.0,55962.0,-14355,-5779,,0.7473,0.1863,M,1,0,2,Working,Higher education
+HIST-0145,728460.0,112500.0,38938.5,-19779,-5813,0.5699,0.2969,0.6314,F,0,0,0,Commercial associate,Secondary / secondary special
+HIST-0146,318528.0,90000.0,25164.0,-16895,-177,0.4951,0.482,0.2379,F,0,0,0,Working,Secondary / secondary special
+HIST-0147,1056447.0,202500.0,31018.5,-20187,-5221,,0.6898,0.7092,M,1,1,0,Working,Lower secondary
+HIST-0148,573408.0,225000.0,29277.0,-13788,-640,0.1422,0.5704,0.4543,M,0,1,1,Working,Secondary / secondary special
+HIST-0149,590337.0,315000.0,32152.5,-11011,-641,0.125,0.5303,,M,1,1,0,Commercial associate,Higher education
+HIST-0150,490495.5,202500.0,26262.0,-14989,-4352,,0.5961,,F,0,1,0,Working,Secondary / secondary special
+HIST-0151,270000.0,90000.0,13500.0,-11235,-3013,,0.6065,0.8128,F,0,0,1,Working,Secondary / secondary special
+HIST-0152,247500.0,90000.0,12375.0,-14344,-439,0.4546,0.3809,0.5155,F,0,1,2,Commercial associate,Secondary / secondary special
+HIST-0153,906228.0,292500.0,36067.5,-18040,-2269,0.7518,0.6552,0.5083,F,1,0,0,Working,Higher education
+HIST-0154,495000.0,103500.0,15138.0,-21388,365243,,0.6882,0.3791,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0155,76410.0,112500.0,8770.5,-11924,-2871,0.7532,0.1986,,F,0,1,0,Working,Secondary / secondary special
+HIST-0156,601470.0,166500.0,30838.5,-15081,-4990,0.4546,0.2392,0.3523,M,0,1,1,Working,Higher education
+HIST-0157,225000.0,135000.0,15165.0,-18080,-10615,,0.5641,0.5832,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0158,417024.0,135000.0,21451.5,-14376,-3188,0.7426,0.6392,0.3706,F,0,0,2,Working,Higher education
+HIST-0159,291915.0,202500.0,19287.0,-9898,-2406,0.466,0.0182,0.1118,M,1,0,0,State servant,Incomplete higher
+HIST-0160,450000.0,103500.0,19953.0,-17361,-488,0.5227,0.3218,0.6212,M,1,1,0,Working,Secondary / secondary special
+HIST-0161,592560.0,90000.0,32143.5,-15804,-2031,,0.0722,0.2213,M,0,1,1,Working,Secondary / secondary special
+HIST-0162,2290743.0,157500.0,62991.0,-13243,-202,0.5208,0.5726,0.2636,F,0,0,0,Commercial associate,Higher education
+HIST-0163,1125000.0,180000.0,32895.0,-14957,-2907,0.5441,0.5452,0.7504,M,0,0,0,Working,Secondary / secondary special
+HIST-0164,280332.0,135000.0,20065.5,-14417,-144,0.5248,0.6012,0.3893,F,1,1,0,Working,Higher education
+HIST-0165,405000.0,225000.0,21375.0,-11518,-4221,,0.5867,0.5371,F,0,1,1,Working,Secondary / secondary special
+HIST-0166,900000.0,135000.0,26446.5,-19533,-1429,0.3221,0.707,0.7195,M,1,1,0,Working,Secondary / secondary special
+HIST-0167,1288350.0,135000.0,34114.5,-13639,-2392,0.7612,0.7953,0.7062,F,0,0,1,Working,Higher education
+HIST-0168,364896.0,270000.0,22050.0,-19834,-1072,,0.5522,0.4651,M,1,0,0,Commercial associate,Secondary / secondary special
+HIST-0169,225000.0,112500.0,11250.0,-19971,-1686,,0.6937,0.275,F,1,0,0,Working,Secondary / secondary special
+HIST-0170,450000.0,135000.0,19197.0,-18678,-5460,,0.7144,,F,0,1,0,Working,Secondary / secondary special
+HIST-0171,273636.0,315000.0,29601.0,-17232,-948,0.6953,0.5466,0.7463,M,1,1,0,Commercial associate,Higher education
+HIST-0172,180000.0,202500.0,18900.0,-10368,-3162,0.1734,0.3492,,M,0,0,0,State servant,Secondary / secondary special
+HIST-0173,1288350.0,135000.0,41692.5,-11167,-1353,,0.7622,,F,0,1,0,Commercial associate,Higher education
+HIST-0174,1018503.0,207000.0,30879.0,-16228,-998,,0.6726,0.546,M,1,0,1,Working,Secondary / secondary special
+HIST-0175,1078200.0,225000.0,31522.5,-11026,-1955,,0.4404,0.4885,M,1,0,0,Commercial associate,Secondary / secondary special
+HIST-0176,450000.0,225000.0,22018.5,-21180,-6963,0.5779,0.5456,0.151,M,0,1,0,Commercial associate,Higher education
+HIST-0177,675000.0,94500.0,21906.0,-8361,-983,0.1625,0.3393,,F,0,1,0,Working,Incomplete higher
+HIST-0178,1354500.0,315000.0,56029.5,-12717,-1817,0.5012,0.7395,0.6895,F,0,0,0,Commercial associate,Secondary / secondary special
+HIST-0179,450000.0,180000.0,19066.5,-19139,-2605,,0.6371,0.5496,F,1,0,0,Working,Secondary / secondary special
+HIST-0180,298512.0,81000.0,16798.5,-17446,-760,,0.6258,0.0873,F,1,0,0,Working,Secondary / secondary special
+HIST-0181,337500.0,135000.0,16875.0,-12411,-740,0.3165,0.692,0.5442,M,0,1,1,Working,Higher education
+HIST-0182,265851.0,112500.0,21132.0,-11108,-3500,0.2412,0.5917,0.4794,F,0,1,2,Working,Secondary / secondary special
+HIST-0183,315000.0,166500.0,22954.5,-12118,-711,,0.5177,,F,0,1,1,Commercial associate,Higher education
+HIST-0184,674842.5,135000.0,36765.0,-13644,-561,0.197,0.5005,,M,0,0,0,Working,Secondary / secondary special
+HIST-0185,405000.0,193500.0,20250.0,-13003,-3934,,0.4472,0.4347,F,0,0,1,Working,Secondary / secondary special
+HIST-0186,407727.0,112500.0,25074.0,-15275,-4990,,0.5311,0.6895,F,0,1,0,Working,Secondary / secondary special
+HIST-0187,646920.0,135000.0,18670.5,-22535,-579,,0.5598,0.2419,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0188,314100.0,36000.0,19111.5,-18169,-480,,0.4359,,M,1,1,0,Working,Secondary / secondary special
+HIST-0189,225000.0,90000.0,14895.0,-13733,-4379,,0.672,0.2941,F,0,0,1,Working,Secondary / secondary special
+HIST-0190,685012.5,157500.0,19354.5,-13800,-5096,0.6372,0.7754,0.7032,F,0,1,1,Commercial associate,Higher education
+HIST-0191,225000.0,306000.0,23872.5,-15497,-3085,,0.7773,0.643,M,1,0,0,State servant,Secondary / secondary special
+HIST-0192,621000.0,157500.0,24426.0,-23237,365243,,0.6617,0.5744,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0193,523237.5,180000.0,16560.0,-20952,365243,,0.6217,,F,0,1,0,Pensioner,Higher education
+HIST-0194,646920.0,99000.0,20997.0,-16810,-1412,,0.1191,0.1519,M,1,1,1,Working,Incomplete higher
+HIST-0195,193572.0,83250.0,10939.5,-23842,-1870,,0.6281,0.6513,F,1,0,0,Working,Secondary / secondary special
+HIST-0196,182016.0,90000.0,6858.0,-22251,365243,,0.5741,0.2779,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0197,900000.0,103500.0,26316.0,-20807,365243,,0.6823,0.5989,F,0,1,1,Pensioner,Secondary / secondary special
+HIST-0198,1288350.0,189000.0,37800.0,-21335,365243,,0.7512,0.7092,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0199,640080.0,270000.0,31261.5,-12030,-1855,,0.5488,0.6707,M,0,0,0,Working,Lower secondary
+HIST-0200,1078200.0,157500.0,34911.0,-18338,-4925,,0.7128,,M,1,0,0,Working,Secondary / secondary special
+HIST-0201,1206000.0,207000.0,31941.0,-8682,-676,0.278,0.7406,0.182,F,1,0,0,Commercial associate,Higher education
+HIST-0202,1125000.0,675000.0,34240.5,-10355,-1599,,0.6271,,M,1,1,0,Commercial associate,Secondary / secondary special
+HIST-0203,756000.0,180000.0,27153.0,-17902,-1795,0.6988,0.5183,0.2379,F,1,0,0,Working,Secondary / secondary special
+HIST-0204,288873.0,135000.0,16258.5,-19695,365243,0.8049,0.6482,0.7463,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0205,521280.0,202500.0,27292.5,-12017,-44,0.2804,0.6682,0.4365,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0206,1545624.0,225000.0,45193.5,-13789,-522,,0.7097,,F,1,1,1,Working,Higher education
+HIST-0207,269550.0,67500.0,14242.5,-11140,-3431,0.3002,0.2842,0.1941,F,0,1,2,Working,Secondary / secondary special
+HIST-0208,292500.0,108000.0,15061.5,-10220,-2810,0.3786,0.2274,0.3361,F,1,0,1,Working,Secondary / secondary special
+HIST-0209,888840.0,405000.0,29016.0,-22512,-2216,0.7586,0.7321,0.7166,F,0,1,0,Working,Higher education
+HIST-0210,343800.0,157500.0,13090.5,-13158,-5357,,0.6632,0.7649,F,0,0,1,Commercial associate,Higher education
+HIST-0211,269550.0,112500.0,12001.5,-23018,365243,,0.4334,0.7224,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0212,607500.0,337500.0,26757.0,-21407,-3877,0.6009,0.6689,0.7688,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0213,810000.0,67500.0,26770.5,-19464,365243,,0.5959,0.4615,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0214,273024.0,166500.0,21699.0,-14202,-262,0.4366,0.3526,0.2238,F,0,1,2,Working,Secondary / secondary special
+HIST-0215,900000.0,315000.0,29164.5,-9880,-665,0.2683,0.5683,0.3656,M,1,1,0,Working,Higher education
+HIST-0216,67765.5,90000.0,7245.0,-10415,-3379,,0.341,0.6496,M,1,1,1,Working,Higher education
+HIST-0217,971280.0,382500.0,56920.5,-14686,-1469,0.653,0.6349,0.7366,F,0,1,0,State servant,Higher education
+HIST-0218,1528200.0,225000.0,53248.5,-13041,-4016,0.6069,0.7734,0.6626,F,0,1,0,State servant,Higher education
+HIST-0219,244584.0,112500.0,17851.5,-8785,-715,,0.4166,0.6956,M,0,0,1,Working,Secondary / secondary special
+HIST-0220,345510.0,135000.0,18873.0,-19908,-5339,,0.4097,0.5585,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0221,286704.0,45000.0,20083.5,-18732,365243,,0.4466,0.8426,M,1,0,0,Pensioner,Secondary / secondary special
+HIST-0222,405000.0,180000.0,20250.0,-19949,-5586,,0.1708,0.8482,F,0,0,0,Working,Secondary / secondary special
+HIST-0223,900000.0,103500.0,29034.0,-17152,-6906,,0.5605,0.4401,F,0,1,0,Working,Higher education
+HIST-0224,286704.0,135000.0,12757.5,-20494,365243,0.6533,0.6257,0.6058,F,0,1,0,Pensioner,Higher education
+HIST-0225,900000.0,202500.0,35694.0,-12326,-3248,,0.4787,0.3825,F,1,0,3,Working,Secondary / secondary special
+HIST-0226,781920.0,84150.0,25969.5,-22702,365243,0.75,0.4505,0.6212,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0227,168102.0,67500.0,12312.0,-15998,-1709,0.5988,0.534,0.8039,F,0,1,1,Working,Secondary / secondary special
+HIST-0228,725328.0,90000.0,26181.0,-23330,-6110,0.7127,0.6382,0.6941,M,1,1,0,Commercial associate,Secondary / secondary special
+HIST-0229,296280.0,189000.0,17136.0,-20434,-684,0.7618,0.6017,0.5011,F,0,1,0,Working,Higher education
+HIST-0230,450000.0,135000.0,16965.0,-12484,-649,,0.5255,0.6447,F,0,1,1,Working,Secondary / secondary special
+HIST-0231,630000.0,247500.0,32166.0,-13680,-2426,0.2967,0.4971,0.4206,F,0,1,1,Working,Higher education
+HIST-0232,135000.0,135000.0,6750.0,-11493,-1989,,0.6767,0.611,M,0,0,0,Working,Secondary / secondary special
+HIST-0233,532345.5,135000.0,42187.5,-8614,-562,0.408,0.4259,0.7136,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0234,254700.0,90000.0,20119.5,-18019,-1995,0.3234,0.7278,0.5567,M,1,0,0,Working,Secondary / secondary special
+HIST-0235,1762110.0,180000.0,48586.5,-12587,-5399,0.4702,0.7701,0.7584,F,0,1,0,Working,Secondary / secondary special
+HIST-0236,417024.0,112500.0,25330.5,-15922,-850,0.5416,0.1909,0.1368,F,0,0,1,Commercial associate,Secondary / secondary special
+HIST-0237,247275.0,157500.0,19822.5,-9360,-2514,,0.6292,,F,1,0,0,Working,Secondary / secondary special
+HIST-0238,808650.0,90000.0,26217.0,-12239,-608,0.4533,0.5941,0.1841,F,0,1,2,Working,Secondary / secondary special
+HIST-0239,564124.5,135000.0,31500.0,-12107,-150,0.5486,0.2157,0.433,F,1,1,2,Working,Higher education
+HIST-0240,247500.0,67500.0,9301.5,-22887,365243,,0.533,0.6786,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0241,225000.0,180000.0,11250.0,-16212,-4447,0.8624,0.6408,0.5621,M,1,1,0,Working,Secondary / secondary special
+HIST-0242,1636245.0,225000.0,46894.5,-17603,-230,,0.7577,0.6594,M,1,0,0,Commercial associate,Secondary / secondary special
+HIST-0243,647046.0,76500.0,21001.5,-17050,-7900,,0.3651,0.5317,F,0,1,0,Working,Secondary / secondary special
+HIST-0244,1520253.0,135000.0,40104.0,-14880,-1350,,0.4309,0.5815,F,0,0,0,Working,Secondary / secondary special
+HIST-0245,1215000.0,225000.0,46408.5,-20896,-906,,0.6482,0.5083,M,1,1,0,Working,Higher education
+HIST-0246,810000.0,180000.0,23814.0,-11131,-414,0.513,0.6384,0.5245,M,0,1,1,Working,Higher education
+HIST-0247,1971072.0,382500.0,62019.0,-19648,365243,,0.6264,0.7136,M,0,1,0,Pensioner,Secondary / secondary special
+HIST-0248,220500.0,126000.0,17550.0,-11897,-4463,0.3371,0.7493,0.3556,F,1,0,2,Working,Higher education
+HIST-0249,307818.0,225000.0,13689.0,-21634,-990,,0.7045,0.6024,F,0,1,0,State servant,Higher education
+HIST-0250,127350.0,126000.0,13369.5,-10192,-2732,0.449,0.5709,0.354,F,0,1,2,Working,Secondary / secondary special
+HIST-0251,342000.0,121500.0,16762.5,-16784,-224,,0.5799,0.5989,F,1,1,1,Commercial associate,Secondary / secondary special
+HIST-0252,450000.0,144000.0,22500.0,-21806,-1720,0.7564,0.3388,0.6447,M,0,1,2,Working,Secondary / secondary special
+HIST-0253,675000.0,90000.0,26901.0,-21764,365243,,0.6247,,F,0,1,0,Pensioner,Higher education
+HIST-0254,1530000.0,158035.5,40360.5,-16462,-3715,,0.6057,0.6578,F,0,1,1,Commercial associate,Higher education
+HIST-0255,971280.0,135000.0,54234.0,-18403,-4721,0.7546,0.6094,,F,0,0,0,Working,Higher education
+HIST-0256,855000.0,180000.0,27711.0,-10498,-389,0.4206,0.6092,0.6513,F,1,1,1,Working,Higher education
+HIST-0257,808650.0,90000.0,26217.0,-19848,-1830,,0.7191,0.7764,F,0,1,1,Working,Secondary / secondary special
+HIST-0258,334152.0,135000.0,17190.0,-16127,-1913,,0.1351,0.369,M,1,1,1,Working,Higher education
+HIST-0259,675000.0,112500.0,21775.5,-22913,-3540,0.7343,0.5215,0.4669,F,0,0,0,Working,Secondary / secondary special
+HIST-0260,808650.0,148500.0,31464.0,-10219,-852,0.1169,0.0738,,F,0,1,1,Working,Secondary / secondary special
+HIST-0261,719946.0,315000.0,39186.0,-17009,-1889,,0.7287,0.738,M,1,1,1,Working,Secondary / secondary special
+HIST-0262,450000.0,135000.0,30442.5,-10681,-1571,,0.3529,0.2622,M,0,0,0,Working,Secondary / secondary special
+HIST-0263,785398.5,247500.0,31275.0,-21440,-4060,,0.6662,0.4975,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0264,1350000.0,202500.0,39604.5,-16279,365243,,0.6612,0.5281,M,1,0,4,Pensioner,Secondary / secondary special
+HIST-0265,450000.0,112500.0,27324.0,-20936,-8075,0.5345,0.6171,,M,1,0,0,Commercial associate,Secondary / secondary special
+HIST-0266,675000.0,135000.0,21775.5,-13481,-584,0.4454,0.4477,0.4561,F,0,0,2,Working,Secondary / secondary special
+HIST-0267,454500.0,81000.0,24345.0,-23646,365243,0.6968,0.3551,0.7338,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0268,127350.0,112500.0,13500.0,-13136,-3213,0.3659,0.5556,0.7136,F,0,0,1,Commercial associate,Secondary / secondary special
+HIST-0269,1160973.0,225000.0,37449.0,-11194,-1407,0.5314,0.6547,,F,1,1,0,Working,Secondary / secondary special
+HIST-0270,521280.0,135000.0,41926.5,-10334,-482,,0.5907,0.6447,M,1,0,0,Commercial associate,Secondary / secondary special
+HIST-0271,270000.0,270000.0,13500.0,-13740,-7110,0.8282,0.6157,0.4812,F,0,1,1,State servant,Secondary / secondary special
+HIST-0272,2156400.0,270000.0,57015.0,-12105,-1013,0.495,0.4745,0.7422,M,1,1,2,Commercial associate,Incomplete higher
+HIST-0273,76410.0,45000.0,7686.0,-22726,365243,0.9108,0.7023,0.638,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0274,296280.0,202500.0,14382.0,-11164,-1833,,0.2707,,M,1,0,1,Working,Secondary / secondary special
+HIST-0275,1575000.0,450000.0,59989.5,-12425,-897,,0.7342,0.7584,M,1,1,0,Working,Higher education
+HIST-0276,651595.5,315000.0,28831.5,-16760,-2605,0.4944,0.5487,0.4259,F,0,1,1,Working,Higher education
+HIST-0277,454500.0,180000.0,17739.0,-12091,-299,,0.5582,0.3757,M,0,1,2,Working,Secondary / secondary special
+HIST-0278,249606.0,225000.0,27009.0,-16606,-963,,0.5332,0.6024,M,1,1,0,Working,Secondary / secondary special
+HIST-0279,182016.0,112500.0,14508.0,-11633,-1473,,0.6265,0.3265,M,0,1,1,Working,Secondary / secondary special
+HIST-0280,225000.0,36000.0,8613.0,-14245,-81,0.3242,0.4988,,F,1,1,0,Working,Secondary / secondary special
+HIST-0281,225000.0,202500.0,8082.0,-20240,-2638,,0.7111,0.2485,M,1,0,0,Commercial associate,Higher education
+HIST-0282,693301.5,180000.0,35527.5,-16647,365243,0.6873,0.6709,0.3673,M,1,1,0,Pensioner,Higher education
+HIST-0283,1235691.0,112500.0,36261.0,-18469,-1279,0.5437,0.6545,0.6076,M,0,0,0,Commercial associate,Higher education
+HIST-0284,260640.0,135000.0,20898.0,-9950,-1697,,0.6901,0.5815,M,1,0,0,Working,Secondary / secondary special
+HIST-0285,447768.0,202500.0,27391.5,-10593,-288,0.346,0.2888,0.0715,M,1,0,0,Working,Higher education
+HIST-0286,117162.0,243000.0,12748.5,-21157,365243,0.6931,0.3642,0.2289,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0287,508495.5,135000.0,21541.5,-11428,-609,,0.226,,M,0,0,0,Working,Secondary / secondary special
+HIST-0288,715095.0,270000.0,53464.5,-11842,-232,0.5819,0.5155,0.4633,M,0,1,1,Working,Secondary / secondary special
+HIST-0289,180000.0,157500.0,9000.0,-15083,-1632,0.3432,0.5365,0.6578,M,1,1,1,Commercial associate,Secondary / secondary special
+HIST-0290,276277.5,180000.0,21825.0,-14037,-1983,,0.0537,0.3491,M,1,1,0,Working,Secondary / secondary special
+HIST-0291,157500.0,58500.0,7875.0,-8273,-796,,0.0156,,F,0,1,0,Working,Secondary / secondary special
+HIST-0292,675000.0,180000.0,34465.5,-10895,-2364,0.421,0.7261,0.3491,F,1,0,1,Working,Higher education
+HIST-0293,900000.0,128700.0,48082.5,-17985,365243,0.8427,0.6134,,M,0,1,0,Pensioner,Secondary / secondary special
+HIST-0294,405000.0,135000.0,20250.0,-19547,-1385,0.3046,0.6214,0.0005,M,1,1,0,Working,Secondary / secondary special
+HIST-0295,1528200.0,162000.0,55021.5,-22664,365243,0.912,0.6411,0.4507,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0296,182286.0,72000.0,17887.5,-23941,365243,,0.581,0.7662,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0297,180000.0,90000.0,9000.0,-10387,-1938,,0.495,,F,0,0,1,Working,Higher education
+HIST-0298,270000.0,135000.0,13500.0,-14543,-265,0.4216,0.6501,0.5514,F,0,1,1,Working,Higher education
+HIST-0299,1343601.0,202500.0,53415.0,-19531,-2833,,0.7188,0.546,F,1,1,0,Working,Secondary / secondary special
+HIST-0300,191880.0,63000.0,18819.0,-24825,365243,,0.1485,0.4705,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0301,472500.0,135000.0,46161.0,-16710,-2888,,0.7119,,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0302,746280.0,171000.0,45657.0,-8539,-1080,,0.1839,,M,1,0,0,Working,Secondary / secondary special
+HIST-0303,509400.0,225000.0,37197.0,-14704,-1050,0.5793,0.5606,0.2445,F,0,1,1,Working,Secondary / secondary special
+HIST-0304,1035832.5,202500.0,30415.5,-11740,-3377,0.6012,0.7283,0.6414,F,1,0,0,Working,Secondary / secondary special
+HIST-0305,1037110.5,112500.0,41260.5,-23251,365243,,0.7579,0.7714,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0306,816660.0,225000.0,22585.5,-9781,-314,0.2788,0.152,0.151,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0307,180000.0,315000.0,9000.0,-13264,-1452,,0.5792,0.2213,M,1,1,1,Working,Secondary / secondary special
+HIST-0308,180000.0,135000.0,9000.0,-9487,-1650,0.3057,0.6299,,F,0,0,1,Working,Secondary / secondary special
+HIST-0309,573408.0,76500.0,29277.0,-16979,-6839,0.4307,0.511,0.6093,F,0,0,0,State servant,Secondary / secondary special
+HIST-0310,157500.0,337500.0,7875.0,-14233,-732,0.2482,0.5717,0.275,M,1,1,1,Working,Secondary / secondary special
+HIST-0311,485640.0,81000.0,33930.0,-14344,-2354,,0.431,,F,0,1,1,Working,Secondary / secondary special
+HIST-0312,625536.0,59400.0,19093.5,-24056,365243,,0.6145,0.7463,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0313,640080.0,112500.0,29839.5,-11077,-1415,0.4296,0.17,0.6864,F,0,1,0,Commercial associate,Lower secondary
+HIST-0314,679500.0,157500.0,22585.5,-10441,-1910,,0.7173,0.2226,F,0,0,0,Working,Higher education
+HIST-0315,409500.0,67500.0,19917.0,-9243,-2463,,0.4291,,F,0,1,0,Working,Secondary / secondary special
+HIST-0316,450000.0,225000.0,22500.0,-20519,-3042,,0.3508,0.1809,F,0,1,0,Working,Higher education
+HIST-0317,986553.0,135000.0,28273.5,-9018,-192,,0.3384,0.4206,M,0,1,0,Working,Higher education
+HIST-0318,241618.5,112500.0,26149.5,-17290,-7087,0.8657,0.7017,0.7764,F,0,0,2,Commercial associate,Higher education
+HIST-0319,592560.0,315000.0,32274.0,-18932,-2805,,0.611,,M,0,0,0,Commercial associate,Secondary / secondary special
+HIST-0320,254700.0,135000.0,24939.0,-24911,-2919,0.8678,0.5257,0.8328,F,1,1,0,Working,Secondary / secondary special
+HIST-0321,514777.5,234000.0,27553.5,-23693,365243,,0.7655,0.7958,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0322,188685.0,81000.0,13261.5,-20362,-1632,0.8746,0.4739,0.691,F,0,1,0,Working,Secondary / secondary special
+HIST-0323,450000.0,225000.0,29299.5,-14004,-1072,0.6928,0.7098,0.7726,F,1,1,0,Working,Higher education
+HIST-0324,1125000.0,67500.0,33025.5,-19035,365243,,0.5581,0.7764,F,1,1,1,Pensioner,Secondary / secondary special
+HIST-0325,202500.0,67500.0,10125.0,-10333,-2217,,0.567,,F,0,1,0,State servant,Higher education
+HIST-0326,675000.0,225000.0,33750.0,-23564,365243,,0.6481,0.7324,F,0,1,0,Pensioner,Higher education
+HIST-0327,922266.0,157500.0,39204.0,-13561,-1272,0.5939,0.7431,0.6127,F,1,0,1,Working,Secondary / secondary special
+HIST-0328,180000.0,45000.0,9000.0,-18885,-3421,,0.6074,0.6529,F,0,1,0,Working,Secondary / secondary special
+HIST-0329,288873.0,135000.0,16713.0,-16187,-1598,,0.662,0.7092,M,0,1,0,Working,Secondary / secondary special
+HIST-0330,259794.0,207000.0,27976.5,-17040,-1384,,0.3534,,M,0,1,0,Working,Higher education
+HIST-0331,495000.0,202500.0,24750.0,-14434,-3310,,0.7107,0.4939,F,1,0,0,Commercial associate,Higher education
+HIST-0332,646920.0,135000.0,19044.0,-22247,365243,,0.0922,0.3911,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0333,733315.5,180000.0,39069.0,-16356,-6215,,0.2665,0.5407,M,1,0,0,Working,Secondary / secondary special
+HIST-0334,1724220.0,225000.0,47542.5,-23587,-3824,,0.742,0.7838,M,1,1,0,Working,Higher education
+HIST-0335,521280.0,112500.0,27292.5,-12173,-1891,0.4194,0.6722,0.4118,F,1,1,0,Working,Secondary / secondary special
+HIST-0336,859500.0,112500.0,25128.0,-13642,-3136,,0.5838,0.661,M,1,1,0,Working,Higher education
+HIST-0337,946503.0,337500.0,37665.0,-14847,-122,0.7403,0.6371,0.2263,F,1,1,0,Commercial associate,Higher education
+HIST-0338,1006920.0,180000.0,51543.0,-15267,-3587,,0.5246,,M,1,1,0,Commercial associate,Secondary / secondary special
+HIST-0339,270000.0,247500.0,13500.0,-19419,-1523,0.4119,0.3193,,M,0,1,0,Working,Secondary / secondary special
+HIST-0340,562981.5,180000.0,17806.5,-8406,-1015,,0.5452,,F,1,0,0,Working,Incomplete higher
+HIST-0341,369720.0,94500.0,23755.5,-11389,-201,,0.3272,0.4651,F,0,1,2,Working,Secondary / secondary special
+HIST-0342,253737.0,157500.0,16650.0,-10247,-916,,0.2243,0.7436,M,0,1,1,Commercial associate,Secondary / secondary special
+HIST-0343,781920.0,157500.0,41787.0,-22395,365243,,0.7355,0.2419,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0344,225000.0,135000.0,17905.5,-13650,-2704,0.4103,0.6927,0.5691,F,0,1,2,Commercial associate,Secondary / secondary special
+HIST-0345,1350000.0,141111.0,39514.5,-20644,-8804,,0.6466,0.6397,F,0,1,0,State servant,Secondary / secondary special
+HIST-0346,180000.0,157500.0,9000.0,-9242,-463,,0.6014,0.433,M,1,1,0,Working,Higher education
+HIST-0347,568800.0,112500.0,15133.5,-17470,-2462,0.7575,0.603,0.6513,M,0,0,1,Working,Higher education
+HIST-0348,1779030.0,157500.0,47061.0,-14647,-3940,,0.6048,0.5709,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0349,1024290.0,202500.0,28296.0,-15715,-181,0.7913,0.6882,0.7062,M,0,1,0,Commercial associate,Higher education
+HIST-0350,787131.0,171000.0,30762.0,-10899,-2449,0.3116,0.6639,,F,1,1,2,Working,Secondary / secondary special
+HIST-0351,452385.0,135000.0,22131.0,-10107,-1688,,0.0843,0.1028,M,0,0,0,Working,Secondary / secondary special
+HIST-0352,679500.0,90000.0,19867.5,-12243,-1896,,0.5261,0.5389,F,1,0,0,Working,Secondary / secondary special
+HIST-0353,1363500.0,157500.0,37624.5,-10104,-396,,0.7065,0.7092,M,1,0,0,Working,Secondary / secondary special
+HIST-0354,239850.0,135000.0,25317.0,-18035,-3466,,0.6984,0.8564,M,0,0,0,Working,Secondary / secondary special
+HIST-0355,127350.0,45000.0,12726.0,-21732,365243,,0.6496,0.6212,F,0,1,0,Pensioner,Higher education
+HIST-0356,170640.0,67500.0,6561.0,-14770,-523,0.8028,0.3107,0.7981,F,0,1,0,Working,Lower secondary
+HIST-0357,593010.0,56250.0,21915.0,-20705,365243,0.5892,0.6364,0.5656,F,1,1,0,Pensioner,Secondary / secondary special
+HIST-0358,405000.0,360000.0,20250.0,-13678,-5009,,0.3539,0.7463,F,1,0,0,State servant,Higher education
+HIST-0359,1339884.0,202500.0,39307.5,-12122,-2418,,0.4756,0.4171,F,1,0,1,Commercial associate,Secondary / secondary special
+HIST-0360,855882.0,315000.0,31846.5,-15061,-3498,,0.1606,0.5549,M,1,0,0,Working,Higher education
+HIST-0361,675000.0,256500.0,33750.0,-14765,-166,0.5993,0.6351,0.4418,F,0,1,2,State servant,Higher education
+HIST-0362,239850.0,112500.0,23494.5,-24583,365243,,0.7475,0.6659,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0363,180000.0,81000.0,9000.0,-10201,-1730,,0.6229,0.5902,F,0,1,3,Working,Secondary / secondary special
+HIST-0364,269550.0,157500.0,24853.5,-10032,-589,,0.3921,0.3249,M,1,0,2,Commercial associate,Secondary / secondary special
+HIST-0365,1006920.0,270000.0,40059.0,-22195,-3036,,0.717,,M,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0366,555273.0,126000.0,16236.0,-22161,-2913,,0.4296,0.5867,F,0,1,0,Working,Secondary / secondary special
+HIST-0367,675000.0,112500.0,19867.5,-22634,365243,,0.2653,0.6297,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0368,225000.0,135000.0,24363.0,-10454,-691,,0.5566,0.4812,M,0,1,0,Working,Higher education
+HIST-0369,263686.5,90000.0,25816.5,-21242,365243,,0.257,,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0370,270000.0,112500.0,16443.0,-15563,-1342,0.3414,0.5954,,F,0,0,0,Commercial associate,Secondary / secondary special
+HIST-0371,452385.0,42750.0,22131.0,-16565,-8593,,0.3193,,M,1,1,0,Working,Secondary / secondary special
+HIST-0372,900000.0,112500.0,57649.5,-17302,-564,,0.6557,,F,1,1,0,Commercial associate,Secondary / secondary special
+HIST-0373,450000.0,112500.0,30442.5,-13743,-342,,0.5279,0.1929,M,0,0,1,Working,Incomplete higher
+HIST-0374,539100.0,157500.0,29245.5,-10232,-3272,0.2486,0.3923,0.5353,F,1,0,1,State servant,Secondary / secondary special
+HIST-0375,354276.0,270000.0,13486.5,-20876,365243,0.4956,0.5687,0.4277,M,1,1,0,Pensioner,Secondary / secondary special
+HIST-0376,1006920.0,108000.0,42660.0,-22687,365243,0.6145,0.6309,,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0377,255960.0,112500.0,15786.0,-13826,-153,0.6198,0.5225,,F,0,1,1,Commercial associate,Higher education
+HIST-0378,1971072.0,247500.0,68643.0,-11906,-2834,0.4469,0.7221,0.2445,F,0,0,1,Working,Higher education
+HIST-0379,144801.0,67500.0,13410.0,-9827,-2468,,0.2149,,F,0,1,0,Working,Secondary / secondary special
+HIST-0380,247500.0,67500.0,12375.0,-16968,-1221,,0.5704,,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0381,505665.0,130500.0,19192.5,-19275,-2376,,0.5739,0.5656,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0382,953460.0,405000.0,68922.0,-13547,-297,0.4842,0.7235,,M,1,1,2,Working,Higher education
+HIST-0383,269550.0,90000.0,18234.0,-16266,-816,,0.381,0.4579,F,0,0,0,Working,Incomplete higher
+HIST-0384,272520.0,61875.0,16803.0,-21630,365243,,0.6725,,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0385,592560.0,90000.0,35937.0,-11595,-2577,,0.3403,,F,1,0,2,State servant,Higher education
+HIST-0386,1125000.0,202500.0,60070.5,-17789,-2815,,0.4515,,F,1,1,0,Commercial associate,Higher education
+HIST-0387,225000.0,157500.0,10944.0,-19779,-8931,0.7336,0.6891,0.4957,F,0,1,0,Working,Secondary / secondary special
+HIST-0388,450000.0,79767.0,16677.0,-10059,-219,0.4754,0.609,,M,0,0,0,Commercial associate,Secondary / secondary special
+HIST-0389,339241.5,112500.0,12919.5,-10744,-933,0.3368,0.6876,0.4561,F,0,1,1,Working,Secondary / secondary special
+HIST-0390,776304.0,135000.0,25042.5,-12180,-1955,0.5476,0.5779,,F,0,1,0,State servant,Higher education
+HIST-0391,500490.0,225000.0,53901.0,-10434,-1353,,0.0766,0.1351,M,1,1,0,Working,Secondary / secondary special
+HIST-0392,270000.0,450000.0,13500.0,-13217,-2694,0.5671,0.6125,0.5137,M,0,1,2,Commercial associate,Higher education
+HIST-0393,450000.0,67500.0,22018.5,-16475,-3415,,0.2373,0.2512,F,0,1,0,Working,Secondary / secondary special
+HIST-0394,431280.0,139500.0,22149.0,-20908,365243,0.6269,0.4108,0.3842,F,1,1,1,Pensioner,Higher education
+HIST-0395,143910.0,436500.0,14364.0,-19539,-7985,,0.6869,0.7714,M,1,1,0,State servant,Secondary / secondary special
+HIST-0396,225000.0,90000.0,11250.0,-11929,-103,0.4602,0.3493,0.3297,F,0,1,2,Working,Secondary / secondary special
+HIST-0397,360000.0,112500.0,18000.0,-14574,-6822,0.1948,0.4837,0.5691,M,1,1,1,Working,Secondary / secondary special
+HIST-0398,943902.0,675000.0,65826.0,-17056,-3466,,0.5549,0.4633,F,1,1,0,Commercial associate,Higher education
+HIST-0399,728460.0,112500.0,44694.0,-18913,-226,,0.6593,,M,0,1,0,Working,Secondary / secondary special
+HIST-0400,1051632.0,180000.0,44554.5,-21699,365243,,0.3035,,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0401,1215499.5,315000.0,40302.0,-16935,-2994,,0.6245,,M,1,0,1,Working,Secondary / secondary special
+HIST-0402,284400.0,180000.0,22599.0,-17711,-3021,,0.7778,,M,1,1,0,Working,Secondary / secondary special
+HIST-0403,284400.0,157500.0,17397.0,-24406,-4194,0.754,0.7086,0.3573,F,0,1,0,Working,Lower secondary
+HIST-0404,314055.0,135000.0,13963.5,-15901,-1575,,0.6623,0.6833,F,0,1,0,Working,Secondary / secondary special
+HIST-0405,961146.0,112500.0,28233.0,-17646,-4137,,0.6655,0.8246,F,0,1,0,Commercial associate,Higher education
+HIST-0406,1622691.0,157500.0,44752.5,-14115,-1003,0.6201,0.5706,0.7463,F,0,1,0,State servant,Higher education
+HIST-0407,1341000.0,112500.0,37008.0,-20690,365243,,0.5655,0.0932,F,1,1,0,Pensioner,Secondary / secondary special
+HIST-0408,650758.5,225000.0,33696.0,-9845,-741,0.377,0.6199,,M,1,1,0,Commercial associate,Higher education
+HIST-0409,545040.0,67500.0,26640.0,-10671,-1523,0.3119,0.363,0.5902,M,0,1,1,Working,Secondary / secondary special
+HIST-0410,178290.0,63000.0,12042.0,-19267,365243,,0.5257,0.6941,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0411,1327500.0,171000.0,36504.0,-14795,-2328,,0.7,0.7408,M,1,1,0,Commercial associate,Secondary / secondary special
+HIST-0412,675000.0,63000.0,19867.5,-22348,365243,,0.0888,0.5797,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0413,1528182.0,189000.0,56763.0,-12505,-4746,0.2458,0.1992,,M,1,1,2,State servant,Secondary / secondary special
+HIST-0414,152820.0,90000.0,16344.0,-15874,-531,,0.5172,,M,0,0,1,Working,Secondary / secondary special
+HIST-0415,1528200.0,202500.0,53118.0,-15092,-1610,,0.6273,0.3639,F,0,0,0,State servant,Higher education
+HIST-0416,562491.0,90000.0,23962.5,-11748,-588,,0.4989,0.7714,M,0,0,0,Working,Secondary / secondary special
+HIST-0417,450000.0,270000.0,21888.0,-10941,-939,,0.5092,0.585,F,1,0,0,Working,Incomplete higher
+HIST-0418,298512.0,166500.0,30717.0,-20721,-1196,,0.2879,0.3842,F,0,0,0,Working,Secondary / secondary special
+HIST-0419,314100.0,90000.0,13437.0,-23823,365243,,0.5754,,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0420,208854.0,90000.0,24786.0,-9980,-733,0.1384,0.2333,0.6297,M,0,1,1,Working,Secondary / secondary special
+HIST-0421,837000.0,157500.0,54931.5,-9549,-982,,0.5427,0.5496,M,0,1,1,Commercial associate,Higher education
+HIST-0422,269550.0,180000.0,13095.0,-18450,-4823,,0.546,0.3962,F,0,1,0,Working,Secondary / secondary special
+HIST-0423,1125000.0,180000.0,44617.5,-18318,-1512,,0.5972,0.6895,F,0,1,0,Working,Secondary / secondary special
+HIST-0424,292500.0,202500.0,25150.5,-15874,-1576,,0.6495,0.5797,M,1,1,0,Working,Secondary / secondary special
+HIST-0425,180000.0,112500.0,9000.0,-8796,-1849,,0.46,0.585,F,0,1,0,Commercial associate,Higher education
+HIST-0426,1102500.0,337500.0,49950.0,-21870,-1375,0.804,0.6436,0.4776,F,0,1,0,Working,Higher education
+HIST-0427,238896.0,67500.0,11133.0,-13687,-3296,,0.1178,0.2595,F,0,0,0,Working,Secondary / secondary special
+HIST-0428,388512.0,247500.0,31279.5,-11140,-860,0.2753,0.5739,0.6926,M,0,1,0,Working,Secondary / secondary special
+HIST-0429,417024.0,112500.0,18499.5,-15985,-1157,,0.3103,0.638,M,1,1,0,Working,Secondary / secondary special
+HIST-0430,1668555.0,405000.0,108018.0,-19353,-12099,,0.4153,,M,1,1,0,Working,Higher education
+HIST-0431,58500.0,112500.0,4288.5,-20962,365243,0.5794,0.5529,0.4507,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0432,121500.0,103500.0,9211.5,-21962,365243,,0.6373,0.6987,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0433,171000.0,90000.0,16785.0,-25177,365243,,0.3532,0.8464,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0434,536917.5,157500.0,28737.0,-13463,-316,0.3968,0.6014,0.6545,F,1,0,0,Working,Secondary / secondary special
+HIST-0435,986553.0,112500.0,28404.0,-14103,-3523,0.7992,0.6374,0.643,F,0,0,1,Working,Secondary / secondary special
+HIST-0436,1042560.0,157500.0,40702.5,-10189,-973,,0.619,0.5424,M,1,0,1,State servant,Secondary / secondary special
+HIST-0437,696528.0,135000.0,42741.0,-23256,365243,,0.6935,0.6578,M,0,1,0,Pensioner,Secondary / secondary special
+HIST-0438,1262583.0,153000.0,37044.0,-17973,-1076,,0.7149,0.5832,M,1,1,0,Working,Higher education
+HIST-0439,370629.0,108000.0,13311.0,-21385,-4372,,0.436,0.374,F,0,0,0,Working,Secondary / secondary special
+HIST-0440,566055.0,112500.0,20794.5,-20300,-7108,,0.5729,0.2822,F,0,1,0,Working,Secondary / secondary special
+HIST-0441,450000.0,180000.0,35554.5,-18320,-2035,,0.2721,0.2263,M,1,0,0,Commercial associate,Secondary / secondary special
+HIST-0442,1156500.0,171000.0,31932.0,-18206,-2388,,0.2631,0.3979,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0443,900000.0,112500.0,35824.5,-22369,365243,,0.3392,0.7544,M,1,1,0,Pensioner,Secondary / secondary special
+HIST-0444,397881.0,112500.0,20340.0,-16519,-2446,,0.5623,0.8225,F,0,0,0,Commercial associate,Secondary / secondary special
+HIST-0445,473760.0,292500.0,45112.5,-20909,-4328,,0.7353,0.6817,F,0,0,1,Commercial associate,Higher education
+HIST-0446,1125000.0,225000.0,33025.5,-15335,-189,,0.7055,,F,0,1,1,State servant,Higher education
+HIST-0447,220662.0,64350.0,21955.5,-23740,365243,,0.3357,0.4454,M,1,1,0,Pensioner,Secondary / secondary special
+HIST-0448,755190.0,225000.0,36459.0,-15286,-3322,0.8413,0.4928,0.4418,F,1,1,0,Commercial associate,Secondary / secondary special
+HIST-0449,1078200.0,180000.0,33597.0,-10964,-366,0.3044,0.6711,0.4136,M,1,0,0,Commercial associate,Higher education
+HIST-0450,814500.0,157500.0,23814.0,-21882,365243,,0.4756,0.6178,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0451,1129500.0,225000.0,33156.0,-15097,-2998,0.7226,0.4751,0.6895,F,1,1,0,Commercial associate,Secondary / secondary special
+HIST-0452,495000.0,144000.0,26500.5,-15536,-2804,0.7521,0.4219,,F,0,1,0,Working,Higher education
+HIST-0453,353241.0,225000.0,28039.5,-12717,-306,0.2298,0.4605,,F,0,1,0,Working,Secondary / secondary special
+HIST-0454,539100.0,270000.0,27652.5,-12668,-3053,,0.6323,0.2622,F,0,1,0,Working,Higher education
+HIST-0455,508495.5,198000.0,20164.5,-19858,-191,0.7757,0.5796,0.805,M,0,0,0,Commercial associate,Higher education
+HIST-0456,742936.5,90000.0,25564.5,-7729,-327,,0.6462,,M,0,0,0,Commercial associate,Incomplete higher
+HIST-0457,727785.0,135000.0,19327.5,-17826,-2498,,0.2844,,F,0,0,0,Working,Secondary / secondary special
+HIST-0458,74182.5,72000.0,5544.0,-20628,365243,,0.5822,0.3606,F,0,1,0,Pensioner,Higher education
+HIST-0459,227520.0,81000.0,8172.0,-14989,-5557,,0.1022,0.8005,F,0,1,0,Working,Secondary / secondary special
+HIST-0460,314100.0,225000.0,16164.0,-16175,-2371,,0.6253,0.5815,M,1,1,1,Working,Secondary / secondary special
+HIST-0461,900000.0,180000.0,38133.0,-23746,365243,0.8378,0.4882,0.4723,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0462,254700.0,135000.0,27153.0,-11703,-178,0.4112,0.595,0.359,F,1,1,1,Working,Higher education
+HIST-0463,675000.0,180000.0,65889.0,-22710,365243,0.8441,0.7442,,F,1,1,0,Pensioner,Secondary / secondary special
+HIST-0464,315000.0,90000.0,24885.0,-12047,-404,,0.1984,0.5797,F,0,0,0,Working,Higher education
+HIST-0465,156384.0,67500.0,15597.0,-18494,-6562,0.6986,0.4263,0.6024,F,0,1,0,Working,Secondary / secondary special
+HIST-0466,595912.5,270000.0,47776.5,-14785,-1001,,0.7323,,M,1,1,0,Working,Secondary / secondary special
+HIST-0467,934893.0,193500.0,33709.5,-14882,-1171,,0.5309,,M,1,1,1,Working,Secondary / secondary special
+HIST-0468,848745.0,225000.0,46174.5,-10650,-2176,0.7436,0.6867,0.6833,F,0,0,0,Working,Higher education
+HIST-0469,103500.0,90000.0,5746.5,-22855,365243,0.6808,0.3038,0.7122,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0470,225000.0,117000.0,11560.5,-14473,-798,,0.1769,0.2104,F,0,0,0,Working,Secondary / secondary special
+HIST-0471,742500.0,364500.0,21838.5,-12044,-662,0.2362,0.7343,0.661,M,1,1,0,Working,Higher education
+HIST-0472,135000.0,112500.0,6750.0,-23024,365243,0.7664,0.0744,,F,0,1,0,Pensioner,Lower secondary
+HIST-0473,832500.0,166500.0,60061.5,-17049,-1956,,0.6507,0.4401,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0474,341280.0,180000.0,24961.5,-10241,-1767,0.4906,0.6089,0.5011,M,1,1,0,Working,Higher education
+HIST-0475,327024.0,157500.0,21982.5,-10467,-811,0.5507,0.3116,,F,0,1,1,Working,Secondary / secondary special
+HIST-0476,56880.0,135000.0,4621.5,-10074,-753,,0.7617,0.449,F,1,1,0,Commercial associate,Incomplete higher
+HIST-0477,547344.0,112500.0,17919.0,-20918,365243,,0.6146,,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0478,220662.0,90000.0,26185.5,-10182,-555,,0.0624,,M,0,1,0,Working,Secondary / secondary special
+HIST-0479,225000.0,103500.0,8613.0,-19179,-1838,,0.1621,0.5709,F,0,1,1,Working,Secondary / secondary special
+HIST-0480,450000.0,45000.0,17095.5,-15377,-2444,,0.4797,,M,1,0,3,State servant,Secondary / secondary special
+HIST-0481,508495.5,135000.0,22396.5,-21125,365243,0.3886,0.3605,0.5281,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0482,143910.0,135000.0,14148.0,-23161,365243,,0.664,,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0483,1260000.0,135000.0,34780.5,-21413,365243,,0.2265,,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0484,1166724.0,270000.0,34245.0,-16321,-6459,,0.6111,0.7662,M,1,1,1,Commercial associate,Higher education
+HIST-0485,270000.0,135000.0,13500.0,-9599,-1488,,0.243,0.6738,M,1,0,0,Working,Secondary / secondary special
+HIST-0486,248760.0,135000.0,26118.0,-22081,365243,0.6928,0.6834,0.3979,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0487,225000.0,360000.0,11250.0,-11539,-137,,0.6827,0.3425,F,0,1,1,Commercial associate,Higher education
+HIST-0488,463500.0,153000.0,33727.5,-13283,-1324,0.4182,0.758,0.4136,F,0,1,2,Commercial associate,Higher education
+HIST-0489,675000.0,540000.0,53460.0,-11673,-629,0.3207,0.1816,0.1907,F,1,1,0,Commercial associate,Incomplete higher
+HIST-0490,675000.0,112500.0,32602.5,-13118,-881,,0.5908,0.8651,M,1,1,1,Working,Secondary / secondary special
+HIST-0491,355536.0,450000.0,18283.5,-13741,-2452,0.1669,0.5171,0.3928,F,1,1,1,Working,Secondary / secondary special
+HIST-0492,584014.5,112500.0,28224.0,-8929,-934,,0.6558,0.5281,F,0,1,0,Working,Higher education
+HIST-0493,180000.0,112500.0,9000.0,-14638,-632,,0.6782,0.4507,F,0,1,1,Working,Secondary / secondary special
+HIST-0494,1030500.0,450000.0,30258.0,-15684,-1167,0.5699,0.6602,0.7597,F,1,1,1,Commercial associate,Secondary / secondary special
+HIST-0495,630000.0,157500.0,17455.5,-13874,-344,,0.5499,0.2852,M,0,0,0,Working,Secondary / secondary special
+HIST-0496,521280.0,202500.0,27423.0,-10673,-559,0.5144,0.6446,0.3281,F,0,1,0,Commercial associate,Higher education
+HIST-0497,1125000.0,450000.0,62950.5,-12442,-2002,,0.6552,0.4418,M,1,1,1,Working,Secondary / secondary special
+HIST-0498,323388.0,189000.0,19386.0,-8609,-1307,0.1713,0.6739,0.5727,M,1,1,0,Working,Secondary / secondary special
+HIST-0499,256500.0,135000.0,17271.0,-11413,-542,0.1832,0.2994,0.5955,M,1,1,0,Commercial associate,Secondary / secondary special
+HIST-0500,450000.0,112500.0,35685.0,-14629,-1188,,0.5562,0.6178,F,0,1,1,Working,Secondary / secondary special
+HIST-0501,454500.0,180000.0,25506.0,-21608,365243,0.7451,0.6367,0.3491,F,0,1,0,Pensioner,Higher education
+HIST-0502,381528.0,90000.0,14512.5,-16868,-474,,0.6667,0.2986,F,1,1,0,Working,Secondary / secondary special
+HIST-0503,1312110.0,382500.0,52168.5,-17175,-6341,0.7276,0.7174,0.2779,F,0,1,0,State servant,Secondary / secondary special
+HIST-0504,267336.0,112500.0,13131.0,-9219,-1651,,0.339,,M,0,0,1,Working,Lower secondary
+HIST-0505,277969.5,90000.0,17136.0,-21096,-5451,,0.6628,0.628,F,0,1,0,Working,Secondary / secondary special
+HIST-0506,755190.0,157500.0,38686.5,-9381,-2554,0.3889,0.1781,0.4472,F,0,1,1,Commercial associate,Secondary / secondary special
+HIST-0507,862560.0,180000.0,25348.5,-17296,-10073,0.3751,0.6077,0.4418,F,1,1,0,Working,Secondary / secondary special
+HIST-0508,517500.0,90000.0,15817.5,-20640,365243,,0.6616,0.4153,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0509,1468719.0,157500.0,40518.0,-10546,-2245,,0.6319,0.7851,M,1,0,0,Commercial associate,Higher education
+HIST-0510,755190.0,157500.0,36459.0,-21516,365243,,0.565,0.374,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0511,544491.0,81000.0,21096.0,-13733,-2057,,0.5586,0.317,F,0,0,0,Working,Secondary / secondary special
+HIST-0512,1024740.0,211500.0,52452.0,-13911,-1957,0.4357,0.7205,0.5762,F,1,1,0,Working,Secondary / secondary special
+HIST-0513,2013840.0,247500.0,53253.0,-16528,-6249,,0.3827,0.3265,F,1,0,0,State servant,Higher education
+HIST-0514,314100.0,99000.0,21375.0,-8005,-254,,0.0852,0.0862,M,0,1,1,Working,Secondary / secondary special
+HIST-0515,202500.0,135000.0,10125.0,-16595,-3638,0.6228,0.7432,0.6848,F,1,1,0,Working,Secondary / secondary special
+HIST-0516,254700.0,105750.0,25321.5,-24827,365243,,0.6025,0.7136,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0517,545040.0,337500.0,26640.0,-17861,-813,,0.6075,0.0398,F,1,1,0,Commercial associate,Secondary / secondary special
+HIST-0518,1152000.0,108000.0,30519.0,-11247,-2680,0.2197,0.289,0.7726,F,0,0,0,Working,Higher education
+HIST-0519,270000.0,225000.0,21645.0,-12735,-779,0.6053,0.6087,0.374,M,1,0,0,Working,Secondary / secondary special
+HIST-0520,1525482.0,157500.0,62955.0,-21798,365243,0.7389,0.7987,0.5937,F,1,1,0,Pensioner,Higher education
+HIST-0521,225000.0,225000.0,9909.0,-14917,-2064,,0.7875,0.8358,M,1,1,2,Working,Secondary / secondary special
+HIST-0522,180000.0,67500.0,9000.0,-11808,-268,,0.3986,0.638,F,0,1,1,Commercial associate,Secondary / secondary special
+HIST-0523,810000.0,202500.0,26896.5,-14775,-2408,0.4618,0.7057,0.4294,M,0,1,0,Working,Secondary / secondary special
+HIST-0524,180000.0,135000.0,9000.0,-10388,-3092,0.3378,0.3686,0.4921,F,0,1,1,Working,Secondary / secondary special
+HIST-0525,239850.0,112500.0,23719.5,-24823,-3234,0.7619,0.1585,,F,0,1,0,Working,Secondary / secondary special
+HIST-0526,730017.0,225000.0,35118.0,-19809,-1539,,0.7027,0.2567,F,1,1,0,Working,Secondary / secondary special
+HIST-0527,1078200.0,117000.0,28570.5,-20363,-1767,0.6212,0.3528,0.5227,M,1,0,0,Working,Secondary / secondary special
+HIST-0528,805500.0,157500.0,29061.0,-15667,-3103,0.7128,0.6362,0.578,M,1,1,1,Working,Secondary / secondary special
+HIST-0529,256500.0,112500.0,27063.0,-21098,365243,,0.4798,0.6212,F,0,1,1,Pensioner,Secondary / secondary special
+HIST-0530,526491.0,112500.0,19039.5,-13464,-1081,,0.729,,F,1,1,2,Commercial associate,Secondary / secondary special
+HIST-0531,107820.0,45000.0,8190.0,-24240,365243,,0.6091,0.7463,F,0,0,0,Pensioner,Secondary / secondary special
+HIST-0532,741235.5,243000.0,37845.0,-13130,-249,0.6858,0.7233,0.5972,F,1,1,0,Commercial associate,Higher education
+HIST-0533,515529.0,135000.0,31279.5,-9112,-1215,,0.2174,,M,1,1,0,Working,Secondary / secondary special
+HIST-0534,495000.0,157500.0,23814.0,-18053,-3987,,0.2004,,F,0,1,0,Working,Secondary / secondary special
+HIST-0535,187704.0,135000.0,10611.0,-16434,-5108,0.4783,0.6629,0.6076,F,0,1,1,Working,Secondary / secondary special
+HIST-0536,1042164.0,157500.0,43137.0,-23367,365243,,0.4566,0.2679,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0537,132444.0,99000.0,13032.0,-24822,365243,,0.6279,0.4705,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0538,450000.0,157500.0,22500.0,-11195,-529,0.6793,0.5379,,F,0,0,0,Commercial associate,Higher education
+HIST-0539,675000.0,180000.0,45238.5,-17797,-4167,0.6076,0.5056,0.6941,M,0,0,0,Commercial associate,Secondary / secondary special
+HIST-0540,640080.0,225000.0,29970.0,-10274,-3613,,0.5466,0.6314,M,1,1,0,Commercial associate,Secondary / secondary special
+HIST-0541,612000.0,99000.0,42592.5,-14083,-5831,0.8413,0.6491,,F,0,1,2,State servant,Higher education
+HIST-0542,719860.5,427500.0,48429.0,-19901,-6705,,0.6922,0.1725,F,1,0,0,Working,Higher education
+HIST-0543,652500.0,36000.0,19075.5,-21411,365243,,0.6945,0.7911,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0544,781920.0,157500.0,41400.0,-9210,-175,,0.6044,0.2512,M,0,0,0,Working,Higher education
+HIST-0545,315000.0,225000.0,29146.5,-16459,-3521,,0.614,0.7077,F,0,1,0,Working,Secondary / secondary special
+HIST-0546,1687266.0,270000.0,62527.5,-17322,-9378,0.8459,0.5637,0.5727,F,1,0,0,Working,Higher education
+HIST-0547,1125000.0,247500.0,33025.5,-14443,-1690,0.5947,0.7224,0.4758,F,0,0,0,Commercial associate,Secondary / secondary special
+HIST-0548,807984.0,202500.0,43177.5,-16076,-1453,,0.6156,0.2941,M,1,1,1,Commercial associate,Secondary / secondary special
+HIST-0549,239850.0,148500.0,22423.5,-13643,-1395,,0.7164,0.5797,F,0,1,0,Commercial associate,Higher education
+HIST-0550,1228500.0,315000.0,33912.0,-21610,-14299,,0.6466,0.4066,F,0,1,0,Working,Secondary / secondary special
+HIST-0551,685012.5,292500.0,29151.0,-21872,-2707,,0.6908,0.6058,F,0,1,0,Commercial associate,Higher education
+HIST-0552,679500.0,243000.0,26946.0,-16388,-3684,,0.6052,0.4347,F,1,1,1,Working,Secondary / secondary special
+HIST-0553,1350000.0,202873.5,35613.0,-18087,-558,,0.5792,0.7002,M,1,1,0,Commercial associate,Secondary / secondary special
+HIST-0554,225000.0,171000.0,11250.0,-20498,365243,,0.5082,0.6675,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0555,135000.0,49500.0,6750.0,-22162,365243,,0.5941,,M,0,1,0,Pensioner,Secondary / secondary special
+HIST-0556,1288350.0,144000.0,37800.0,-16511,-315,0.7217,0.4814,,F,0,0,0,Working,Secondary / secondary special
+HIST-0557,474363.0,171000.0,25861.5,-12229,-1666,,0.5716,0.433,F,1,1,2,Working,Secondary / secondary special
+HIST-0558,532494.0,225000.0,34159.5,-10055,-172,0.3093,0.6858,0.5029,M,1,1,0,Commercial associate,Secondary / secondary special
+HIST-0559,1546020.0,283500.0,45333.0,-16012,-1817,,0.5781,0.4014,F,0,1,1,Working,Secondary / secondary special
+HIST-0560,900000.0,247500.0,26446.5,-15090,-2324,0.4343,0.5541,0.643,F,0,1,1,Working,Higher education
+HIST-0561,1185282.0,225000.0,34780.5,-19754,-3404,0.7996,0.7223,0.5902,F,0,1,1,State servant,Higher education
+HIST-0562,518562.0,135000.0,22972.5,-23153,365243,,0.3272,0.7981,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0563,1762110.0,148500.0,48586.5,-16044,-433,0.2974,0.4863,0.643,M,1,1,0,Working,Secondary / secondary special
+HIST-0564,445500.0,135000.0,16924.5,-12733,-5718,,0.304,0.5245,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0565,1406880.0,427500.0,41265.0,-18025,-1322,,0.6901,0.6513,F,1,1,0,Commercial associate,Incomplete higher
+HIST-0566,490495.5,94500.0,30136.5,-18839,-3936,,0.6856,0.4401,F,0,1,0,Working,Secondary / secondary special
+HIST-0567,227520.0,81000.0,13189.5,-16311,-737,,0.4066,0.6722,F,1,0,0,Working,Secondary / secondary special
+HIST-0568,942300.0,90000.0,27679.5,-20984,365243,,0.6341,,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0569,711612.0,270000.0,22954.5,-15803,-5199,,0.2915,,M,1,0,0,Working,Secondary / secondary special
+HIST-0570,900000.0,67500.0,26446.5,-14437,-1254,,0.7574,0.5532,F,1,1,0,Commercial associate,Secondary / secondary special
+HIST-0571,993082.5,247500.0,39514.5,-15157,-809,,0.359,0.5335,M,0,1,0,Working,Secondary / secondary special
+HIST-0572,942300.0,166500.0,30528.0,-21415,365243,,0.4066,0.2793,F,1,1,0,Pensioner,Secondary / secondary special
+HIST-0573,180000.0,81000.0,9000.0,-9866,-1259,0.4496,0.6712,0.8106,F,0,1,1,Working,Incomplete higher
+HIST-0574,135000.0,135000.0,6750.0,-12846,-1015,0.4191,0.2867,0.2679,F,0,1,1,Working,Secondary / secondary special
+HIST-0575,285723.0,180000.0,23035.5,-13643,-4663,0.235,0.5791,0.1952,M,0,0,0,Working,Secondary / secondary special
+HIST-0576,1629000.0,180000.0,56623.5,-16194,-4250,0.9236,0.651,,F,0,0,1,Working,Secondary / secondary special
+HIST-0577,900000.0,108000.0,35824.5,-13087,-2944,0.5314,0.3928,0.0005,F,1,1,1,Working,Secondary / secondary special
+HIST-0578,315000.0,157500.0,15750.0,-10244,-502,0.3008,0.0129,0.3673,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0579,526491.0,112500.0,19039.5,-13368,-2067,,0.1323,0.7032,M,0,1,2,Working,Secondary / secondary special
+HIST-0580,522000.0,180000.0,16839.0,-14558,-2406,,0.6233,0.2837,M,1,1,0,Working,Secondary / secondary special
+HIST-0581,135000.0,85500.0,6750.0,-21182,365243,,0.3627,0.7726,F,0,1,0,Pensioner,Higher education
+HIST-0582,675000.0,45000.0,21906.0,-12288,-353,,0.2036,,F,0,1,0,Working,Secondary / secondary special
+HIST-0583,720000.0,90000.0,25861.5,-23582,365243,,0.5488,0.6707,F,1,1,0,Pensioner,Secondary / secondary special
+HIST-0584,232344.0,126000.0,11992.5,-15851,-2669,0.4676,0.6941,0.5299,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0585,534141.0,112500.0,20263.5,-14918,-239,,0.6976,0.4066,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0586,765000.0,202500.0,49594.5,-10212,-224,,0.6181,0.3313,F,1,0,0,Working,Higher education
+HIST-0587,654498.0,99000.0,27859.5,-20534,365243,,0.4478,0.7209,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0588,634500.0,162000.0,30654.0,-12043,-3078,0.4952,0.3085,0.4418,F,1,0,2,Working,Secondary / secondary special
+HIST-0589,110331.0,135000.0,10444.5,-14392,-1199,,0.5427,0.2926,F,0,1,0,Commercial associate,Secondary / secondary special
+HIST-0590,400500.0,180000.0,10561.5,-21602,365243,,0.5599,0.6941,F,0,1,0,Pensioner,Higher education
+HIST-0591,874152.0,292500.0,46701.0,-16635,-5882,,0.255,0.5744,F,1,1,0,Commercial associate,Secondary / secondary special
+HIST-0592,1078200.0,153000.0,38331.0,-11424,-795,0.1672,0.4795,,M,0,1,1,Working,Secondary / secondary special
+HIST-0593,855000.0,157500.0,41260.5,-15936,-872,0.1578,0.6882,0.3361,F,1,0,0,Working,Secondary / secondary special
+HIST-0594,343800.0,112500.0,16155.0,-12054,-802,,0.3564,0.5191,M,1,0,2,Working,Secondary / secondary special
+HIST-0595,140166.0,112500.0,5539.5,-22994,365243,0.8378,0.5077,0.1055,F,0,1,0,Pensioner,Secondary / secondary special
+HIST-0596,260640.0,99000.0,19485.0,-19885,-2052,0.5887,0.0748,,F,0,0,1,State servant,Secondary / secondary special
+HIST-0597,526491.0,157500.0,19039.5,-9247,-871,0.2451,0.2492,0.761,F,0,1,0,Working,Higher education
+HIST-0598,274500.0,360000.0,18472.5,-10954,-2798,,0.4436,0.4101,M,1,1,2,State servant,Higher education
+HIST-0599,284400.0,76500.0,16456.5,-23933,365243,0.8099,,0.5937,F,0,1,0,Pensioner,Secondary / secondary special
