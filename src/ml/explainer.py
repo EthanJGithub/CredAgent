@@ -17,10 +17,16 @@ logger = logging.getLogger(__name__)
 
 # Features that must NOT be stated as adverse-action reasons to an applicant.
 # Age is a protected basis under ECOA; even where age is permissibly used in an
-# empirically derived scoring system, it cannot be cited as a denial reason. We
-# keep these in the SHAP chart (for transparency/monitoring) but never surface
-# them as the "specific principal reasons" in the notice or the compliance check.
-PROTECTED_FROM_ADVERSE_REASONS = {"age_years", "DAYS_BIRTH", "CODE_GENDER_F", "CODE_GENDER_M"}
+# empirically derived scoring system, it cannot be cited as a denial reason.
+# Sex and education-related variables are excluded entirely from the model, but
+# we list them here as defense-in-depth so they can never surface as a reason.
+# We keep any such values in the SHAP chart (transparency/monitoring) but never
+# surface them as the "specific principal reasons" in the notice/compliance check.
+PROTECTED_FROM_ADVERSE_REASONS = {
+    "age_years", "DAYS_BIRTH",
+    "CODE_GENDER_F", "CODE_GENDER_M",
+    "NAME_EDUCATION_TYPE_Higher_education",
+}
 
 FEATURE_DISPLAY_NAMES = {
     "EXT_SOURCE_1": "External credit score (bureau 1)",

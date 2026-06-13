@@ -12,9 +12,11 @@ def test_model_info(client):
     meta = response.json()
     assert meta["model_version"] == "xgb-v1.0"
     assert meta["training_auc"] >= 0.74
-    assert len(meta["features"]) == 20
-    # Sex is a prohibited basis — it must never be a model feature.
+    assert len(meta["features"]) == 19
+    # Sex (prohibited basis) and education (race/national-origin proxy) must
+    # never be model features.
     assert not any("GENDER" in f.upper() for f in meta["features"])
+    assert not any("EDUCATION" in f.upper() for f in meta["features"])
 
 
 def test_submit_low_risk_approves(client, sample_applications):
@@ -38,8 +40,13 @@ def test_submit_high_risk_declines_with_notice(client, sample_applications):
     data = response.json()
     assert data["final_decision"] == "DECLINE"
     assert data["risk_probability"] >= 0.75
-    assert data["adverse_action_notice"] is not None
-    assert "Equal Credit Opportunity Act" in data["adverse_action_notice"]
+    notice = data["adverse_action_notice"]
+    assert notice is not None
+    assert "Equal Credit Opportunity Act" in notice
+    # No unfilled placeholders like [Applicant Name] / [Address].
+    assert "[" not in notice and "]" not in notice
+    # Education must never be cited as an adverse reason.
+    assert "education" not in " ".join(data.get("top_risk_factors") or []).lower()
 
 
 def test_get_decision_after_submit(client, sample_applications):

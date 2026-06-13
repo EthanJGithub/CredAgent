@@ -24,9 +24,7 @@ for _k in ("GROQ_API_KEY", "ANTHROPIC_API_KEY"):
     except Exception:
         pass
 
-import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
-import numpy as np
+import plotly.graph_objects as go
 
 from src.graph.workflow import app_graph
 from src.demo_presets import PRESETS
@@ -74,39 +72,40 @@ def run_pipeline(payload: dict, human_decision: Optional[str] = None, human_note
     return result
 
 
+SHAP_DISPLAY = {
+    "EXT_SOURCE_1": "Ext Credit Score 1", "EXT_SOURCE_2": "Ext Credit Score 2",
+    "EXT_SOURCE_3": "Ext Credit Score 3", "debt_to_income": "Debt-to-Income",
+    "credit_to_income_ratio": "Credit/Income Ratio", "employment_months": "Employment Length",
+    "age_years": "Applicant Age", "AMT_CREDIT": "Credit Amount",
+    "AMT_INCOME_TOTAL": "Annual Income", "CNT_CHILDREN": "Number of Children",
+    "annuity_to_credit_ratio": "Annuity/Credit Ratio", "has_income_stability": "Income Stability",
+    "NAME_INCOME_TYPE_Working": "Income: Working", "AMT_ANNUITY": "Monthly Payment",
+    "DAYS_EMPLOYED": "Days Employed", "FLAG_OWN_CAR": "Owns Car", "FLAG_OWN_REALTY": "Owns Realty",
+}
+
+
 def render_shap_waterfall(shap_values: dict):
+    """Interactive Plotly bar (renders client-side — no matplotlib/server freeze)."""
     if not shap_values:
         st.info("SHAP values not available.")
         return
-    items = sorted(shap_values.items(), key=lambda x: abs(x[1]), reverse=True)[:10]
-    features = [i[0] for i in items]
-    values = [i[1] for i in items]
-    display = {
-        "EXT_SOURCE_1": "Ext Credit Score 1", "EXT_SOURCE_2": "Ext Credit Score 2",
-        "EXT_SOURCE_3": "Ext Credit Score 3", "debt_to_income": "Debt-to-Income",
-        "credit_to_income_ratio": "Credit/Income Ratio", "employment_months": "Employment Length",
-        "age_years": "Applicant Age", "AMT_CREDIT": "Credit Amount",
-        "AMT_INCOME_TOTAL": "Annual Income", "CNT_CHILDREN": "Number of Children",
-        "annuity_to_credit_ratio": "Annuity/Credit Ratio",
-    }
-    labels = [display.get(f, f.replace("_", " ").title()) for f in features]
-    fig, ax = plt.subplots(figsize=(9, 5))
+    items = sorted(shap_values.items(), key=lambda x: abs(x[1]), reverse=True)[:10][::-1]
+    labels = [SHAP_DISPLAY.get(f, f.replace("_", " ").title()) for f, _ in items]
+    values = [round(v, 4) for _, v in items]
     colors = ["#dc3545" if v > 0 else "#28a745" for v in values]
-    y = np.arange(len(features))
-    bars = ax.barh(y, values, color=colors, height=0.6, edgecolor="white")
-    ax.set_yticks(y); ax.set_yticklabels(labels, fontsize=10)
-    ax.axvline(0, color="black", linewidth=0.8)
-    ax.set_xlabel("SHAP value — impact on log-odds of default (model margin)", fontsize=10)
-    ax.set_title("Feature Impact on Risk Score", fontsize=12, fontweight="bold", pad=12)
-    for bar, val in zip(bars, values):
-        xpos = bar.get_width() + (0.002 if val >= 0 else -0.002)
-        ax.text(xpos, bar.get_y() + bar.get_height() / 2, f"{val:+.3f}",
-                va="center", ha="left" if val >= 0 else "right", fontsize=8.5)
-    ax.legend(handles=[mpatches.Patch(color="#dc3545", label="Increases default risk"),
-                       mpatches.Patch(color="#28a745", label="Decreases default risk")],
-              fontsize=9, loc="lower right")
-    ax.invert_yaxis(); fig.tight_layout()
-    st.pyplot(fig); plt.close(fig)
+    fig = go.Figure(go.Bar(
+        x=values, y=labels, orientation="h", marker_color=colors,
+        text=[f"{v:+.3f}" for v in values], textposition="outside",
+        hovertemplate="%{y}: %{x:+.3f}<extra></extra>",
+    ))
+    fig.update_layout(
+        title="Feature Impact on Risk Score",
+        xaxis_title="SHAP value — impact on log-odds of default (model margin)",
+        height=440, margin=dict(l=10, r=10, t=50, b=40),
+        plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)",
+    )
+    fig.add_vline(x=0, line_width=1, line_color="#888")
+    st.plotly_chart(fig, use_container_width=True)
 
 
 def render_decision_badge(decision: Optional[str]):
@@ -164,6 +163,7 @@ with st.form("app_form"):
     c3, c4 = st.columns(2)
     with c3:
         code_gender = st.selectbox("Gender", ["M", "F", "X"], index=["M", "F", "X"].index(preset.get("code_gender", "F")))
+        st.caption("⚖️ Collected for fair-lending monitoring only — **excluded from the model** (sex is a prohibited basis under ECOA).")
         flag_own_car = st.checkbox("Owns Car", value=bool(preset.get("flag_own_car", 0)))
         flag_own_realty = st.checkbox("Owns Realty", value=bool(preset.get("flag_own_realty", 0)))
     with c4:
@@ -171,6 +171,7 @@ with st.form("app_form"):
         edu_types = ["Higher education", "Secondary / secondary special", "Incomplete higher", "Lower secondary", "Academic degree"]
         name_income_type = st.selectbox("Income Type", income_types, index=income_types.index(preset.get("name_income_type", "Working")))
         name_education_type = st.selectbox("Education Level", edu_types, index=edu_types.index(preset.get("name_education_type", "Secondary / secondary special")))
+        st.caption("⚖️ Education is **excluded from the model** — a documented proxy for race/national origin under CFPB disparate-impact guidance.")
 
     submitted = st.form_submit_button("🚀 Submit for Decisioning", type="primary", use_container_width=True)
 

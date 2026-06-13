@@ -1,5 +1,6 @@
 """AuditAgent — adverse-action notice generation + audit trail + packaging."""
 import logging
+import re
 from datetime import datetime
 
 from langchain_core.messages import HumanMessage, SystemMessage
@@ -23,7 +24,25 @@ The notice MUST include:
 5. Contact information for questions: compliance@credagent.io
 
 Format as a professional letter. Be concise (under 220 words). Do not mention model scores or probabilities.
+
+CRITICAL FORMATTING RULES:
+- Do NOT include any placeholder fields in brackets such as [Applicant Name], [Address],
+  [Credit Product], [Date], [City, State ZIP]. Never emit square brackets at all.
+- Do NOT invent the applicant's name, address, or any personal details you were not given.
+- Address the recipient only as "Dear Applicant,". Use only the information explicitly provided.
+- Start the letter with the date and the applicant ID provided, then the salutation.
 """
+
+# Strips any leftover bracketed placeholders like "[Applicant Name]" the LLM may emit.
+_PLACEHOLDER_RE = re.compile(r"\[[^\]]{0,60}\]")
+
+
+def _strip_placeholders(text: str) -> str:
+    cleaned = _PLACEHOLDER_RE.sub("", text)
+    # Tidy whitespace left behind by removed placeholders.
+    cleaned = re.sub(r"[ \t]{2,}", " ", cleaned)
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
+    return "\n".join(line.rstrip() for line in cleaned.splitlines()).strip()
 
 
 def _fallback_notice(applicant_id: str, factors) -> str:
@@ -69,7 +88,10 @@ def run(state: CreditDecisionState) -> dict:
                     f"Adverse factors:\n{factors_str}"
                 )),
             ])
-            adverse_action_notice = response.content.strip()
+            adverse_action_notice = _strip_placeholders(response.content.strip())
+            # If the model still produced something hollow, use the clean template.
+            if len(adverse_action_notice) < 120:
+                adverse_action_notice = _fallback_notice(applicant_id, top_risk_factors)
         except Exception as exc:
             logger.warning("[AuditAgent] Adverse action generation failed: %s", exc)
             adverse_action_notice = _fallback_notice(applicant_id, top_risk_factors)

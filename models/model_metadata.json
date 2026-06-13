@@ -19,11 +19,10 @@
     "annuity_to_credit_ratio",
     "has_income_stability",
     "NAME_INCOME_TYPE_Working",
-    "NAME_INCOME_TYPE_Commercial_associate",
-    "NAME_EDUCATION_TYPE_Higher_education"
+    "NAME_INCOME_TYPE_Commercial_associate"
   ],
-  "n_features": 20,
-  "training_auc": 0.7593,
+  "n_features": 19,
+  "training_auc": 0.7577,
   "n_train": 246008,
   "n_val": 61503,
   "data_source": "huggingface:jlh/home-credit",
@@ -34,5 +33,5 @@
     "HIGH_max": 0.75,
     "DECLINE_min": 0.75
   },
-  "best_iteration": 250
+  "best_iteration": 244
 }

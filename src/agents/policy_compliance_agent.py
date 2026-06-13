@@ -26,8 +26,13 @@ The following factors are PERMISSIBLE, business-justified, and must NOT be flagg
 - Length of employment, income level, requested credit amount
 - Number of dependents, income type (employment status), vehicle/property ownership
 
-If the adverse factors are limited to permissible factors above, the decision is COMPLIANT and you
-MUST return an empty compliance_flags list. Do not invent concerns. Education level alone is permissible.
+You MUST raise a compliance_flag if any adverse factor is a prohibited basis OR a known proxy:
+- Education level / school attended — a documented proxy for race and national origin that the
+  CFPB scrutinizes for disparate impact. Flag it (e.g. "education-proxy") if it appears.
+- ZIP code / neighborhood — proxy for race (redlining). Flag if present.
+
+If the adverse factors are limited to the permissible factors above, the decision is COMPLIANT and you
+MUST return an empty compliance_flags list. Do not invent concerns beyond prohibited bases and the proxies listed.
 
 Respond with ONLY this JSON and nothing else:
 {"compliance_flags": [], "analysis": "<one sentence>", "clean": true}

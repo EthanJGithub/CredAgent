@@ -19,10 +19,15 @@ RAW_COLUMNS = [
 # Final feature list after engineering — ORDER MATTERS for inference.
 #
 # Fair-lending note: CODE_GENDER is deliberately EXCLUDED from the model.
-# Sex is a prohibited basis under ECOA (15 U.S.C. 1691 / Reg B), so it is never
-# scored. Gender is still collected at intake and retained in cleaned_features
-# only so a lender could run disparate-impact monitoring *after* the decision —
-# the standard separation between the scoring model and fair-lending testing.
+# Fair-lending exclusions from the SCORING model:
+#   - Sex (CODE_GENDER): a prohibited basis under ECOA (15 U.S.C. 1691 / Reg B).
+#   - Education (NAME_EDUCATION_TYPE): not a prohibited basis itself, but a
+#     well-documented proxy for race and national origin that the CFPB
+#     scrutinizes in disparate-impact analysis (cf. its review of educational
+#     variables in algorithmic underwriting). We do not let it drive the score.
+# Both are still collected at intake and retained in cleaned_features for
+# *post-decision* fair-lending monitoring — the standard separation between the
+# scoring model and disparate-impact testing.
 FEATURE_COLUMNS = [
     "AMT_CREDIT", "AMT_INCOME_TOTAL", "AMT_ANNUITY",
     "DAYS_BIRTH", "DAYS_EMPLOYED",
@@ -32,7 +37,6 @@ FEATURE_COLUMNS = [
     "credit_to_income_ratio", "annuity_to_credit_ratio",
     "has_income_stability",
     "NAME_INCOME_TYPE_Working", "NAME_INCOME_TYPE_Commercial_associate",
-    "NAME_EDUCATION_TYPE_Higher_education",
 ]
 
 # Clip bounds drawn from the Home Credit training distribution.
@@ -81,9 +85,8 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
     df["NAME_INCOME_TYPE_Commercial_associate"] = (
         df["NAME_INCOME_TYPE"] == "Commercial associate"
     ).astype(int)
-    df["NAME_EDUCATION_TYPE_Higher_education"] = (
-        df["NAME_EDUCATION_TYPE"] == "Higher education"
-    ).astype(int)
+    # NAME_EDUCATION_TYPE is intentionally NOT encoded into the feature set —
+    # education is a documented proxy for race/national origin (disparate impact).
 
     for col in ["FLAG_OWN_CAR", "FLAG_OWN_REALTY"]:
         if df[col].dtype == object:
