@@ -64,6 +64,13 @@ st.markdown("""
  .policy-src{font-size:0.72rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:#5b6b80;margin-bottom:6px;}
  .policy-body{font-size:0.9rem;line-height:1.55;color:#2f3742;}
  .policy-body p{margin:0 0 8px;}
+ .rec-header{font-size:1.05rem;font-weight:700;margin:18px 0 6px;color:#1f6f54;}
+ .rec-card{background:#f3fbf7;border:1px solid #d7efe4;border-left:4px solid #1f9d6b;border-radius:8px;padding:12px 15px;margin-bottom:9px;}
+ .rec-card.rec-positive{background:#eef7ff;border-left-color:#2f7fe0;}
+ .rec-title{font-weight:700;color:#1f6f54;font-size:0.96rem;margin-bottom:3px;}
+ .rec-card.rec-positive .rec-title{color:#1f5fae;}
+ .rec-body{font-size:0.9rem;line-height:1.55;color:#2f3742;}
+ .audit-footer{margin-top:14px;font-size:0.72rem;color:#aeb6c2;letter-spacing:.2px;}
 </style>""", unsafe_allow_html=True)
 
 
@@ -278,6 +285,51 @@ def _split_excerpt(ex: str):
     return _html.escape(label), f"<p>{body}</p>"
 
 
+def _recommend(factor: dict):
+    """Map a critical adverse factor to empowering, actionable guidance — the
+    'financial advisor' layer. Returns (title, advice) or None for factors that
+    are not constructively actionable. Advice references the observed value but
+    never promises approval (compliance-safe phrasing)."""
+    feat = factor.get("feature", "")
+    val = factor.get("value", "—")
+    if feat.startswith("EXT_SOURCE"):
+        return ("Strengthen your credit-bureau profile",
+                f"This external credit score ({val}) is the strongest driver of the decision. "
+                "Consistent on-time payments, lower credit-card utilization, and a longer credit "
+                "history are the most effective ways to raise it over time.")
+    if feat == "debt_to_income":
+        return ("Lower your debt-to-income ratio",
+                f"Your debt-to-income is currently {val}. Lenders generally look for 0.36 or below — "
+                "paying down existing balances or increasing documented income moves you toward that range.")
+    if feat == "credit_to_income_ratio":
+        return ("Right-size the loan to your income",
+                f"The requested amount is large relative to income (ratio {val}). A smaller principal, "
+                "or documenting additional income, would better align the request with typical approvals.")
+    if feat == "annuity_to_credit_ratio":
+        return ("Ease the repayment intensity",
+                f"The scheduled payment is high relative to the loan size (ratio {val}). A longer "
+                "repayment term or a smaller principal would reduce this.")
+    if feat == "AMT_ANNUITY":
+        return ("Reduce the monthly payment",
+                f"The monthly payment of {val} weighs on affordability. Extending the term or borrowing "
+                "slightly less would lower it.")
+    if feat == "AMT_CREDIT":
+        return ("Consider a more modest amount",
+                f"The requested credit of {val} increases exposure. Requesting a smaller amount would "
+                "improve the affordability picture.")
+    if feat == "AMT_INCOME_TOTAL":
+        return ("Document additional income",
+                f"Higher or better-documented income (currently {val}) would strengthen demonstrated "
+                "capacity to repay.")
+    if feat == "employment_months":
+        return ("Build employment tenure",
+                f"A longer continuous employment record ({val}) signals stability — remaining in role helps.")
+    if feat in ("has_income_stability", "NAME_INCOME_TYPE_Working", "NAME_INCOME_TYPE_Commercial_associate"):
+        return ("Stabilize your income source",
+                "A steady, well-documented primary income source strengthens the overall profile.")
+    return None
+
+
 def _threshold_context(decision: Optional[str], prob: Optional[float]) -> str:
     """Plain-English statement tying the probability to the threshold it crossed."""
     if prob is None:
@@ -291,6 +343,45 @@ def _threshold_context(decision: Optional[str], prob: Optional[float]) -> str:
     if decision == "APPROVE":
         return f"Default probability <strong>{pct}</strong> is below the <strong>{TIER_THRESHOLDS['LOW']:.0%} auto-approve</strong> threshold."
     return f"Default probability <strong>{pct}</strong>."
+
+
+def render_system_health():
+    """Render the live monitoring expander. Called into a sidebar placeholder
+    AFTER the decision pipeline runs, so a fresh submit updates it in real time
+    (the sidebar block itself executes before the submit handler)."""
+    with st.expander("🩺 System Health & Monitoring", expanded=True):
+        try:
+            from src import store
+            from src.drift import drift_report
+            summ = store.summary()
+            drift = drift_report()
+            fl = summ.get("fair_lending", {})
+            st.caption("Live model-risk & fair-lending monitoring")
+            total = summ.get("total", 0)
+            session_n = st.session_state.get("session_decisions", 0)
+            seeded = max(total - session_n, 0)
+            st.metric("Decisions this session", session_n,
+                      help="Applications you have scored since opening the app.")
+            st.caption(f"On record: **{total:,}** total "
+                       f"({seeded:,} seeded baseline + {session_n:,} this session). "
+                       "Monitoring below aggregates all of them.")
+            ds = drift.get("overall_status", "no-reference")
+            dico = {"stable": "🟢", "moderate": "🟡", "significant": "🔴"}.get(ds, "⚪")
+            st.markdown(f"**Model drift (PSI):** {dico} {ds} · max {drift.get('max_psi', 0)}")
+            ratio = fl.get("adverse_impact_ratio")
+            if ratio is not None:
+                flico = "🔴" if fl.get("flag") else "🟢"
+                st.markdown(f"**Fair-lending (4/5 rule):** {flico} ratio {ratio} "
+                            f"{'— below 0.80, investigate' if fl.get('flag') else '— within tolerance'}")
+            else:
+                st.markdown("**Fair-lending (4/5 rule):** ⚪ accumulating data")
+            last = st.session_state.get("last_result", {})
+            if last.get("processing_time_ms"):
+                st.markdown(f"**Last decision latency:** {last['processing_time_ms']:.0f} ms")
+            st.caption("PSI <0.10 stable · 0.10–0.25 investigate · >0.25 retrain. "
+                       "Sex is excluded from the model and used only for this disparate-impact test.")
+        except Exception as exc:
+            st.caption(f"Monitoring unavailable: {exc}")
 
 
 with st.sidebar:
@@ -317,41 +408,9 @@ with st.sidebar:
     if st.button("📕 High Risk"):
         st.session_state["prefill"] = "high"
     st.markdown("---")
-    with st.expander("🩺 System Health & Monitoring", expanded=False):
-        try:
-            from src import store
-            from src.drift import drift_report
-            summ = store.summary()
-            drift = drift_report()
-            fl = summ.get("fair_lending", {})
-            st.caption("Live model-risk & fair-lending monitoring")
-            total = summ.get("total", 0)
-            session_n = st.session_state.get("session_decisions", 0)
-            seeded = max(total - session_n, 0)
-            st.metric("Decisions this session", session_n,
-                      help="Applications you have scored since opening the app.")
-            st.caption(f"On record: **{total:,}** total "
-                       f"({seeded:,} seeded baseline + {session_n:,} this session). "
-                       "Monitoring below aggregates all of them.")
-            # Model drift (PSI)
-            ds = drift.get("overall_status", "no-reference")
-            dico = {"stable": "🟢", "moderate": "🟡", "significant": "🔴"}.get(ds, "⚪")
-            st.markdown(f"**Model drift (PSI):** {dico} {ds} · max {drift.get('max_psi', 0)}")
-            # Fair lending (four-fifths rule)
-            ratio = fl.get("adverse_impact_ratio")
-            if ratio is not None:
-                flico = "🔴" if fl.get("flag") else "🟢"
-                st.markdown(f"**Fair-lending (4/5 rule):** {flico} ratio {ratio} "
-                            f"{'— below 0.80, investigate' if fl.get('flag') else '— within tolerance'}")
-            else:
-                st.markdown("**Fair-lending (4/5 rule):** ⚪ accumulating data")
-            last = st.session_state.get("last_result", {})
-            if last.get("processing_time_ms"):
-                st.markdown(f"**Last decision latency:** {last['processing_time_ms']:.0f} ms")
-            st.caption("PSI <0.10 stable · 0.10–0.25 investigate · >0.25 retrain. "
-                       "Sex is excluded from the model and used only for this disparate-impact test.")
-        except Exception as exc:
-            st.caption(f"Monitoring unavailable: {exc}")
+    # Placeholder rendered into AFTER the submit handler (end of script) so a new
+    # decision updates these metrics in the same run — no extra click needed.
+    sys_health_slot = st.empty()
     st.caption("LangGraph · XGBoost · SHAP · ChromaDB · Groq")
 
 preset = PRESETS.get(st.session_state.get("prefill"), {})
@@ -452,14 +511,38 @@ if "last_result" in st.session_state:
         else:
             st.caption("No single dominant adverse factor was identified.")
 
-        with st.expander("📊 Supporting data (model metrics)", expanded=False):
-            c1, c2, c3, c4 = st.columns(4)
-            c1.metric("Default Probability", f"{prob:.1%}" if prob is not None else "N/A")
-            c2.metric("Risk Tier", r.get("risk_tier", "N/A"))
-            c3.metric("Credit Limit", f"${limit:,.0f}" if limit else "—")
-            c4.metric("Processing Time", f"{ms:.0f} ms" if ms else "N/A")
-            st.caption(f"Model {r.get('model_version', 'n/a')} · tiers: LOW <30% · MEDIUM 30–55% "
-                       "(human review) · HIGH 55–75% · DECLINE ≥75%.")
+        # ── Recommendations: turn the adverse factors into financial-advisor
+        #    guidance (declines/refers) or strengths to maintain (approvals).
+        st.markdown("<div class='rec-header'>💡 Recommendations</div>", unsafe_allow_html=True)
+        if approve:
+            st.markdown(
+                "<div class='rec-card rec-positive'><div class='rec-title'>✅ Approved — strong profile</div>"
+                "<div class='rec-body'>This application meets the approval criteria"
+                + (f", with a recommended limit of <strong>${limit:,.0f}</strong>." if limit else ".")
+                + " To preserve or grow this limit, keep payments on time and income documentation current.</div></div>",
+                unsafe_allow_html=True)
+        else:
+            recs = [x for x in (_recommend(f) for f in factors) if x][:3]
+            if recs:
+                st.caption("Good-faith steps that would strengthen a future application. "
+                           "Illustrative guidance — not a guarantee of approval.")
+                for title, advice in recs:
+                    st.markdown(
+                        f"<div class='rec-card'><div class='rec-title'>💡 {title}</div>"
+                        f"<div class='rec-body'>{advice}</div></div>",
+                        unsafe_allow_html=True)
+            else:
+                st.caption("No constructively actionable factors were isolated for this decision.")
+
+        # Subtle, de-emphasised audit footer — traceability without clutter.
+        prob_txt = f"{prob*100:.1f}%" if prob is not None else "n/a"
+        st.markdown(
+            f"<div class='audit-footer'>Audit trail · model {r.get('model_version', 'n/a')} · "
+            f"risk tier {r.get('risk_tier', '—')} @ {prob_txt} · "
+            f"processed in {ms:.0f} ms</div>" if ms is not None else
+            f"<div class='audit-footer'>Audit trail · model {r.get('model_version', 'n/a')} · "
+            f"risk tier {r.get('risk_tier', '—')} @ {prob_txt}</div>",
+            unsafe_allow_html=True)
     with t2:
         render_shap_waterfall(r.get("shap_values") or {})
         st.caption("Values are SHAP contributions to the model's log-odds (margin); a higher "
@@ -512,3 +595,8 @@ if "last_result" in st.session_state:
                     st.session_state["last_result"] = run_pipeline(
                         r.get("raw_application", {}), human_decision=hr_dec, human_notes=hr_notes)
                 st.rerun()
+
+# Fill the sidebar System Health placeholder LAST, so it reflects any decision
+# just submitted this run (real-time, no extra click).
+with sys_health_slot.container():
+    render_system_health()
