@@ -52,6 +52,18 @@ st.markdown("""
  .decision-decline{background:#f8d7da;color:#721c24;padding:16px 24px;border-radius:8px;font-size:1.4rem;font-weight:700;border-left:6px solid #dc3545;}
  .decision-refer{background:#fff3cd;color:#856404;padding:16px 24px;border-radius:8px;font-size:1.4rem;font-weight:700;border-left:6px solid #ffc107;}
  .adverse-notice{background:#f8f9fa;padding:16px;border-radius:8px;font-family:monospace;font-size:0.85rem;white-space:pre-wrap;border:1px solid #dee2e6;}
+ .threshold-line{font-size:1.02rem;margin:14px 0 6px;color:#1f2d3d;}
+ .factor-card{background:#fff;border:1px solid #e6e9ef;border-left:4px solid #dc3545;border-radius:8px;padding:11px 14px;margin-bottom:9px;}
+ .factor-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;}
+ .factor-name{font-weight:700;color:#2a2f37;font-size:0.96rem;}
+ .factor-val{font-weight:700;color:#dc3545;font-size:0.96rem;white-space:nowrap;}
+ .factor-bar{height:5px;background:#f0e3e4;border-radius:3px;margin:8px 0 5px;overflow:hidden;}
+ .factor-fill{height:100%;background:#dc3545;border-radius:3px;}
+ .factor-impact{font-size:0.74rem;color:#8a929c;}
+ .policy-card{background:#f8f9fb;border:1px solid #e6e9ef;border-radius:8px;padding:12px 16px;margin-bottom:10px;}
+ .policy-src{font-size:0.72rem;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:#5b6b80;margin-bottom:6px;}
+ .policy-body{font-size:0.9rem;line-height:1.55;color:#2f3742;}
+ .policy-body p{margin:0 0 8px;}
 </style>""", unsafe_allow_html=True)
 
 
@@ -89,6 +101,10 @@ def run_pipeline(payload: dict, human_decision: Optional[str] = None, human_note
     try:
         from src import store
         store.log_decision(result, source="demo")
+        # Count only NEW decisions this session (not the seeded baseline), so the
+        # monitoring panel gives immediate, legible feedback on a fresh submit.
+        if human_decision is None:
+            st.session_state["session_decisions"] = st.session_state.get("session_decisions", 0) + 1
     except Exception:  # pragma: no cover - persistence is non-fatal to the demo
         pass
     return result
@@ -138,19 +154,160 @@ def render_decision_badge(decision: Optional[str]):
                 unsafe_allow_html=True)
 
 
+# Risk-tier thresholds (must match src/agents/risk_scoring_agent.py).
+TIER_THRESHOLDS = {"LOW": 0.30, "MEDIUM": 0.55, "HIGH": 0.75}
+DECLINE_THRESHOLD = 0.75
+
+
+def _format_feature_value(feat: str, v) -> str:
+    """Human-readable rendering of an engineered feature value."""
+    if v is None:
+        return "—"
+    try:
+        v = float(v)
+    except (TypeError, ValueError):
+        return str(v)
+    if feat.startswith("EXT_SOURCE"):
+        return f"{v:.2f} / 1.00"
+    if feat in ("debt_to_income", "credit_to_income_ratio", "annuity_to_credit_ratio"):
+        return f"{v:.2f}"
+    if feat.startswith("AMT_"):
+        return f"${v:,.0f}"
+    if feat in ("employment_months",):
+        return f"{v:.0f} months"
+    if feat in ("age_years",):
+        return f"{v:.0f} years"
+    if feat in ("CNT_CHILDREN",):
+        return f"{int(v)}"
+    if feat.startswith("FLAG_") or feat.startswith("has_") or feat.startswith("NAME_"):
+        return "Yes" if v >= 0.5 else "No"
+    return f"{v:.2f}"
+
+
+# Neutral, analyst-facing feature names (no "High/Limited" qualifier — the actual
+# value + impact convey direction). The qualifier-laden FEATURE_DISPLAY_NAMES are
+# reserved for the legal adverse-action notice phrasing.
+NEUTRAL_FACTOR_NAMES = {
+    "EXT_SOURCE_1": "External credit score (bureau 1)",
+    "EXT_SOURCE_2": "External credit score (bureau 2)",
+    "EXT_SOURCE_3": "External credit score (bureau 3)",
+    "debt_to_income": "Debt-to-income ratio",
+    "credit_to_income_ratio": "Credit-to-income ratio",
+    "annuity_to_credit_ratio": "Annuity-to-credit ratio",
+    "employment_months": "Employment history",
+    "AMT_ANNUITY": "Monthly payment obligation",
+    "AMT_CREDIT": "Credit amount requested",
+    "AMT_INCOME_TOTAL": "Income level",
+    "CNT_CHILDREN": "Number of dependents",
+    "has_income_stability": "Income-type stability",
+    "NAME_INCOME_TYPE_Working": "Employment income status",
+}
+
+
+def _neutral_name(feat: str) -> str:
+    if feat in NEUTRAL_FACTOR_NAMES:
+        return NEUTRAL_FACTOR_NAMES[feat]
+    from src.ml.explainer import FEATURE_DISPLAY_NAMES
+    name = FEATURE_DISPLAY_NAMES.get(feat, feat.replace("_", " ").title())
+    return _re.sub(r"^(High|Low|Limited)\s+", "", name).capitalize()
+
+
+def build_adverse_factors(r: dict, top_n: int = 4):
+    """Connect each adverse factor (the 'why') to its actual value and the SHAP
+    impact that drove it (the 'what'). Returns a list of dicts; protected-basis
+    features are never surfaced as reasons."""
+    try:
+        from src.ml.explainer import PROTECTED_FROM_ADVERSE_REASONS
+        from src.ml.features import engineer_single_application
+    except Exception:
+        return []
+    shap = r.get("shap_values") or {}
+    raw = r.get("raw_application") or {}
+    try:
+        feats = engineer_single_application(raw)
+    except Exception:
+        feats = {}
+    out = []
+    for feat, val in sorted(shap.items(), key=lambda x: x[1], reverse=True):
+        if val <= 0 or feat in PROTECTED_FROM_ADVERSE_REASONS:
+            continue
+        out.append({
+            "feature": feat,
+            "name": _neutral_name(feat),
+            "value": _format_feature_value(feat, feats.get(feat)),
+            "impact": float(val),
+        })
+        if len(out) >= top_n:
+            break
+    return out
+
+
+import html as _html
+import re as _re
+
+_SRC_RE = _re.compile(r"^\s*\[Source:\s*([^,\]]+?)(?:,\s*Page:\s*(\d+))?\s*\]\s*", _re.IGNORECASE)
+
+
+def _prettify_source(filename: str) -> str:
+    """Turn a raw corpus filename into a professional citation label."""
+    stem = _re.sub(r"\.(txt|pdf|md)$", "", filename.strip(), flags=_re.IGNORECASE)
+    words = stem.replace("-", " ").replace("_", " ").split()
+    acronyms = {"cfpb": "CFPB", "ecoa": "ECOA", "fcra": "FCRA", "reg": "Reg.", "b": "B"}
+    pretty = " ".join(acronyms.get(w.lower(), w.capitalize()) for w in words)
+    return pretty or filename
+
+
+def _split_excerpt(ex: str):
+    """Parse '[Source: file, Page: n] body' into (citation_html, body_html).
+
+    Returns the FULL body (no truncation) with a clean citation. Page numbers are
+    only shown for paginated (PDF) sources, where they are meaningful."""
+    m = _SRC_RE.match(ex)
+    if m:
+        fname, page = m.group(1), m.group(2)
+        body = ex[m.end():].strip()
+        label = _prettify_source(fname)
+        if page is not None and fname.lower().endswith(".pdf"):
+            label += f" · p.{page}"
+    else:
+        label, body = "CFPB Fair-Lending Corpus", ex.strip()
+    body = _html.escape(body)
+    # Collapse hard-wrapped lines into readable paragraphs.
+    body = _re.sub(r"\n{2,}", "</p><p>", body)
+    body = body.replace("\n", " ")
+    return _html.escape(label), f"<p>{body}</p>"
+
+
+def _threshold_context(decision: Optional[str], prob: Optional[float]) -> str:
+    """Plain-English statement tying the probability to the threshold it crossed."""
+    if prob is None:
+        return "No probability was produced for this application."
+    pct = f"{prob:.1%}"
+    if decision == "DECLINE":
+        return f"Default probability <strong>{pct}</strong> is at or above the <strong>{DECLINE_THRESHOLD:.0%} auto-decline</strong> threshold."
+    if decision == "REFER":
+        return (f"Default probability <strong>{pct}</strong> falls in the <strong>{TIER_THRESHOLDS['LOW']:.0%}–{TIER_THRESHOLDS['MEDIUM']:.0%} "
+                f"review band</strong> — routed to a human underwriter.")
+    if decision == "APPROVE":
+        return f"Default probability <strong>{pct}</strong> is below the <strong>{TIER_THRESHOLDS['LOW']:.0%} auto-approve</strong> threshold."
+    return f"Default probability <strong>{pct}</strong>."
+
+
 with st.sidebar:
     st.title("🏦 CredAgent")
     st.caption("Agentic Credit Decisioning System")
     st.markdown("---")
-    st.markdown("**Decision Tiers**")
+    st.markdown("**Decision Policy**")
     st.markdown("""
-| Tier | Probability | Action |
+| Risk band | Default prob. | Action |
 |---|---|---|
-| 🟢 LOW | < 30% | Auto-Approve |
-| 🟡 MEDIUM | 30–55% | Human Review |
-| 🟠 HIGH | 55–75% | Auto-Decline |
-| 🔴 DECLINE | > 75% | Auto-Decline |
+| 🟢 LOW | < 30% | Auto-approve |
+| 🟡 MEDIUM | 30–55% | Human review (HITL) |
+| 🔴 HIGH / DECLINE | ≥ 55% | Auto-decline + notice |
 """)
+    st.caption("HIGH (55–75%) and DECLINE (≥75%) are reported as separate risk "
+               "tiers for monitoring, but both take the same action — auto-decline "
+               "with an adverse-action notice.")
     st.markdown("---")
     st.markdown("**Quick Test Cases** *(real applicants)*")
     if st.button("📗 Low Risk"):
@@ -168,7 +325,14 @@ with st.sidebar:
             drift = drift_report()
             fl = summ.get("fair_lending", {})
             st.caption("Live model-risk & fair-lending monitoring")
-            st.metric("Decisions logged", summ.get("total", 0))
+            total = summ.get("total", 0)
+            session_n = st.session_state.get("session_decisions", 0)
+            seeded = max(total - session_n, 0)
+            st.metric("Decisions this session", session_n,
+                      help="Applications you have scored since opening the app.")
+            st.caption(f"On record: **{total:,}** total "
+                       f"({seeded:,} seeded baseline + {session_n:,} this session). "
+                       "Monitoring below aggregates all of them.")
             # Model drift (PSI)
             ds = drift.get("overall_status", "no-reference")
             dico = {"stable": "🟢", "moderate": "🟡", "significant": "🔴"}.get(ds, "⚪")
@@ -247,22 +411,55 @@ if "last_result" in st.session_state:
     st.markdown("---")
     st.subheader("Decision Result")
     render_decision_badge(r.get("final_decision"))
-    st.markdown("<br>", unsafe_allow_html=True)
 
-    col1, col2, col3, col4 = st.columns(4)
     prob = r.get("risk_probability"); limit = r.get("credit_limit"); ms = r.get("processing_time_ms")
-    col1.metric("Default Probability", f"{prob:.1%}" if prob is not None else "N/A")
-    col2.metric("Risk Tier", r.get("risk_tier", "N/A"))
-    col3.metric("Credit Limit", f"${limit:,.0f}" if limit else "—")
-    col4.metric("Processing Time", f"{ms:.0f} ms" if ms else "N/A")
-    st.markdown("<br>", unsafe_allow_html=True)
+    decision = r.get("final_decision")
+
+    # ── Primary hierarchy: the decision + the threshold it crossed, then the
+    #    plain-English rationale. Raw metrics are demoted to "supporting data".
+    st.markdown(f"<div class='threshold-line'>{_threshold_context(decision, prob)}</div>",
+                unsafe_allow_html=True)
+    if r.get("decision_reasoning"):
+        st.info(r["decision_reasoning"])
 
     t1, t2, t3, t4, t5 = st.tabs(["📋 Decision", "📊 SHAP", "⚖️ Compliance", "📄 Adverse Notice", "🔍 Audit"])
     with t1:
-        if r.get("decision_reasoning"):
-            st.info(r["decision_reasoning"])
-        for i, f in enumerate(r.get("top_risk_factors") or [], 1):
-            st.markdown(f"**{i}.** {f}")
+        factors = build_adverse_factors(r)
+        approve = decision == "APPROVE"
+        if factors and not approve:
+            st.markdown("##### 🚩 Critical adverse factors")
+            st.caption("The specific reasons that drove this decision — value observed and its "
+                       "impact on the model's risk score. These are the disclosable adverse-action reasons.")
+            max_impact = max(f["impact"] for f in factors) or 1.0
+            for i, f in enumerate(factors, 1):
+                width = max(6, round(100 * f["impact"] / max_impact))
+                st.markdown(
+                    f"<div class='factor-card'>"
+                    f"<div class='factor-head'><span class='factor-name'>{i}. {f['name']}</span>"
+                    f"<span class='factor-val'>{f['value']}</span></div>"
+                    f"<div class='factor-bar'><div class='factor-fill' style='width:{width}%'></div></div>"
+                    f"<div class='factor-impact'>risk impact +{f['impact']:.3f} (log-odds)</div>"
+                    f"</div>",
+                    unsafe_allow_html=True,
+                )
+        elif approve:
+            st.success("✅ No adverse factors outweighed the applicant's repayment indicators.")
+            pos = build_adverse_factors({**r, "shap_values": {k: -v for k, v in (r.get("shap_values") or {}).items()}})
+            if pos:
+                st.markdown("##### Strongest approving factors")
+                for i, f in enumerate(pos, 1):
+                    st.markdown(f"**{i}. {f['name']}** — {f['value']}  ·  lowers risk by {f['impact']:.3f}")
+        else:
+            st.caption("No single dominant adverse factor was identified.")
+
+        with st.expander("📊 Supporting data (model metrics)", expanded=False):
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("Default Probability", f"{prob:.1%}" if prob is not None else "N/A")
+            c2.metric("Risk Tier", r.get("risk_tier", "N/A"))
+            c3.metric("Credit Limit", f"${limit:,.0f}" if limit else "—")
+            c4.metric("Processing Time", f"{ms:.0f} ms" if ms else "N/A")
+            st.caption(f"Model {r.get('model_version', 'n/a')} · tiers: LOW <30% · MEDIUM 30–55% "
+                       "(human review) · HIGH 55–75% · DECLINE ≥75%.")
     with t2:
         render_shap_waterfall(r.get("shap_values") or {})
         st.caption("Values are SHAP contributions to the model's log-odds (margin); a higher "
@@ -278,10 +475,17 @@ if "last_result" in st.session_state:
             st.success("✅ No compliance issues detected.")
         excerpts = r.get("retrieved_policy_excerpts", [])
         if excerpts:
-            with st.expander("CFPB Policy Excerpts Retrieved"):
-                for ex in excerpts:
-                    st.text(ex[:500] + "..." if len(ex) > 500 else ex)
-                    st.markdown("---")
+            st.markdown("##### 📚 CFPB policy evidence retrieved")
+            st.caption("The fair-lending passages the PolicyComplianceAgent retrieved (RAG) and "
+                       "grounded its check in — part of the audit trail.")
+            for ex in excerpts:
+                src, body = _split_excerpt(ex)
+                st.markdown(
+                    f"<div class='policy-card'>"
+                    f"<div class='policy-src'>{src}</div>"
+                    f"<div class='policy-body'>{body}</div></div>",
+                    unsafe_allow_html=True,
+                )
     with t4:
         notice = r.get("adverse_action_notice")
         if notice:
