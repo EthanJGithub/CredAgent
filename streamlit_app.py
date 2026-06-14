@@ -32,6 +32,20 @@ from src.demo_presets import PRESETS
 st.set_page_config(page_title="CredAgent — Credit Decisioning", page_icon="🏦",
                    layout="wide", initial_sidebar_state="expanded")
 
+
+@st.cache_resource
+def _seed_once():
+    """Seed historical decisions so the monitoring view (drift + fair-lending)
+    has realistic data on a fresh Streamlit Cloud deploy. Runs once per process."""
+    try:
+        from src.seed_history import ensure_seeded
+        return ensure_seeded()
+    except Exception:
+        return 0
+
+
+_seed_once()
+
 st.markdown("""
 <style>
  .decision-approve{background:#d4edda;color:#155724;padding:16px 24px;border-radius:8px;font-size:1.4rem;font-weight:700;border-left:6px solid #28a745;}
@@ -70,6 +84,13 @@ def run_pipeline(payload: dict, human_decision: Optional[str] = None, human_note
             config=config,
         )
     result["processing_time_ms"] = round((time.time() - start) * 1000, 1)
+    # Persist so the live demo's drift + fair-lending monitoring reflect real
+    # decisions (the inline pipeline, unlike the API, must log explicitly).
+    try:
+        from src import store
+        store.log_decision(result, source="demo")
+    except Exception:  # pragma: no cover - persistence is non-fatal to the demo
+        pass
     return result
 
 
@@ -139,6 +160,34 @@ with st.sidebar:
     if st.button("📕 High Risk"):
         st.session_state["prefill"] = "high"
     st.markdown("---")
+    with st.expander("🩺 System Health & Monitoring", expanded=False):
+        try:
+            from src import store
+            from src.drift import drift_report
+            summ = store.summary()
+            drift = drift_report()
+            fl = summ.get("fair_lending", {})
+            st.caption("Live model-risk & fair-lending monitoring")
+            st.metric("Decisions logged", summ.get("total", 0))
+            # Model drift (PSI)
+            ds = drift.get("overall_status", "no-reference")
+            dico = {"stable": "🟢", "moderate": "🟡", "significant": "🔴"}.get(ds, "⚪")
+            st.markdown(f"**Model drift (PSI):** {dico} {ds} · max {drift.get('max_psi', 0)}")
+            # Fair lending (four-fifths rule)
+            ratio = fl.get("adverse_impact_ratio")
+            if ratio is not None:
+                flico = "🔴" if fl.get("flag") else "🟢"
+                st.markdown(f"**Fair-lending (4/5 rule):** {flico} ratio {ratio} "
+                            f"{'— below 0.80, investigate' if fl.get('flag') else '— within tolerance'}")
+            else:
+                st.markdown("**Fair-lending (4/5 rule):** ⚪ accumulating data")
+            last = st.session_state.get("last_result", {})
+            if last.get("processing_time_ms"):
+                st.markdown(f"**Last decision latency:** {last['processing_time_ms']:.0f} ms")
+            st.caption("PSI <0.10 stable · 0.10–0.25 investigate · >0.25 retrain. "
+                       "Sex is excluded from the model and used only for this disparate-impact test.")
+        except Exception as exc:
+            st.caption(f"Monitoring unavailable: {exc}")
     st.caption("LangGraph · XGBoost · SHAP · ChromaDB · Groq")
 
 preset = PRESETS.get(st.session_state.get("prefill"), {})

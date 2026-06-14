@@ -180,6 +180,15 @@ async def monitoring_drift():
     return drift_report()
 
 
+@router.get("/monitoring/system")
+async def monitoring_system():
+    """Operational health: request latency (p50/p95/p99), error rate, throughput,
+    and PSI model-drift — the production 'monitoring system' view."""
+    from src import metrics
+    from src.drift import drift_report
+    return {"metrics": metrics.snapshot(), "drift": drift_report()}
+
+
 @router.get("/monitoring/export.csv")
 async def monitoring_export():
     """Download the full decision log as CSV (audit / regulatory export)."""

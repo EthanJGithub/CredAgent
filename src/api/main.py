@@ -1,10 +1,12 @@
 import logging
 import os
+import time
 
 from dotenv import load_dotenv
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
+from src import metrics
 from src.api.routes import router
 
 load_dotenv()
@@ -22,6 +24,21 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.middleware("http")
+async def _metrics_middleware(request: Request, call_next):
+    """Record per-request latency + status for the observability endpoint."""
+    start = time.perf_counter()
+    status = 500
+    try:
+        response = await call_next(request)
+        status = response.status_code
+        return response
+    finally:
+        latency_ms = (time.perf_counter() - start) * 1000
+        metrics.record(request.url.path, latency_ms, status)
+
 
 app.include_router(router)
 

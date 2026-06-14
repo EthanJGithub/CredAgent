@@ -50,6 +50,17 @@ def test_evidence_404_for_unknown(client):
     assert client.get("/api/v1/evidence/nope").status_code == 404
 
 
+def test_system_health_endpoint(client, sample_applications):
+    for app in sample_applications:
+        client.post("/api/v1/decisions", json=app)
+    s = client.get("/api/v1/monitoring/system").json()
+    assert "metrics" in s and "drift" in s
+    m = s["metrics"]
+    assert m["requests_total"] >= 1
+    assert set(m["latency_ms"]) == {"p50", "p95", "p99", "max"}
+    assert "overall_status" in s["drift"]
+
+
 def test_drift_endpoint_shape(client, sample_applications):
     for app in sample_applications:
         client.post("/api/v1/decisions", json=app)
