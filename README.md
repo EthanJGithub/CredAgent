@@ -80,9 +80,9 @@ flowchart TD
 |---|---|
 | Algorithm | XGBoost (gradient-boosted trees, 500 estimators, early stopping) |
 | Training data | **Real Home Credit dataset** — 246,008 train / 61,503 validation rows |
-| Validation ROC-AUC | **0.7593** (gender excluded; AUC unchanged from 0.7611 — it carried no signal) |
+| Validation ROC-AUC | **0.7577** (gender excluded — a negligible change from 0.7611 with it, confirming sex carried no usable signal) |
 | Class handling | `scale_pos_weight ≈ 11.4` (8.1% default base rate) |
-| Features | 20 engineered financial features (sex excluded — prohibited basis) |
+| Features | 19 engineered financial features (sex excluded — prohibited basis) |
 | Explainability | SHAP — per-prediction feature attribution |
 | End-to-end latency | ~0.4 s (offline reasoning) / ~1–2 s (with LLM) |
 
