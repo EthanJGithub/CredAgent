@@ -37,12 +37,21 @@ logging.basicConfig(level=logging.INFO)
 
 DATA_PATH = "data/raw/application_train.csv"
 SOURCE_PATH = "data/raw/dataset_source.json"
+RAW_DIR = "data/raw"
 
 # Public parquet mirror of the genuine Kaggle Home Credit application_train.
 HF_PARQUET_URL = (
     "https://huggingface.co/datasets/jlh/home-credit/resolve/main/"
     "data/train-00000-of-00001-e68d01965482ae18.parquet"
 )
+# Public CSV mirror of the full RELATIONAL dataset (bureau / previous / etc.).
+# Same genuine Kaggle data, no Kaggle account required; keys (SK_ID_CURR) align
+# with the application table above.
+HF_RELATIONAL_BASE = "https://huggingface.co/datasets/jamirc/home_credit_default_risk/resolve/main/"
+AUXILIARY_FILES = [
+    "bureau.csv", "bureau_balance.csv", "previous_application.csv",
+    "installments_payments.csv", "POS_CASH_balance.csv", "credit_card_balance.csv",
+]
 KAGGLE_COMPETITION = "home-credit-default-risk"
 MIN_REAL_ROWS = 100_000
 
@@ -64,14 +73,44 @@ def _looks_real(path: str) -> bool:
         return False
     try:
         head = pd.read_csv(path, nrows=5)
-        if "TARGET" not in head.columns:
+        # Require the join key + label so a stale, narrowly-projected cache (an
+        # older column set) is re-fetched rather than silently reused.
+        if "TARGET" not in head.columns or "SK_ID_CURR" not in head.columns:
             return False
-        # cheap row count without loading everything
         with open(path, "rb") as f:
             n = sum(1 for _ in f) - 1
         return n >= MIN_REAL_ROWS
     except Exception:
         return False
+
+
+def ensure_auxiliary(raw_dir: str = RAW_DIR) -> bool:
+    """Download the auxiliary relational tables (bureau / previous / installments
+    / POS / credit-card) used for feature aggregation. These are large (~2 GB
+    total) and gitignored — only the trained model + medians are committed.
+
+    Returns True if all auxiliary files are present after the call. Never raises
+    for a single failed file; callers decide whether to proceed application-only.
+    """
+    import requests
+
+    os.makedirs(raw_dir, exist_ok=True)
+    ok = True
+    for fname in AUXILIARY_FILES:
+        dst = os.path.join(raw_dir, fname)
+        if os.path.exists(dst) and os.path.getsize(dst) > 0:
+            continue
+        try:
+            logger.info("Downloading auxiliary table %s ...", fname)
+            resp = requests.get(HF_RELATIONAL_BASE + fname, timeout=900, stream=True)
+            resp.raise_for_status()
+            with open(dst, "wb") as out:
+                for chunk in resp.iter_content(1 << 20):
+                    out.write(chunk)
+        except Exception as exc:
+            logger.warning("Could not download %s: %s", fname, exc)
+            ok = False
+    return ok
 
 
 def _project_and_save(df: pd.DataFrame, source: str) -> Tuple[str, int]:

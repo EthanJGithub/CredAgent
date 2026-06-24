@@ -10,13 +10,14 @@ def test_model_info(client):
     response = client.get("/api/v1/model/info")
     assert response.status_code == 200
     meta = response.json()
-    assert meta["model_version"] == "xgb-v1.0"
-    assert meta["training_auc"] >= 0.74
-    assert len(meta["features"]) == 19
-    # Sex (prohibited basis) and education (race/national-origin proxy) must
-    # never be model features.
+    assert meta["model_version"] == "xgb-v2.0"
+    assert meta["training_auc"] >= 0.77          # full relational model
+    assert len(meta["features"]) == len(__import__("src.ml.features", fromlist=["FEATURE_COLUMNS"]).FEATURE_COLUMNS)
+    # Sex (prohibited basis), education (race/national-origin proxy), and
+    # geography (redlining proxy) must never be model features.
     assert not any("GENDER" in f.upper() for f in meta["features"])
     assert not any("EDUCATION" in f.upper() for f in meta["features"])
+    assert not any("REGION" in f.upper() for f in meta["features"])
 
 
 def test_submit_low_risk_approves(client, sample_applications):
@@ -39,7 +40,7 @@ def test_submit_high_risk_declines_with_notice(client, sample_applications):
     assert response.status_code == 200
     data = response.json()
     assert data["final_decision"] == "DECLINE"
-    assert data["risk_probability"] >= 0.75
+    assert data["risk_probability"] >= 0.55      # HIGH/DECLINE band → auto-decline
     notice = data["adverse_action_notice"]
     assert notice is not None
     assert "Equal Credit Opportunity Act" in notice

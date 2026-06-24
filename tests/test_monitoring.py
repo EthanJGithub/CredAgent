@@ -38,7 +38,7 @@ def test_evidence_hub_captures_governance_bundle(client, sample_applications):
     ev = client.get(f"/api/v1/evidence/{app['applicant_id']}")
     assert ev.status_code == 200
     bundle = ev.json()
-    assert bundle["model_version"] == "xgb-v1.0"
+    assert bundle["model_version"] == "xgb-v2.0"
     assert bundle["feature_inputs"] is not None
     assert bundle["shap_values"]                       # SHAP attribution recorded
     assert len(bundle["llm_calls"]) >= 1               # exact prompts captured

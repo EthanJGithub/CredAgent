@@ -25,7 +25,7 @@ generates a legally-compliant adverse-action notice — in well under a second.
 In a single API call, CredAgent runs a five-agent [LangGraph](https://langchain-ai.github.io/langgraph/) pipeline:
 
 1. **IngestionAgent** — validates and enriches the application (debt-to-income, employment length, credit ratios).
-2. **RiskScoringAgent** — scores default risk with **XGBoost (validation ROC-AUC ≈ 0.76 on the real 307K-row dataset)** and attributes the prediction with **SHAP**.
+2. **RiskScoringAgent** — scores default risk with **XGBoost (held-out ROC-AUC 0.78 / 5-fold CV 0.7818 on the full real Home Credit relational dataset)** and attributes the prediction with **SHAP**.
 3. **PolicyComplianceAgent** — retrieves relevant CFPB fair-lending text from a **ChromaDB** vector store and uses an LLM to flag disparate-impact / ECOA / FCRA concerns.
 4. **DecisionAgent** — issues **APPROVE / DECLINE / REFER** with plain-English reasoning; **MEDIUM-risk** cases pause for **human-in-the-loop** review.
 5. **AuditAgent** — generates a **CFPB-compliant adverse-action notice** (ECOA §1002.9) for declines and assembles a timestamped audit trail.
@@ -78,15 +78,33 @@ flowchart TD
 
 | Metric | Value |
 |---|---|
-| Algorithm | XGBoost (gradient-boosted trees, 500 estimators, early stopping) |
-| Training data | **Real Home Credit dataset** — 246,008 train / 61,503 validation rows |
-| Validation ROC-AUC | **0.7577** (gender excluded — a negligible change from 0.7611 with it, confirming sex carried no usable signal) |
-| Class handling | `scale_pos_weight ≈ 11.4` (8.1% default base rate) |
-| Features | 19 engineered financial features (sex excluded — prohibited basis) |
+| Algorithm | XGBoost (gradient-boosted trees, early stopping, ~1.2k trees) |
+| Training data | **Full Home Credit relational dataset** — application + bureau, previous applications, installments, POS & credit-card history (246k train / 61.5k validation) |
+| **Held-out ROC-AUC** | **0.7815** — consistent with **5-fold CV 0.7818 ± 0.0030** |
+| Features | **81** — 44 application-level + 37 relational-history aggregations (sex, education **and** geography excluded — see below) |
+| Class handling | `scale_pos_weight ≈ 11.3` (8.1% default base rate) |
 | Explainability | SHAP — per-prediction feature attribution |
 | End-to-end latency | ~0.4 s (offline reasoning) / ~1–2 s (with LLM) |
 
-The trained model card is in [`models/model_metadata.json`](models/model_metadata.json), which records the data source and `trained_on_real_data` flag for full transparency.
+**Why 0.78, and why this is the honest number.** An application-table-only model
+plateaus around **0.76** (external bureau scores dominate and more application
+features add little — we measured 0.765 with 45 tuned application features). The
+lift to **0.7815** comes from doing what a real lender does: aggregating the
+applicant's **credit-bureau history, prior applications, and installment-payment
+behaviour** (days-past-due, payment shortfalls, refusal rates). We deliberately
+**exclude geography/region** features (a redlining / location-based disparate-impact
+proxy) alongside sex and education, which costs a little AUC versus uncapped Kaggle
+leaderboard solutions — a trade we make on purpose for fair-lending defensibility.
+
+> **Demo vs. evaluation (stated plainly).** The AUC above is measured on real
+> applicants *with* their real relational history. The interactive demo form
+> can't pull a stranger's credit history, so those 37 auxiliary features are
+> imputed to training medians at demo time (the application-level inputs you set —
+> external scores, amounts, employment — drive the live prediction). Adverse-action
+> reasons cite **only** the applicant-provided application features, never an
+> imputed history feature. See [COMPLIANCE.md](COMPLIANCE.md).
+
+The trained model card is in [`models/model_metadata.json`](models/model_metadata.json), which records the data source, feature set, and `trained_on_real_data` / `uses_relational_features` flags for full transparency.
 
 ---
 
@@ -212,7 +230,7 @@ credagent/
 
 ## Notable Engineering Decisions
 
-- **Real data, automatically.** `get_data.py` pulls the genuine 307K-row Home Credit dataset from a public mirror — no Kaggle gate — and records provenance in the model card.
+- **Real data, automatically.** `get_data.py` pulls the genuine 307K-row Home Credit application table **and the full relational tables** (bureau, previous applications, installments, POS, credit card) from public mirrors — no Kaggle gate — and records provenance in the model card. The large raw tables are gitignored; only the trained model + `feature_medians.json` ship.
 - **Runs with zero API keys.** The LLM layer degrades gracefully to deterministic, template-based reasoning so the full pipeline (and CI) never blocks on a credential or rate limit.
 - **Lightweight embeddings.** ChromaDB's ONNX `all-MiniLM-L6-v2` avoids a ~2 GB PyTorch dependency, keeping installs and cloud deploys fast.
 - **Stateful HITL.** LangGraph's `MemorySaver` checkpointer lets a MEDIUM-tier decision pause and resume on the same `thread_id` when a human ruling arrives.

@@ -13,15 +13,35 @@ fair-lending guidance, applied to employer-sponsored installment lending.
 
 ## 1. Fair lending — prohibited-basis exclusion
 
-**Protected characteristics are never model features.** The risk model trains on
-19 credit/income/employment features ([models/model_metadata.json](models/model_metadata.json));
-none is a protected basis. Gender is captured **only** in the decision store — and
-explicitly excluded from scoring — so the compliance layer can test for disparate
-impact. This is the exact separation a real compliance function maintains:
+**Protected characteristics and their proxies are never model features.** The risk
+model trains on **81** credit/income/employment + relational-history features
+([models/model_metadata.json](models/model_metadata.json)); none is a protected
+basis. Three categories are excluded from scoring by design
+([src/ml/features.py](src/ml/features.py)):
+
+| Excluded | Why |
+|----------|-----|
+| **Sex** (`CODE_GENDER`) | Prohibited basis under ECOA / Reg B. |
+| **Education** (`NAME_EDUCATION_TYPE`) | Documented proxy for race / national origin (CFPB disparate-impact scrutiny). |
+| **Geography** (all `REGION_*` / location features) | Redlining / location-based disparate-impact proxy — excluded even though predictive, a deliberate AUC trade-off. |
+
+Gender is captured **only** in the decision store — and explicitly excluded from
+scoring — so the compliance layer can test for disparate impact. This is the exact
+separation a real compliance function maintains:
 
 > *"Gender is intentionally NOT a model feature (it is a prohibited basis under
 > ECOA). It is captured here only so the monitoring layer can run disparate-impact
 > analysis."* — [src/store.py](src/store.py)
+
+**Relational-history features & the demo (no silent claim).** 37 of the 81 features
+aggregate the applicant's real credit-bureau / prior-application / installment
+history, which is what lifts held-out AUC to **0.7815**. The interactive demo
+cannot pull a stranger's credit history, so it imputes those features to training
+medians and **never cites them as adverse-action reasons** — only applicant-provided
+application features are cited ([src/ml/explainer.py](src/ml/explainer.py), where
+`AUX_FEATURES` are added to the non-citable set alongside protected bases). The
+headline AUC is measured on real applicants with real history; the demo's input
+limitation is disclosed, not papered over.
 
 **Why keep the scoring model and fairness monitoring separate?** A model that can
 *see* a protected attribute can learn to proxy it. Keeping fairness testing in a

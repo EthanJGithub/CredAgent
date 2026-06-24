@@ -56,12 +56,33 @@ next" loop. This buys three things a regulator cares about:
 
 ### Why XGBoost (not a deep model or an LLM-as-scorer)
 The risk model is a gradient-boosted tree because, for tabular credit data, it is
-**the proven, well-understood tool**: strong performance on the real 307K-row
-Home Credit dataset (validation ROC-AUC **0.7577**, [models/model_metadata.json](models/model_metadata.json)),
-fast inference, and — critically — **exact SHAP attribution**. An LLM is never
-used to produce the risk score. The LLM's role is confined to *narrating* and
-*policy-checking* decisions the deterministic model has already made. This is the
-core senior-signal stance: **the LLM is only as powerful as the guardrails around it.**
+**the proven, well-understood tool**: strong performance on the real Home Credit
+dataset (held-out ROC-AUC **0.7815**, 5-fold CV **0.7818 ± 0.0030**,
+[models/model_metadata.json](models/model_metadata.json)), fast inference, and —
+critically — **exact SHAP attribution**. An LLM is never used to produce the risk
+score. The LLM's role is confined to *narrating* and *policy-checking* decisions
+the deterministic model has already made. This is the core senior-signal stance:
+**the LLM is only as powerful as the guardrails around it.**
+
+### Why relational aggregations (the AUC lever)
+An application-table-only model plateaus near **0.76** — the external bureau scores
+dominate and additional application fields add little (measured: 0.765 with 45
+tuned application features). Real underwriting pulls the applicant's **credit
+history**, so the model aggregates the Home Credit relational tables
+([src/ml/aggregations.py](src/ml/aggregations.py)) — bureau credit lines, prior
+applications, installment-payment days-past-due / shortfalls, POS & credit-card
+delinquency — into 37 per-applicant features. That is what lifts AUC to **0.78**.
+The aggregation is a training-time step over large raw tables (gitignored); only
+the trained model and a `feature_medians.json` ship. At single-application
+inference the relational features are imputed to medians and **excluded from cited
+adverse-action reasons** ([src/ml/explainer.py](src/ml/explainer.py)) — documented,
+not hidden (see [COMPLIANCE.md](COMPLIANCE.md)).
+
+### Why exclude geography (a deliberate AUC trade-off)
+Region/location features are predictive but are a recognised **redlining /
+disparate-impact proxy**. We exclude them (alongside sex and education), which
+costs a little AUC versus uncapped leaderboard solutions — a trade made on purpose
+for fair-lending defensibility.
 
 ### Why SHAP (not feature importances or model-free explanations)
 ECOA / Regulation B requires a creditor to disclose the **specific principal
