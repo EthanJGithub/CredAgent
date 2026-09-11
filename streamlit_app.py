@@ -6,6 +6,7 @@ development against the API instead, use ``src/dashboard/app.py``.
 import os
 import sys
 import time
+from pathlib import Path
 from datetime import datetime
 from typing import Optional
 
@@ -29,7 +30,7 @@ import plotly.graph_objects as go
 from src.graph.workflow import app_graph
 from src.demo_presets import PRESETS
 
-st.set_page_config(page_title="CredAgent — Credit Decisioning", page_icon="🏦",
+st.set_page_config(page_title="CredAgent — Credit Decisioning", page_icon="◈",
                    layout="wide", initial_sidebar_state="expanded")
 
 
@@ -72,6 +73,9 @@ st.markdown("""
  .rec-body{font-size:0.9rem;line-height:1.55;color:#2f3742;}
  .audit-footer{margin-top:14px;font-size:0.72rem;color:#aeb6c2;letter-spacing:.2px;}
 </style>""", unsafe_allow_html=True)
+
+
+st.markdown("<style>" + (Path(__file__).parent / "src/dashboard/product.css").read_text(encoding="utf-8") + "</style>", unsafe_allow_html=True)
 
 
 def _empty_state(applicant_id, raw):
@@ -349,7 +353,7 @@ def render_system_health():
     """Render the live monitoring expander. Called into a sidebar placeholder
     AFTER the decision pipeline runs, so a fresh submit updates it in real time
     (the sidebar block itself executes before the submit handler)."""
-    with st.expander("🩺 System Health & Monitoring", expanded=True):
+    with st.expander("System health & monitoring", expanded=True):
         try:
             from src import store
             from src.drift import drift_report
@@ -385,7 +389,7 @@ def render_system_health():
 
 
 with st.sidebar:
-    st.title("🏦 CredAgent")
+    st.title("CredAgent")
     st.caption("Agentic Credit Decisioning System")
     st.markdown("---")
     st.markdown("**Decision Policy**")
@@ -401,11 +405,11 @@ with st.sidebar:
                "with an adverse-action notice.")
     st.markdown("---")
     st.markdown("**Quick Test Cases** *(real applicants)*")
-    if st.button("📗 Low Risk"):
+    if st.button("Low risk"):
         st.session_state["prefill"] = "low"
-    if st.button("📙 Medium Risk"):
+    if st.button("Medium risk"):
         st.session_state["prefill"] = "medium"
-    if st.button("📕 High Risk"):
+    if st.button("High risk"):
         st.session_state["prefill"] = "high"
     st.markdown("---")
     # Placeholder rendered into AFTER the submit handler (end of script) so a new
@@ -415,8 +419,7 @@ with st.sidebar:
 
 preset = PRESETS.get(st.session_state.get("prefill"), {})
 
-st.title("Applicant Credit Assessment")
-st.caption("Real-time agentic risk decisioning for employer-sponsored installment lending.")
+st.markdown("""<div class="credit-topline"><span>CREDAGENT / UNDERWRITING WORKSPACE</span><a href="https://ethanjgithub.github.io/" target="_blank" rel="noopener">Portfolio ↗</a></div><div class="credit-hero"><div class="credit-eyebrow">Every decision, explained</div><h1>A clearer view of credit risk.</h1><p>Assess an application, understand the risk, and follow every decision from evidence to outcome.</p></div><div class="credit-steps"><span><b>01</b> Ingest</span><span><b>02</b> Score risk</span><span><b>03</b> Check policy</span><span><b>04</b> Decide</span><span><b>05</b> Audit</span></div>""", unsafe_allow_html=True)
 
 with st.form("app_form"):
     c1, c2 = st.columns(2)
@@ -446,7 +449,7 @@ with st.form("app_form"):
         name_education_type = st.selectbox("Education Level", edu_types, index=edu_types.index(preset.get("name_education_type", "Secondary / secondary special")))
         st.caption("⚖️ Education is **excluded from the model** — a documented proxy for race/national origin under CFPB disparate-impact guidance.")
 
-    submitted = st.form_submit_button("🚀 Submit for Decisioning", type="primary", use_container_width=True)
+    submitted = st.form_submit_button("Submit for decisioning", type="primary", use_container_width=True)
 
 if submitted:
     if not applicant_id.strip():
@@ -481,7 +484,7 @@ if "last_result" in st.session_state:
     if r.get("decision_reasoning"):
         st.info(r["decision_reasoning"])
 
-    t1, t2, t3, t4, t5 = st.tabs(["📋 Decision", "📊 SHAP", "⚖️ Compliance", "📄 Adverse Notice", "🔍 Audit"])
+    t1, t2, t3, t4, t5 = st.tabs(["Decision", "Risk factors", "Compliance", "Adverse notice", "Audit trail"])
     with t1:
         factors = build_adverse_factors(r)
         approve = decision == "APPROVE"
