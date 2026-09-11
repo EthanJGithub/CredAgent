@@ -17,7 +17,7 @@ load_dotenv()
 import streamlit as st
 
 # On Streamlit Cloud, lift the LLM key out of st.secrets into the environment.
-for _k in ("GROQ_API_KEY", "ANTHROPIC_API_KEY"):
+for _k in ("GROQ_API_KEY", "GROQ_MODEL", "ANTHROPIC_API_KEY"):
     try:
         if _k in st.secrets:
             os.environ[_k] = st.secrets[_k]

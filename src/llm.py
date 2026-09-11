@@ -169,7 +169,7 @@ def get_llm(temperature: float = 0.0):
         try:
             from langchain_groq import ChatGroq
 
-            model = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
+            model = os.getenv("GROQ_MODEL", "openai/gpt-oss-20b")
             return LLMClient(ChatGroq(model=model, temperature=temperature), f"groq:{model}")
         except Exception as exc:  # pragma: no cover - depends on env
             logger.warning("Groq init failed (%s); trying next backend.", exc)
