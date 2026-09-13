@@ -10,7 +10,7 @@ def test_model_info(client):
     response = client.get("/api/v1/model/info")
     assert response.status_code == 200
     meta = response.json()
-    assert meta["model_version"] == "xgb-v2.0"
+    assert meta["model_version"] == "xgb-v3.0"
     assert meta["training_auc"] >= 0.77          # full relational model
     assert len(meta["features"]) == len(__import__("src.ml.features", fromlist=["FEATURE_COLUMNS"]).FEATURE_COLUMNS)
     # Sex (prohibited basis), education (race/national-origin proxy), and

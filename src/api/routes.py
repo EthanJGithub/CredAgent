@@ -141,12 +141,7 @@ async def get_model_info():
         raise HTTPException(status_code=503, detail="Model not trained yet. Run: python -m src.ml.train")
     with open(METADATA_PATH) as f:
         meta = json.load(f)
-    return ModelInfoResponse(
-        model_version=meta["model_version"],
-        features=meta["features"],
-        training_auc=meta["training_auc"],
-        decision_thresholds=meta["decision_thresholds"],
-    )
+    return ModelInfoResponse(**meta)
 
 
 # ── Monitoring / portfolio analytics ─────────────────────────────────────────

@@ -111,7 +111,7 @@ def render_result(result: dict):
     st.markdown("<br>", unsafe_allow_html=True)
     c1, c2, c3, c4 = st.columns(4)
     prob, limit, ms = result.get("risk_probability"), result.get("credit_limit"), result.get("processing_time_ms")
-    c1.metric("Default Probability", f"{prob:.1%}" if prob is not None else "N/A")
+    c1.metric("Model risk score", f"{prob:.1%}" if prob is not None else "N/A")
     c2.metric("Risk Tier", result.get("risk_tier", "N/A"))
     c3.metric("Credit Limit", f"${limit:,.0f}" if limit else "—")
     c4.metric("Processing Time", f"{ms:.0f} ms" if ms else "N/A")
@@ -126,7 +126,7 @@ def render_result(result: dict):
     with t2:
         render_shap_waterfall(result.get("shap_values") or {})
         st.caption("SHAP contributions to the model's log-odds (margin); higher log-odds = "
-                   "higher default probability. Red increases risk · Green decreases it.")
+                   "higher uncalibrated risk score. Red increases risk · Green decreases it.")
     with t3:
         flags = result.get("compliance_flags", [])
         if flags:

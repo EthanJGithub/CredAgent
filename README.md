@@ -14,7 +14,7 @@ installment lending, modeled on the underwriting needs of platforms like
 Purchasing Power / PROG Holdings. It scores an application with a gradient-boosted
 risk model, explains every prediction with SHAP, checks the decision against CFPB
 fair-lending regulations via RAG, routes borderline cases to a human reviewer, and
-generates a legally-compliant adverse-action notice — in well under a second.
+generates a draft adverse-action notice — with provider-dependent latency.
 
 **[→ Try the live demo](https://ethanjgithub-credagent-streamlit-app-kruhoy.streamlit.app/)** — the trained model and CFPB vector store ship with the repo, so it runs with no setup or dataset download.
 
@@ -25,10 +25,10 @@ generates a legally-compliant adverse-action notice — in well under a second.
 In a single API call, CredAgent runs a five-agent [LangGraph](https://langchain-ai.github.io/langgraph/) pipeline:
 
 1. **IngestionAgent** — validates and enriches the application (debt-to-income, employment length, credit ratios).
-2. **RiskScoringAgent** — scores default risk with **XGBoost (held-out ROC-AUC 0.78 / 5-fold CV 0.7818 on the full real Home Credit relational dataset)** and attributes the prediction with **SHAP**.
+2. **RiskScoringAgent** — scores default risk with **XGBoost (final-test ROC-AUC 0.7803 with full history; 0.7459 with demo form inputs)** and attributes the prediction with **SHAP**.
 3. **PolicyComplianceAgent** — retrieves relevant CFPB fair-lending text from a **ChromaDB** vector store and uses an LLM to flag disparate-impact / ECOA / FCRA concerns.
 4. **DecisionAgent** — issues **APPROVE / DECLINE / REFER** with plain-English reasoning; **MEDIUM-risk** cases pause for **human-in-the-loop** review.
-5. **AuditAgent** — generates a **CFPB-compliant adverse-action notice** (ECOA §1002.9) for declines and assembles a timestamped audit trail.
+5. **AuditAgent** — generates a **draft adverse-action notice** (ECOA §1002.9) for declines and assembles a timestamped audit trail.
 
 ---
 
@@ -76,35 +76,15 @@ flowchart TD
 
 ## Model Performance
 
-| Metric | Value |
-|---|---|
-| Algorithm | XGBoost (gradient-boosted trees, early stopping, ~1.2k trees) |
-| Training data | **Full Home Credit relational dataset** — application + bureau, previous applications, installments, POS & credit-card history (246k train / 61.5k validation) |
-| **Held-out ROC-AUC** | **0.7815** — consistent with **5-fold CV 0.7818 ± 0.0030** |
-| Features | **81** — 44 application-level + 37 relational-history aggregations (sex, education **and** geography excluded — see below) |
-| Class handling | `scale_pos_weight ≈ 11.3` (8.1% default base rate) |
-| Explainability | SHAP — per-prediction feature attribution |
-| End-to-end latency | ~0.4 s (offline reasoning) / ~1–2 s (with LLM) |
+The September 2026 evaluation uses 184,506 training, 61,502 validation and 61,503 final-test applications. Medians are fit on training only and early stopping uses validation. Scores are not calibrated default probabilities.
 
-**Why 0.78, and why this is the honest number.** An application-table-only model
-plateaus around **0.76** (external bureau scores dominate and more application
-features add little — we measured 0.765 with 45 tuned application features). The
-lift to **0.7815** comes from doing what a real lender does: aggregating the
-applicant's **credit-bureau history, prior applications, and installment-payment
-behaviour** (days-past-due, payment shortfalls, refusal rates). We deliberately
-**exclude geography/region** features (a redlining / location-based disparate-impact
-proxy) alongside sex and education, which costs a little AUC versus uncapped Kaggle
-leaderboard solutions — a trade we make on purpose for fair-lending defensibility.
+| Input regime | Final-test ROC-AUC |
+| --- | --- |
+| Full relational history | 0.7803 |
+| Full application fields; history imputed | 0.7546 |
+| Available demo form fields; missing features imputed | 0.7459 |
 
-> **Demo vs. evaluation (stated plainly).** The AUC above is measured on real
-> applicants *with* their real relational history. The interactive demo form
-> can't pull a stranger's credit history, so those 37 auxiliary features are
-> imputed to training medians at demo time (the application-level inputs you set —
-> external scores, amounts, employment — drive the live prediction). Adverse-action
-> reasons cite **only** the applicant-provided application features, never an
-> imputed history feature. See [COMPLIANCE.md](COMPLIANCE.md).
-
-The trained model card is in [`models/model_metadata.json`](models/model_metadata.json), which records the data source, feature set, and `trained_on_real_data` / `uses_relational_features` flags for full transparency.
+See [EVALUATION.md](EVALUATION.md) and [model metadata](models/model_metadata.json). This replaces the older 0.76/0.7815 figures. [Explore recorded decisions immediately](https://ethanjgithub.github.io/demos/credagent.html); the interactive Streamlit service may need to wake.
 
 ---
 

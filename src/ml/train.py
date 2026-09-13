@@ -41,7 +41,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 MODEL_DIR = "models"
-MODEL_VERSION = "xgb-v2.0"
+MODEL_VERSION = "xgb-v3.0"
 
 
 def train():
@@ -68,16 +68,11 @@ def train():
     y = df["TARGET"].astype(int)
     X = engineer_features(df.drop(columns=["TARGET"]), aux=aux)
 
-    # Per-feature medians: impute auxiliary (and any missing app) features at
-    # single-application inference time. Saved for the serving path.
-    medians = X.median(numeric_only=True).round(6).to_dict()
+    X_dev, X_test, y_dev, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+    X_train, X_val, y_train, y_val = train_test_split(X_dev, y_dev, test_size=0.25, random_state=43, stratify=y_dev)
+    medians = X_train.median(numeric_only=True).round(6).to_dict()
     with open(os.path.join(MODEL_DIR, "feature_medians.json"), "w") as f:
         json.dump(medians, f, indent=2)
-    logger.info("Saved feature medians (%d features).", len(medians))
-
-    X_train, X_val, y_train, y_val = train_test_split(
-        X, y, test_size=0.2, random_state=42, stratify=y
-    )
     logger.info("Train: %s | Val: %s", f"{len(X_train):,}", f"{len(X_val):,}")
 
     neg, pos = int((y_train == 0).sum()), int((y_train == 1).sum())
@@ -96,6 +91,18 @@ def train():
 
     val_probs = model.predict_proba(X_val)[:, 1]
     auc = roc_auc_score(y_val, val_probs)
+    test_probs = model.predict_proba(X_test)[:, 1]
+    from sklearn.metrics import brier_score_loss
+    from src.ml.features import AUX_FEATURES
+    demo_test = X_test.copy()
+    for feature in AUX_FEATURES:
+        if feature in demo_test:
+            demo_test[feature] = medians[feature]
+    demo_probs = model.predict_proba(demo_test)[:, 1]
+    from src.api.schemas import ApplicationRequest
+    form_columns = [key.upper() for key in ApplicationRequest.model_fields if key.upper() in df.columns]
+    form_test = engineer_features(df.loc[X_test.index, form_columns]).fillna(medians)
+    form_probs = model.predict_proba(form_test)[:, 1]
     logger.info("Held-out ROC-AUC: %.4f", auc)
 
     try:
@@ -121,6 +128,17 @@ def train():
         "features": FEATURE_COLUMNS,
         "n_features": len(FEATURE_COLUMNS),
         "training_auc": round(float(auc), 4),
+        "validation_auc": round(float(auc), 4),
+        "test_auc_full_history": round(float(roc_auc_score(y_test, test_probs)), 4),
+        "test_auc_imputed_history": round(float(roc_auc_score(y_test, demo_probs)), 4),
+        "test_auc_form_inputs": round(float(roc_auc_score(y_test, form_probs)), 4),
+        "test_brier_form_inputs": float(brier_score_loss(y_test, form_probs)),
+        "test_brier_full_history": float(brier_score_loss(y_test, test_probs)),
+        "test_brier_imputed_history": float(brier_score_loss(y_test, demo_probs)),
+        "probability_calibrated": False,
+        "score_interpretation": "uncalibrated model risk score; not a calibrated default probability",
+        "evaluation_protocol": "stratified 60/20/20; medians fit on training; early stopping on validation; test reserved for final full-history and imputed-history evaluation",
+        "n_test": len(X_test),
         "n_train": int(len(X_train)),
         "n_val": int(len(X_val)),
         "data_source": src_info["source"] + (" + relational(bureau/prev/installments/pos/cc)" if use_aux else ""),

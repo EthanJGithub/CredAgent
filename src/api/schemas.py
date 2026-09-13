@@ -73,4 +73,9 @@ class ModelInfoResponse(BaseModel):
     model_version: str
     features: List[str]
     training_auc: float
+    test_auc_full_history: Optional[float] = None
+    test_auc_imputed_history: Optional[float] = None
+    test_auc_form_inputs: Optional[float] = None
+    probability_calibrated: bool = False
+    evaluation_protocol: Optional[str] = None
     decision_thresholds: dict
